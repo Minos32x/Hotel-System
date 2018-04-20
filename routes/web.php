@@ -19,7 +19,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/admin', function(){
+Route::get('/admin', function () {
 
     return view('Admin.admin_template');
 });
+
+Route::get('/send/{id}','MailsController@send')->name('Mails.send');
