@@ -3,24 +3,24 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
+use App\User;
 
-
-class CreateAdmin extends Command
+class CheckLastLogin extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'create:admin {--name=} {--password=}';
+    protected $signature = 'check:last-login';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'It Will Create New Admin User';
+    protected $description = 'Check Last Login On Clients';
 
     /**
      * Create a new command instance.
@@ -37,14 +37,13 @@ class CreateAdmin extends Command
      *
      * @return mixed
      */
-
     public function handle()
     {
-        DB::table('users')->insert([
-            'email' => $this->option('name'),
-            'password' => $this->option('password'),
-        ]);
-        $this->error('Error Missing Arguments');
 
+        $TimeCheck = Carbon::now()->diffInDays(Carbon::parse(User::find(1)->created_at));
+        if ($TimeCheck == 3) {
+          // Call Mail Send Function here
+        }
+        
     }
 }
