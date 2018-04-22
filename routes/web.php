@@ -23,10 +23,9 @@ Route::get('/admin', function () {
 
     return view('Admin.admin_template');
 });
-<<<<<<< HEAD
 
 Route::get('/send/{id}','MailsController@send')->name('Mails.send');
-=======
+
 Route::get('/admin/index', function(){
 
     return view('Admin.index');
@@ -35,4 +34,3 @@ Route::get('/admin/index2', function(){
 
     return view('Admin.index2');
 });
->>>>>>> Fahd
