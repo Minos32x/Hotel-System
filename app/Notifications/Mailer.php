@@ -45,7 +45,7 @@ class Mailer extends Notification implements shouldQueue
         return (new MailMessage)
             ->greeting($this->Mail)
             ->line('You Can Check Your Reservation In The Link Below.')
-            ->action('Room Reservation', url('/room/show/64'))
+            ->action('Room Reservation', url('http://hotel.local'))
             ->line('Thank you for Visiting Us Looking Forward To See You Again');
     }
 
