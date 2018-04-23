@@ -38,6 +38,35 @@
                                 @endif
                             </div>
                         </div>
+                        <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
+                            <label for="phone" class="col-md-4 control-label">Phone</label>
+
+                            <div class="col-md-6">
+                                <input id="phone" type="text" class="form-control" name="phone" value="{{ old('phone') }}" required>
+
+                                @if ($errors->has('phone'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('phone') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
+                            <label for="phone" class="col-md-4 control-label">Gender</label>
+                            <div class="col-md-6">
+                    <select id="gender" class="form-control" name="gender" value="{{ old('gender') }}" required>
+  <option value="male">Male</option>
+  <option value="female">Female</option>
+ 
+</select>
+                            </div>
+</div>
+<div class="form-group{{ $errors->has('avatar') ? ' has-error' : '' }}">
+                            <label for="avatar" class="col-md-4 control-label">Avatar</label>
+                            <div class="col-md-6">
+	<input type="file" name="avatar" />
+				</div>
+</div >
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col-md-4 control-label">Password</label>
