@@ -11,28 +11,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', function () { return view('welcome'); });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/admin', function () {
+// Temporary Routes To Test Mailing System
+Route::get('/sendgreeting/{id}','MailsController@GreetingMail')->name('Mails.GreetingMail');
+Route::get('/sendreminder/{id}','MailsController@ReminderMail')->name('Mails.ReminderMail');
 
-    return view('Admin.admin_template');
-});
-<<<<<<< HEAD
 
-Route::get('/send/{id}','MailsController@send')->name('Mails.send');
-=======
-Route::get('/admin/index', function(){
+Route::get('/admin', function () { return view('Admin.admin_template'); });
+Route::get('/admin/index', function(){ return view('Admin.index'); });
+Route::get('/admin/index2', function(){ return view('Admin.index2'); });
 
-    return view('Admin.index');
-});
-Route::get('/admin/index2', function(){
-
-    return view('Admin.index2');
-});
->>>>>>> Fahd

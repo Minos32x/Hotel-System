@@ -2,9 +2,11 @@
 
 namespace App\Console\Commands;
 
+use App\Http\Controllers\MailsController;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use App\User;
+
 
 class CheckLastLogin extends Command
 {
@@ -37,13 +39,21 @@ class CheckLastLogin extends Command
      *
      * @return mixed
      */
+
+
     public function handle()
     {
 
-        $TimeCheck = Carbon::now()->diffInDays(Carbon::parse(User::find(1)->created_at));
-        if ($TimeCheck == 3) {
-          // Call Mail Send Function here
+        /**
+         *  To check on users who hasn't logged in for 30 days
+         */
+        foreach (User::all() as $user) {
+            if (Carbon::now()->diffInDays(Carbon::parse(User::find($user->id)->last_login)) >= 30) {
+                $SendTo = new MailsController();
+                $SendTo->ReminderMail($user->id);
+            }
         }
-        
+
+
     }
 }
