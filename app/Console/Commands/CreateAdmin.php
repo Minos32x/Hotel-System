@@ -40,6 +40,7 @@ class CreateAdmin extends Command
     public function handle()
     {
         DB::table('users')->insert([
+
             'email' => $this->option('name'),
             'password' => $this->option('password'),
         ]);
