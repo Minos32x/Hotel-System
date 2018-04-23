@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Rinvex\Country\Models\Country;
 
-class HomeController extends Controller
+class EmployeeController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -14,7 +13,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:employee');
     }
 
     /**
@@ -22,18 +21,9 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $req)
     {
-        return view('home');
+      
+        return view('employee');
     }
-
-    public function country()
-    {
-
-        $countries = countries();
-        return view('welcome', ['countries' => $countries]);
-    }
-
-
-
 }

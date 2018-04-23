@@ -303,6 +303,7 @@ desired effect
               -------------------------->
               @yield('content')
 
+
         </section>
         <!-- /.content -->
     </div>

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Console\Commands;
+
 use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Console\Command;
@@ -41,11 +42,11 @@ class CreateAdmin extends Command
 
     public function handle()
     {
-          Employee::create([
-            'name'=>'Admin',
+        Employee::create([
+            'name' => 'Admin',
             'email' => $this->option('email'),
-            'type'=>'admin',
-            'national_id'=>now(),
+            'type' => 'admin',
+            'national_id' => now(),
             'password' => Hash::make($this->option('password')),
         ]);
         $this->line(' Admin is created successfuly');
