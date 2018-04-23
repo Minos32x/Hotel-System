@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', function () { return view('welcome'); });
+Route::get('/', 'HomeController@country');
 
 Auth::routes();
 
@@ -22,8 +22,6 @@ Route::get('/users/logout','Auth\LoginController@userLogout')->name('users.logou
 Route::get('/sendgreeting/{id}','MailsController@GreetingMail')->name('Mails.GreetingMail');
 Route::get('/sendreminder/{id}','MailsController@ReminderMail')->name('Mails.ReminderMail');
 
-// Temporary Route To Test Country Package
-Route::get('/country','HomeController@country');
 
 
 Route::get('/admin', function () { return view('Admin.admin_template'); });
