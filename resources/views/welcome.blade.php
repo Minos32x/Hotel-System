@@ -89,6 +89,15 @@
                     <a href="https://forge.laravel.com">Forge</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
+                <div>
+                    <select>
+
+                        @foreach($countries as $country)
+                            <option>{{$country['name']}} {{$country['emoji']}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
             </div>
         </div>
     </body>

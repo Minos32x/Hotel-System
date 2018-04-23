@@ -21,6 +21,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/sendgreeting/{id}','MailsController@GreetingMail')->name('Mails.GreetingMail');
 Route::get('/sendreminder/{id}','MailsController@ReminderMail')->name('Mails.ReminderMail');
 
+// Temporary Route To Test Country Package
+Route::get('/country','HomeController@country');
+
 
 Route::get('/admin', function () { return view('Admin.admin_template'); });
 Route::get('/admin/index', function(){ return view('Admin.index'); });
