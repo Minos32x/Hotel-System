@@ -11,8 +11,8 @@ class clientsDataTable extends DataTable
 
     public function __construct($y)
     {
-        $this->my_query=$y;
-        
+        $this->my_query = $y;
+
     }
     /**
      * Build DataTable class.
@@ -23,7 +23,7 @@ class clientsDataTable extends DataTable
     public function dataTable($query)
     {
         return datatables($query)
-            ->addColumn('action', 'Admin.btn.action');
+            ->addColumn('action', 'Admin.btn.client_action');
     }
 
 
@@ -46,24 +46,20 @@ class clientsDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
+            ->columns($this->getColumns())
+            ->minifiedAjax()
                     // ->addAction(['width' => '80px'])
-                    ->parameters([
-                        'dom' => 'Blfrtip', // to show export button etc
-                        'lengthMenu' => [[2, 5, 10, 20, -1], [2, 5, 10, 20, 'All data']],
-                        'buttons' => [
-                            ['extend' => 'print', 'className' => 'btn btn-info','text' => '<i class="fa fa-print"></i>'],
-                            ['extend' => 'csv', 'className' => 'btn btn-info','text' => '<i class="fa fa-file">Export csv</i>'],
-                            ['extend' => 'excel', 'className' => 'btn btn-info','text' => '<i class="fa fa-file">Export Excel</i>'],
-                            ['extend' => 'reload', 'className' => 'btn btn-info','text' => '<i class="fa fa-refresh"></i>'],
-                            ['text' => '<i class="fa fa-plus"></i> Create manager', 'className'=>'btn btn-warning'
-                            ,"action"=> "function(){
-                                window.location.href='".\URL::current()."/create ';}"
-                            
-                            ],
-                            ]
-                    ]);
+            ->parameters([
+                'dom' => 'Blfrtip', // to show export button etc
+                'lengthMenu' => [[2, 5, 10, 20, -1], [2, 5, 10, 20, 'All data']],
+                'buttons' => [
+                    ['extend' => 'print', 'className' => 'btn btn-info', 'text' => '<i class="fa fa-print"></i>'],
+                    ['extend' => 'csv', 'className' => 'btn btn-info', 'text' => '<i class="fa fa-file">Export csv</i>'],
+                    ['extend' => 'excel', 'className' => 'btn btn-info', 'text' => '<i class="fa fa-file">Export Excel</i>'],
+                    ['extend' => 'reload', 'className' => 'btn btn-info', 'text' => '<i class="fa fa-refresh"></i>'],
+
+                ]
+            ]);
     }
 
     /**
