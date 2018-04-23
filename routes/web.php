@@ -18,6 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/users/logout','Auth\LoginController@userLogout')->name('users.logout');
 
 Route::get('/admin', function () {
 
@@ -34,5 +35,15 @@ Route::get('/admin/index', function(){
 Route::get('/admin/index2', function(){
 
     return view('Admin.index2');
+});
+
+
+Route::prefix('employee')->group(function (){
+
+    Route::get('/login','Auth\EmployeeLoginController@showLoginForm')->name('employee.login');
+    Route::post('/login','Auth\EmployeeLoginController@login')->name('employee.login.submit');
+    Route::get('/','EmployeeController@index')->name('employee.dashboard');
+    Route::get('/logout','Auth\EmployeeLoginController@logout')->name('employee.logout');
+
 });
 
