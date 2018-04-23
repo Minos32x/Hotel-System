@@ -106,9 +106,9 @@
                 <div>
                     <select>
 
-                        @foreach($countries as $country)
+                       @foreach($countries as $country)
                             <option>{{$country['name']}} {{$country['emoji']}}</option>
-                        @endforeach
+                        @endforeach 
                     </select>
                 </div>
             </div>

@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Rinvex\Country\Models\Country;
+use Spatie\Permission\Traits\HasRoles;
+
+
 
 class HomeController extends Controller
 {
+    use HasRoles;
     /**
      * Create a new controller instance.
      *

@@ -6,9 +6,13 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Spatie\Permission\Traits\HasRoles;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class RegisterController extends Controller
 {
+    use HasRoles;
     /*
     |--------------------------------------------------------------------------
     | Register Controller
@@ -62,13 +66,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user= User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'country'=>$data['country'],
             'gender'=>$data['gender'],
-            'last_login'=>now()
+            'phone'=>$data['phone'],
+            'last_login'=>now(),
+            
         ]);
+        $user->assignRole('admin');
+        return $user;
     }
 }

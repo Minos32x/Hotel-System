@@ -11,6 +11,14 @@
                 @component ('components.who')
 
 @endcomponent
+
+@role('admin')
+    I'm admin!
+@else
+    I'm not a writer...
+@endrole
+
+
                 </div>
             </div>
         </div>

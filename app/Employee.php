@@ -4,10 +4,12 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
 class Employee extends Authenticatable
 {
     use Notifiable,Notifiable;
+    use HasRoles;
 
     protected $guard = 'employee';
     
