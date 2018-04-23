@@ -13,7 +13,7 @@ class EmployeeLoginController extends Controller
 
     public function __construct (){
 
-        $this->middleware('guest:employee');
+        $this->middleware('guest:employee')->except('logout');
 
     }
     public function showLoginForm ()
@@ -30,12 +30,17 @@ class EmployeeLoginController extends Controller
                 //attempt to log the employee in 
        if  (Auth::guard('employee')->attempt(['email'=>$request['email'],'password'=>$request['password']],$request->remember))
        {
-                return redirect()->intended(route('employee.dashbord'));
+                return redirect()->intended(route('employee.dashboard'));
        }
         //if sucsses insert the employee in the session 
         return redirect()->back()->withInput($request->only('email,remeber'));
+    }
+
+    public function logout (){
+        Auth::guard('employee')->logout();
 
 
-
+        return redirect('/');
+        
     }
 }

@@ -23,7 +23,7 @@ class EmployeeController extends Controller
      */
     public function index(Request $req)
     {
-        // dd($req);
+      
         return view('employee');
     }
 }
