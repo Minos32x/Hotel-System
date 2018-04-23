@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\ManagersController;
+use App\Http\Controllers\ReceptionistController;
+use App\Http\Controllers\ClientsController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,3 +39,7 @@ Route::get('/admin/index2', function(){
 
     return view('Admin.index2');
 });
+Route::get('/admin/getManagers','ManagersController@index');
+Route::get('/admin/getReceptionist','ReceptionistController@index');
+Route::get('/admin/getClient','ClientsController@index');
+
