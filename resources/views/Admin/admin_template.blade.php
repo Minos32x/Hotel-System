@@ -300,6 +300,7 @@ desired effect
               | Your Page Content Here |
               -------------------------->
 
+
         </section>
         <!-- /.content -->
     </div>

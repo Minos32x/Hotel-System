@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
-
 class CreateAdmin extends Command
 {
     /**
@@ -44,7 +43,5 @@ class CreateAdmin extends Command
             'email' => $this->option('name'),
             'password' => $this->option('password'),
         ]);
-        $this->error('Error Missing Arguments');
-
     }
 }

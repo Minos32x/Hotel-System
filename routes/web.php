@@ -11,31 +11,31 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', function () { return view('welcome'); });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/users/logout','Auth\LoginController@userLogout')->name('users.logout');
 
-Route::get('/admin', function () {
+// Temporary Routes To Test Mailing System
+Route::get('/sendgreeting/{id}','MailsController@GreetingMail')->name('Mails.GreetingMail');
+Route::get('/sendreminder/{id}','MailsController@ReminderMail')->name('Mails.ReminderMail');
 
-    return view('Admin.admin_template');
-});
+
 
 
 Route::get('/send/{id}','MailsController@send')->name('Mails.send');
 
-Route::get('/admin/index', function(){
 
-    return view('Admin.index');
-});
-Route::get('/admin/index2', function(){
 
-    return view('Admin.index2');
-});
+
+
+Route::get('/admin', function () { return view('Admin.admin_template'); });
+Route::get('/admin/index', function(){ return view('Admin.index'); });
+Route::get('/admin/index2', function(){ return view('Admin.index2'); });
+
+
 
 
 Route::prefix('employee')->group(function (){
@@ -46,5 +46,3 @@ Route::prefix('employee')->group(function (){
     Route::get('/logout','Auth\EmployeeLoginController@logout')->name('employee.logout');
 
 });
-
-

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Rinvex\Country\Models\Country;
 
 class HomeController extends Controller
 {
@@ -25,4 +26,14 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function country()
+    {
+
+        $countries = countries();
+        return view('welcome', ['countries' => $countries]);
+    }
+
+
+
 }
