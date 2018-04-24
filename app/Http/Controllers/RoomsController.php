@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\DataTables\roomsDataTable;
 
 
-class roomController extends Controller
+class roomsController extends Controller
 {
     public function index()
     {
