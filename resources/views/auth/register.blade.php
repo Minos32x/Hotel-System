@@ -68,6 +68,21 @@
 				</div>
 </div >
 
+                        <div class="form-group{{ $errors->has('country') ? ' has-error' : '' }}">
+                            <label for="country" class="col-md-4 control-label">Country</label>
+
+                            <div class="col-md-6">
+                                
+                                
+                        <select  id="country"  class="form-control" name="country" value="{{ old('country') }}" required>
+
+                            @foreach($countries as $country)
+                                <option>{{$country['name']}}   {{$country['emoji']}}</option>
+                            @endforeach
+                        </select>
+                    
+                            </div>
+                        </div>
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col-md-4 control-label">Password</label>
 

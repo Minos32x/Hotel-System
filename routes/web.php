@@ -17,7 +17,9 @@ use App\Http\Controllers\ClientsController;
 */
 
 
+
 Route::get('/', 'HomeController@country');
+
 
 
 Auth::routes();
