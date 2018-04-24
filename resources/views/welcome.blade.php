@@ -100,14 +100,7 @@
                         </div>
 
                     @endcomponent
-                    <div>
-                        <select>
 
-                            @foreach($countries as $country)
-                                <option>{{$country['name']}}   {{$country['emoji']}}</option>
-                            @endforeach
-                        </select>
-                    </div>
                 </div>
             </div>
 

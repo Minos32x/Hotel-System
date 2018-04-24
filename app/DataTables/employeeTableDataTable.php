@@ -25,7 +25,7 @@ class employeeTableDataTable extends DataTable
     public function dataTable($query)
     {
         return datatables($query)
-            ->addColumn('action', 'Admin.btn.action');
+            ->addColumn('action', 'Admin.btn.employee_action');
            
     }
 

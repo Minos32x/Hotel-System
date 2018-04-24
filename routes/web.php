@@ -55,6 +55,8 @@ Route::prefix('employee')->group(function () {
 Route::get('/admin/getManagers', 'ManagersController@index');
 Route::get('/admin/getReceptionist', 'ReceptionistController@index');
 Route::get('/admin/getClient', 'ClientsController@index');
+Route::get('/rooms', 'roomController@index');
+
 
 
 

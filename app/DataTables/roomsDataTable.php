@@ -2,35 +2,35 @@
 
 namespace App\DataTables;
 
-use App\User;
+use App\Room;
 use Yajra\DataTables\Services\DataTable;
 
-class clientsDataTable extends DataTable
+class roomsDataTable extends DataTable
 {
     public $my_query;
-
-    public function __construct($y)
+    public function __construct($q)
     {
-        $this->my_query = $y;
+        $this->my_query = $q;
 
     }
+
     /**
      * Build DataTable class.
      *
      * @param mixed $query Results from query() method.
      * @return \Yajra\DataTables\DataTableAbstract
      */
+
     public function dataTable($query)
     {
         return datatables($query)
-            ->addColumn('action', 'Admin.btn.client_action');
+            ->addColumn('action', 'Admin.btn.room_action');
     }
-
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\User $model
+     * @param \App\Room $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query()
@@ -48,7 +48,6 @@ class clientsDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
-                    // ->addAction(['width' => '80px'])
             ->parameters([
                 'dom' => 'Blfrtip', // to show export button etc
                 'lengthMenu' => [[2, 5, 10, 20, -1], [2, 5, 10, 20, 'All data']],
@@ -57,7 +56,11 @@ class clientsDataTable extends DataTable
                     ['extend' => 'csv', 'className' => 'btn btn-info', 'text' => '<i class="fa fa-file">Export csv</i>'],
                     ['extend' => 'excel', 'className' => 'btn btn-info', 'text' => '<i class="fa fa-file">Export Excel</i>'],
                     ['extend' => 'reload', 'className' => 'btn btn-info', 'text' => '<i class="fa fa-refresh"></i>'],
+                    [
+                        'text' => '<i class="fa fa-plus"></i> Create new room', 'className' => 'btn btn-warning', "action" => "function(){
+                                window.location.href='" . \URL::current() . "/create ';}"
 
+                    ],
                 ]
             ]);
     }
@@ -76,34 +79,32 @@ class clientsDataTable extends DataTable
                 'title' => 'ID',
             ],
             [
-                'name' => 'name',
-                'data' => 'name',
-                'title' => 'Manager Name',
+                'name' => 'number',
+                'data' => 'number',
+                'title' => 'Room number',
             ],
             [
                 'name' => 'created_at',
                 'data' => 'created_at',
-                'title' => 'Created_at',
+                'title' => 'Created_At',
             ],
             [
-                'name' => 'updated_at',
-                'data' => 'updated_at',
-                'title' => 'Updated_at',
+                'name' => 'created_by',
+                'data' => 'created_by',
+                'title' => 'Created_By',
+            ],
+            [
+                'name' => 'capacity',
+                'data' => 'capacity',
+                'title' => 'Room Capacity',
             ],
             [
                 'name' => 'action',
                 'data' => 'action',
-                'title' => 'Actions',
-                'exportable' => false,
-                'printable' => false,
-                'orderable' => false,
-                'searchable' => false,
-
+                'title' => 'Action',
             ],
-            // 'id',
-            // 'name',
-            // 'created_at',
-            // 'updated_at'
+
+
         ];
     }
 
@@ -114,6 +115,6 @@ class clientsDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'clients_' . date('YmdHis');
+        return 'rooms_' . date('YmdHis');
     }
 }
