@@ -2,12 +2,14 @@
 
 namespace App;
 
+use Cog\Contracts\Ban\BannableContract;
+use Cog\Laravel\Ban\Traits\Bannable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Employee extends Authenticatable
+class Employee extends Authenticatable implements BannableContract
 {
-    use Notifiable,Notifiable;
+    use Notifiable,Bannable;
 
     protected $guard = 'employee';
     

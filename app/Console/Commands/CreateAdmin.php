@@ -2,8 +2,10 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Support\Facades\Hash;
+
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
+use App\Employee;
 
 class CreateAdmin extends Command
 {
@@ -12,7 +14,7 @@ class CreateAdmin extends Command
      *
      * @var string
      */
-    protected $signature = 'create:admin {--name=} {--password=}';
+    protected $signature = 'create:admin {--email=} {--password=}';
 
     /**
      * The console command description.
@@ -39,9 +41,16 @@ class CreateAdmin extends Command
 
     public function handle()
     {
-        DB::table('users')->insert([
-            'email' => $this->option('name'),
-            'password' => $this->option('password'),
+
+        Employee::create([
+            'name' => 'Admin',
+            'email' => $this->option('email'),
+            'type' => 'admin',
+            'national_id' => now(),
+            'password' => Hash::make($this->option('password')),
+
         ]);
+        $this->line(' Admin is created successfuly');
+
     }
 }
