@@ -260,9 +260,9 @@ desired effect
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">HEADER</li>
                 <!-- Optionally, you can add icons to the links -->
-                <li class="active"><a href="/admin/getManagers"><i class="fa fa-link"></i> <span>manage Managers</span></a></li>
-                <li><a href="/admin/getReceptionist"><i class="fa fa-link"></i> <span>manage Recepionists</span></a></li>
-                <li><a href="/admin/getClient"><i class="fa fa-link"></i> <span>manage Clients</span></a></li>
+                <li class="active"><a href="/managers"><i class="fa fa-link"></i> <span>manage Managers</span></a></li>
+                <li><a href="/receptionists"><i class="fa fa-link"></i> <span>manage Recepionists</span></a></li>
+                <li><a href="/clients"><i class="fa fa-link"></i> <span>manage Clients</span></a></li>
 
                 <li class="treeview">
                     <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>

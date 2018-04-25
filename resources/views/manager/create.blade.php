@@ -8,7 +8,7 @@
                 <div class="panel-heading">Register</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('register') }}">
+                    <form class="form-horizontal" method="POST" action="/managers">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -38,15 +38,15 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
-                            <label for="phone" class="col-md-4 control-label">Phone</label>
+                        <div class="form-group{{ $errors->has('national_id') ? ' has-error' : '' }}">
+                            <label for="national_id" class="col-md-4 control-label">national_id</label>
 
                             <div class="col-md-6">
-                                <input id="phone" type="text" class="form-control" name="phone" value="{{ old('phone') }}" required>
+                                <input id="national_id" type="text" class="form-control" name="national_id" value="{{ old('national_id') }}" required>
 
-                                @if ($errors->has('phone'))
+                                @if ($errors->has('national_id'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('phone') }}</strong>
+                                        <strong>{{ $errors->first('national_id') }}</strong>
                                     </span>
                                 @endif
                             </div>
