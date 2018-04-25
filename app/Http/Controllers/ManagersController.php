@@ -40,6 +40,7 @@ class ManagersController extends Controller
     public function store(Request $request)
     {
 
+        $request->file('avatar')->store('/avatars');
          Employee::create([
 
             'name' => $request->name,
