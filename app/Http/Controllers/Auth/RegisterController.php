@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use Rinvex\Country\Models\Country;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -71,5 +71,11 @@ class RegisterController extends Controller
             'last_login'=>now(),
             'avatar'=>''
         ]);
+    }
+    public function showRegistrationForm()
+    {
+        $countries = countries();
+
+        return view('auth.register',['countries' => $countries]);
     }
 }
