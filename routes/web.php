@@ -47,7 +47,7 @@ Route::prefix('employee')->group(function () {
 
     Route::get('/login', 'Auth\EmployeeLoginController@showLoginForm')->name('employee.login');
     Route::post('/login', 'Auth\EmployeeLoginController@login')->name('employee.login.submit');
-    Route::get('/', 'EmployeeController@index')->name('employee.dashboard');
+    Route::get('/', 'EmployeeController@index')->name('employee.dashboard')->middleware('guest:web');
     Route::get('/logout', 'Auth\EmployeeLoginController@logout')->name('employee.logout');
 
 });
