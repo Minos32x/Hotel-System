@@ -19,7 +19,7 @@ class User extends Authenticatable implements BannableContract
 
   
     protected $fillable = [
-        'name', 'email', 'password','avatar','phone','gender','country','last_login',
+        'name', 'email', 'password','avatar','phone','gender','country','last_login','banned_by','banned_at','approved_by','approved_state'
     ];
 
     /**

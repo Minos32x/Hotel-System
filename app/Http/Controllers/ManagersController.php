@@ -8,11 +8,16 @@ use Rinvex\Country\Models\Country;
 
 use Illuminate\Http\Request;
 use App\DataTables\employeeTableDataTable;
+use Illuminate\Support\Facades\Storage;
 
 class ManagersController extends Controller
 {
+    public $flag;
+
     public function index()
     {
+        $this->flag=$_SERVER["REQUEST_URI"];
+        // dd($flag);
         $emp = new employeeTableDataTable( DB::table('employees')->where('type', 'manager'));
         return $emp->render('Admin.emp');
 
@@ -22,11 +27,12 @@ class ManagersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $countries = countries();
+        // dd($request->user('employee')->id);
 
-        return view('manager.create',['countries' => $countries]);
+        
+        return view('manager.create');
 
     }
 
@@ -38,18 +44,23 @@ class ManagersController extends Controller
      */
     public function store(Request $request)
     {
+
+
+        $Created_by = ($request->user('employee')->id);
+
          Employee::create([
 
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'national_id'=>$request->national_id,
-            'country'=> $request->country,
             'last_login'=>now(),
             'type'=>'manager',
-            'avatar'=>''
+            'avatar'=> ($request->avatar==null? 'storage/avatars/avatar.jpg' :'storage/avatars/'.$request->avatar),
+            'created_by'=> $Created_by
            
         ]);
+        
         
          return redirect('/managers'); 
 
@@ -74,10 +85,8 @@ class ManagersController extends Controller
      */
     public function edit($id)
     {
-        $countries = countries();
-
+        
         return view('manager.edit',[
-            'countries' => $countries,
             'manager' => Employee::find($id)
             ]);
     }
@@ -95,10 +104,18 @@ class ManagersController extends Controller
         Employee::where('id', $id)->update(['name' => $request->name,
             'email' => $request->email,
              'national_id' => $request->national_id,
+             'avatar'=>$request->avatar,
             
         ]);
+       if ((Employee::find($id)->type)=='manager')
+       {
         return redirect('/managers');
 
+       }else{
+        return redirect('/receptionists');
+
+       }
+      
     }
 
     /**
@@ -110,6 +127,6 @@ class ManagersController extends Controller
     public function destroy($id)
     {
         DB::table('employees')->where('id' , $id)->delete(); 
-        return redirect('/managers');
-    }
+         
+     }
 }

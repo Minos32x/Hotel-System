@@ -60,7 +60,7 @@ class employeeTableDataTable extends DataTable
                     ['extend' => 'csv', 'className' => 'btn btn-info','text' => '<i class="fa fa-file">Export csv</i>'],
                     ['extend' => 'excel', 'className' => 'btn btn-info','text' => '<i class="fa fa-file">Export Excel</i>'],
                     ['extend' => 'reload', 'className' => 'btn btn-info','text' => '<i class="fa fa-refresh"></i>'],
-                    ['text' => '<i class="fa fa-plus"></i> Create manager', 'className'=>'btn btn-warning'
+                    ['text' => '<i class="fa fa-plus"></i> Create New One ', 'className'=>'btn btn-warning'
                     ,"action"=> "function(){
                         window.location.href='".\URL::current()."/create ';}"
                     

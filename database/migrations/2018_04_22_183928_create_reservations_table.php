@@ -17,10 +17,9 @@ class CreateReservationsTable extends Migration
             $table->increments('id');
             $table->integer('client_id');
             $table->integer('num_company');
-            $table->integer('room_id');//fk of room
+            $table->integer('room_id');
             $table->integer('price');
-            $table->integer('receptionist_id')->nullable();//fk
-            $table->boolean('approved_state');   
+            $table->integer('receptionist_id');
             $table->timestamps();
         });
     }
