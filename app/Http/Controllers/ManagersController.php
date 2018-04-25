@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
+use App\DataTables\employeeTableDataTable;
 use App\Employee;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Rinvex\Country\Models\Country;
 
-
-use Illuminate\Http\Request;
-use App\DataTables\employeeTableDataTable;
-use Illuminate\Support\Facades\Storage;
 
 class ManagersController extends Controller
 {
@@ -48,10 +46,9 @@ class ManagersController extends Controller
     {
 
 
+        $request->file('avatar')->store('/avatars');
         $Created_by = ($request->user('employee')->id);
-
         Employee::create([
-
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
@@ -63,9 +60,7 @@ class ManagersController extends Controller
 
         ]);
 
-
         return redirect('/managers');
-
     }
 
     /**
