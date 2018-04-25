@@ -15,6 +15,8 @@ class ReceptionistController extends Controller
      */
     public function index()
     {
+        // $flag = $_SERVER["REQUEST_URI"];
+
         $emp = new employeeTableDataTable( DB::table('employees')->where('type', 'receptionist'));
         return $emp->render('Admin.emp');
 
@@ -25,9 +27,13 @@ class ReceptionistController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        // dd($request->user('employee')->id);
+
+
+        return view('receptionist.create');
+
     }
 
     /**
@@ -38,51 +44,24 @@ class ReceptionistController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        
+        $Created_by = ($request->user('employee')->id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+         Employee::create([
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'national_id'=>$request->national_id,
+            'type'=>'receptionist',
+            // 'avatar'=>$request->avatar,
+            'created_by'=> $Created_by
+           
+        ]);
+        
+         return redirect('/receptionists'); 
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
+   

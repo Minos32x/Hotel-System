@@ -32,7 +32,7 @@ Route::get('/sendreminder/{id}', 'MailsController@ReminderMail')->name('Mails.Re
 
 Route::get('/admin', function () {
     return view('Admin.admin_template');
-});
+})->middleware('auth:employee');
 Route::get('/admin/index', function () {
     return view('Admin.index');
 });
@@ -62,6 +62,9 @@ Route::post('/managers', 'ManagersController@store');
 Route::get('/employees/{id}/edit', 'ManagersController@edit');
 Route::PUT('/employees/{id}/update', 'ManagersController@update');
 Route::DELETE('/employees/{id}', 'ManagersController@destroy');
+Route::get('/receptionists/create', 'ReceptionistController@create');
+Route::post('/receptionists', 'ReceptionistController@store');
+
 
 
 Route::get('/receptionists', 'ReceptionistController@index');

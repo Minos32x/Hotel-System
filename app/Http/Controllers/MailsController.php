@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
 use App\Notifications\Mailer;
 use App\User;
+use Carbon\Carbon;
 
 class MailsController extends Controller
 {
@@ -34,6 +34,21 @@ class MailsController extends Controller
         $ReminderLineTwo = 'We Miss You Looking Forward To See You As Soon As Possible';
 
         $user->notify((new Mailer($ReminderGreeting, $ReminderLineOne, $ReminderAction, $ReminderLineTwo))->delay($DelayTime));
+        return view('welcome');
+
+    }
+
+    public function ConfirmationMail($id)
+    {
+        $user = User::find($id);
+        $DelayTime = Carbon::now()->addSeconds(10);
+
+        $ConfirmationGreeting = 'Greeting : ' . $user->name;
+        $ConfirmationLineOne = 'We Would Like To Inform You That Your Registration Have Been Approved';
+        $ConfirmationAction = 'Visit Us';
+        $ConfirmationLineTwo = 'Have A Nice Vacation At Our Hotel';
+
+        $user->notify((new Mailer($ConfirmationGreeting, $ConfirmationLineOne, $ConfirmationAction, $ConfirmationLineTwo))->delay($DelayTime));
         return view('welcome');
 
     }
