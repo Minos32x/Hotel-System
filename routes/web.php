@@ -34,7 +34,7 @@ Route::get('/sendreminder/{id}', 'MailsController@ReminderMail')->name('Mails.Re
 
 Route::get('/admin', function () {
     return view('Admin.admin_template');
-});
+})->name('admin')->middleware('auth:employee');
 Route::get('/admin/index', function () {
     return view('Admin.index');
 });

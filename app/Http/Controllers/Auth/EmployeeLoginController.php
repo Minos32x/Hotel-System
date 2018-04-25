@@ -30,7 +30,7 @@ class EmployeeLoginController extends Controller
                 //attempt to log the employee in 
        if  (Auth::guard('employee')->attempt(['email'=>$request['email'],'password'=>$request['password']],$request->remember))
        {
-                return redirect()->intended(route('employee.dashboard'));
+                return redirect()->intended(route('admin'));
        }
         //if sucsses insert the employee in the session 
         return redirect()->back()->withInput($request->only('email,remeber'));
