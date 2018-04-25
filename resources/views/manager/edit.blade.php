@@ -51,16 +51,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
-                            <label for="gender" class="col-md-4 control-label">Gender</label>
-                            <div class="col-md-6">
-                    <select id="gender" class="form-control" name="gender" value="{{ old('gender') }}" required>
-  <option value="male" {{ ($manager->gender == 'male' ? "selected" : '') }}>Male</option>
-  <option value="female" {{ ($manager->gender == 'female' ? "selected"  : '') }}>Female</option>
- 
-</select>
-                            </div>
-</div>
+
 <div class="form-group{{ $errors->has('avatar') ? ' has-error' : '' }}">
                             <label for="avatar" class="col-md-4 control-label">Avatar</label>
                             <div class="col-md-6">
@@ -68,21 +59,7 @@
 				</div>
 </div >
 
-                        <div class="form-group{{ $errors->has('country') ? ' has-error' : '' }}">
-                            <label for="country" class="col-md-4 control-label">Country</label>
-
-                            <div class="col-md-6">
-                                
-                                
-                        <select  id="country"  class="form-control" name="country" value="{{ old('country') }}" required>
-
-                            @foreach($countries as $country)
-                                <option {{($manager->country == $country['name'] ? "selected" : '')}}>{{$country['name']}}   {{$country['emoji']}}</option>
-                            @endforeach
-                        </select>
-                    
-                            </div>
-                        </div>
+                      
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col-md-4 control-label">Password</label>
 
