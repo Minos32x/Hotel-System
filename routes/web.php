@@ -17,9 +17,7 @@ use App\Http\Controllers\ClientsController;
 */
 
 
-
 Route::get('/', 'HomeController@country');
-
 
 
 Auth::routes();
@@ -46,11 +44,17 @@ Route::get('/admin/index2', function () {
 Route::prefix('employee')->group(function () {
 
     Route::get('/login', 'Auth\EmployeeLoginController@showLoginForm')->name('employee.login');
+
     Route::post('/login', 'Auth\EmployeeLoginController@login')->name('employee.login.submit');
     Route::get('/', 'EmployeeController@index')->name('employee.dashboard')->middleware('guest:web');
+
+    Route::post('/login', 'Auth\EmployeeLoginController@login')->middleware('forbid-banned-user')->name('employee.login.submit');
+    Route::get('/', 'EmployeeController@index')->middleware('forbid-banned-user')->name('employee.dashboard');
+
     Route::get('/logout', 'Auth\EmployeeLoginController@logout')->name('employee.logout');
 
 });
+
 
 Route::get('/managers', 'ManagersController@index');
 Route::get('/managers/create', 'ManagersController@create');
@@ -60,12 +64,21 @@ Route::PUT('/employees/{id}/update', 'ManagersController@update');
 Route::DELETE('/employees/{id}', 'ManagersController@destroy');
 
 
-
-
 Route::get('/receptionists', 'ReceptionistController@index');
 Route::get('/clients', 'ClientsController@index');
 Route::get('/rooms', 'roomController@index');
 Route::get('/floors', 'FloorsController@index');
+
+
+Route::get('/admin/getManagers', 'ManagersController@index');
+Route::get('/admin/getReceptionist', 'ReceptionistController@index');
+Route::get('/admin/getClient', 'ClientsController@index');
+Route::get('/rooms', 'RoomsController@index');
+Route::get('/reservations', 'ReservationsController@index')->name('manager.reservation');
+
+// Temporary Routes To Test Ban and Unban
+Route::get('ban/{id}', 'EmployeeController@EmployeeBan')->name('employee.ban');
+Route::get('unban/{id}', 'EmployeeController@Employeeunban')->name('employee.unban');
 
 
 

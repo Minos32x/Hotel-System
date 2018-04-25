@@ -48,9 +48,8 @@ class clientsDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
-                    // ->addAction(['width' => '80px'])
             ->parameters([
-                'dom' => 'Blfrtip', // to show export button etc
+                'dom' => 'Blfrtip',
                 'lengthMenu' => [[2, 5, 10, 20, -1], [2, 5, 10, 20, 'All data']],
                 'buttons' => [
                     ['extend' => 'print', 'className' => 'btn btn-info', 'text' => '<i class="fa fa-print"></i>'],

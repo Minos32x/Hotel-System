@@ -93,7 +93,8 @@ desired effect
                                         <a href="#">
                                             <div class="pull-left">
                                                 <!-- User Image -->
-                                                <img src="{{asset ('bower_components/admin-lte/dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+                                                <img src="{{asset ('bower_components/admin-lte/dist/img/user2-160x160.jpg')}}"
+                                                     class="img-circle" alt="User Image">
                                             </div>
                                             <!-- Message title and timestamp -->
                                             <h4>
@@ -158,7 +159,8 @@ desired effect
                                             <!-- The progress bar -->
                                             <div class="progress xs">
                                                 <!-- Change the css width attribute to simulate progress -->
-                                                <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
+                                                <div class="progress-bar progress-bar-aqua" style="width: 20%"
+                                                     role="progressbar"
                                                      aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
                                                     <span class="sr-only">20% Complete</span>
                                                 </div>
@@ -178,14 +180,16 @@ desired effect
                         <!-- Menu Toggle Button -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <!-- The user image in the navbar-->
-                            <img src="{{asset ('bower_components/admin-lte/dist/img/user2-160x160.jpg')}}" class="user-image" alt="User Image">
+                            <img src="{{asset ('bower_components/admin-lte/dist/img/user2-160x160.jpg')}}"
+                                 class="user-image" alt="User Image">
                             <!-- hidden-xs hides the username on small devices so only the image appears. -->
                             <span class="hidden-xs">Alexander Pierce</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- The user image in the menu -->
                             <li class="user-header">
-                                <img src="{{asset ('bower_components/admin-lte/dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+                                <img src="{{asset ('bower_components/admin-lte/dist/img/user2-160x160.jpg')}}"
+                                     class="img-circle" alt="User Image">
 
                                 <p>
                                     Alexander Pierce - Web Developer
@@ -235,7 +239,8 @@ desired effect
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel">
                 <div class="pull-left image">
-                    <img src="{{asset ('bower_components/admin-lte/dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+                    <img src="{{asset ('bower_components/admin-lte/dist/img/user2-160x160.jpg')}}" class="img-circle"
+                         alt="User Image">
                 </div>
                 <div class="pull-left info">
                     <p>Alexander Pierce</p>
@@ -260,9 +265,12 @@ desired effect
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">HEADER</li>
                 <!-- Optionally, you can add icons to the links -->
+
                 <li class="active"><a href="/managers"><i class="fa fa-link"></i> <span>manage Managers</span></a></li>
                 <li><a href="/receptionists"><i class="fa fa-link"></i> <span>manage Recepionists</span></a></li>
                 <li><a href="/clients"><i class="fa fa-link"></i> <span>manage Clients</span></a></li>
+                <li><a href="{{ route('manager.reservation') }}"><i class="fa fa-link"></i> <span>Reservations</span>
+                    </a></li>
 
                 <li class="treeview">
                     <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
@@ -301,7 +309,7 @@ desired effect
             <!--------------------------
               | Your Page Content Here |
               -------------------------->
-              @yield('content')
+            @yield('content')
 
 
         </section>
@@ -421,6 +429,6 @@ desired effect
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->
-     @stack('js')
+@stack('js')
 </body>
 </html>
