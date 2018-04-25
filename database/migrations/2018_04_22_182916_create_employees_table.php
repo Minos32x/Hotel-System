@@ -13,22 +13,22 @@ class CreateEmployeesTable extends Migration
      */
     public function up()
     {
-                // id,name,emanil,password,national_id,avatar,created_by (null or 0 for admins),created_at (date_only),type
-
         Schema::create('employees', function (Blueprint $table) {
 
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->rememberToken();
-            $table->integer('created_by')->nullable();
-            $table->string('national_id')->unique();
             $table->string('type');
+            $table->integer('created_by')->default(0);
+            $table->string('national_id')->unique();
             $table->string('avatar')->default('storage/avatars/avatar.jpg');
+            $table->timestamp('banned_at')->nullable();
+            $table->timestamp('banned_by')->nullable();
+            $table->rememberToken();
             $table->timestamps();
-            });
-        }
+        });
+    }
 
     /**
      * Reverse the migrations.

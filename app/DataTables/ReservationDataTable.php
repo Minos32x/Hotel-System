@@ -97,11 +97,6 @@ class ReservationDataTable extends DataTable
                 'title' => 'Receptionist_ID',
             ],
             [
-                'name' => 'approved_state',
-                'data' => 'approved_state',
-                'title' => 'Status',
-            ],
-            [
                 'name' => 'created_at',
                 'data' => 'created_at',
                 'title' => 'Created_At',

@@ -12,8 +12,6 @@ class CreateFloorsTable extends Migration
      * @return void
      */
 
-   
-    // id,floor_num (unique,4digit,autocreated), created_by, no_of_rooms (optional 1)
     public function up()
     {
         Schema::create('floors', function (Blueprint $table) {

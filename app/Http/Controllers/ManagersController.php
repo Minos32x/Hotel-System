@@ -8,6 +8,7 @@ use Rinvex\Country\Models\Country;
 
 use Illuminate\Http\Request;
 use App\DataTables\employeeTableDataTable;
+use Illuminate\Support\Facades\Storage;
 
 class ManagersController extends Controller
 {
@@ -38,6 +39,7 @@ class ManagersController extends Controller
      */
     public function store(Request $request)
     {
+
          Employee::create([
 
             'name' => $request->name,
@@ -47,10 +49,10 @@ class ManagersController extends Controller
             'country'=> $request->country,
             'last_login'=>now(),
             'type'=>'manager',
-            'avatar'=>''
+            'avatar'=> ($request->avatar==null? 'storage/avatars/avatar.jpg' :'storage/avatars/'.$request->avatar)
            
         ]);
-        
+
          return redirect('/managers'); 
 
     }

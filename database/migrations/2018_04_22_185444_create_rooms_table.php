@@ -12,9 +12,6 @@ class CreateRoomsTable extends Migration
      * @return void
      */
 
-  //'number', 'capacity', 'floor_id','price','created_by','is_reserved'
-
-
     public function up()
     {
         Schema::create('rooms', function (Blueprint $table) {
@@ -24,9 +21,9 @@ class CreateRoomsTable extends Migration
             $table->integer('floor_id');
             $table->integer('price');
             $table->integer('created_by');
-            $table->boolean('is_reserved');   
+            $table->boolean('is_reserved')->default(false);
             $table->timestamps();
-        
+
         });
     }
 

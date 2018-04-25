@@ -15,7 +15,7 @@ class Employee extends Authenticatable implements BannableContract
 
 
     protected $fillable = [
-        'name', 'email', 'password', 'avatar', 'national_id', 'created_by', 'type'
+        'name', 'email', 'password', 'avatar', 'national_id', 'created_by', 'type','banned_at','banned_by'
     ];
 
 
