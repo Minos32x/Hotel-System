@@ -63,7 +63,7 @@ Route::DELETE('/employees/{id}', 'ManagersController@destroy');
 
 
 Route::get('/receptionists', 'ReceptionistController@index');
-Route::get('/admin/getClient', 'ClientsController@index');
+Route::get('/clients', 'ClientsController@index');
 Route::get('/rooms', 'roomController@index');
 Route::get('/floors', 'FloorsController@index');
 
