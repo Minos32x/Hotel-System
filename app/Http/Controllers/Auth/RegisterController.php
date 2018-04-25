@@ -6,6 +6,7 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Rinvex\Country\Models\Country;
 
 class RegisterController extends Controller
 {
@@ -42,7 +43,7 @@ class RegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -57,7 +58,7 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return \App\User
      */
     protected function create(array $data)
@@ -66,9 +67,16 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'phone'=>$data['phone'],
-            'country'=>'Egypt',
-            'last_login'=>now(),
+            'phone' => $data['phone'],
+            'country' => 'Egypt',
+            'last_login' => now(),
         ]);
+    }
+
+
+    public function showRegistrationForm()
+    {
+        $countries = countries();
+        return view('auth.register', ['countries' => $countries]);
     }
 }

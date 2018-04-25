@@ -14,4 +14,6 @@ class roomsController extends Controller
         $room = new roomsDataTable( DB::table('rooms'));
         return $room->render('Admin.emp');
     }
+
+
 }

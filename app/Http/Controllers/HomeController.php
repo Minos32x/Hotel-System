@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Rinvex\Country\Models\Country;
 
 class HomeController extends Controller
@@ -14,7 +13,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+
     }
 
     /**
@@ -29,11 +28,9 @@ class HomeController extends Controller
 
     public function country()
     {
-
         $countries = countries();
         return view('welcome', ['countries' => $countries]);
     }
-
 
 
 }

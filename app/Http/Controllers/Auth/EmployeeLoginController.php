@@ -11,36 +11,37 @@ class EmployeeLoginController extends Controller
 
 {
 
-    public function __construct (){
-
-        $this->middleware('guest:employee')->except('logout');
-
+    public function __construct()
+    {
+        $this->middleware(['guest:employee', 'forbid-banned-user'])->except('logout');
     }
-    public function showLoginForm ()
+
+    public function showLoginForm()
     {
         return view('auth.employee-login');
     }
 
-    public function login (Request $request){
-            //validation 
-        $this->validate($request,[
-                'email'=>'required|email',
-                'password'=>'required|min:6'
+    public function login(Request $request)
+    {
+        //validation
+        $this->validate($request, [
+            'email' => 'required|email',
+            'password' => 'required|min:6'
         ]);
-                //attempt to log the employee in 
-       if  (Auth::guard('employee')->attempt(['email'=>$request['email'],'password'=>$request['password']],$request->remember))
-       {
-                return redirect()->intended(route('employee.dashboard'));
-       }
+        //attempt to log the employee in
+        if (Auth::guard('employee')->attempt(['email' => $request['email'], 'password' => $request['password']], $request->remember)) {
+            return redirect()->intended(route('employee.dashboard'));
+        }
         //if sucsses insert the employee in the session 
         return redirect()->back()->withInput($request->only('email,remeber'));
     }
 
-    public function logout (){
+    public function logout()
+    {
         Auth::guard('employee')->logout();
 
 
         return redirect('/');
-        
+
     }
 }

@@ -44,8 +44,8 @@ Route::get('/admin/index2', function () {
 Route::prefix('employee')->group(function () {
 
     Route::get('/login', 'Auth\EmployeeLoginController@showLoginForm')->name('employee.login');
-    Route::post('/login', 'Auth\EmployeeLoginController@login')->name('employee.login.submit');
-    Route::get('/', 'EmployeeController@index')->name('employee.dashboard');
+    Route::post('/login', 'Auth\EmployeeLoginController@login')->middleware('forbid-banned-user')->name('employee.login.submit');
+    Route::get('/', 'EmployeeController@index')->middleware('forbid-banned-user')->name('employee.dashboard');
     Route::get('/logout', 'Auth\EmployeeLoginController@logout')->name('employee.logout');
 
 });
@@ -54,6 +54,10 @@ Route::get('/admin/getManagers', 'ManagersController@index');
 Route::get('/admin/getReceptionist', 'ReceptionistController@index');
 Route::get('/admin/getClient', 'ClientsController@index');
 Route::get('/rooms', 'RoomsController@index');
+
+// Temporary Routes To Test Ban and Unban
+Route::get('ban/{id}', 'EmployeeController@EmployeeBan')->name('employee.ban');
+Route::get('unban/{id}', 'EmployeeController@Employeeunban')->name('employee.unban');
 
 
 
