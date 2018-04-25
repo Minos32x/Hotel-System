@@ -102,6 +102,11 @@ class roomsDataTable extends DataTable
                 'name' => 'action',
                 'data' => 'action',
                 'title' => 'Action',
+                'exportable' => false,
+                'printable' => false,
+                'orderable' => false,
+                'searchable' => false,
+
             ],
 
 

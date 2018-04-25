@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Employee;
+use Rinvex\Country\Models\Country;
 
 
 use Illuminate\Http\Request;
@@ -23,7 +24,10 @@ class ManagersController extends Controller
      */
     public function create()
     {
-        //
+        $countries = countries();
+
+        return view('manager.create',['countries' => $countries]);
+
     }
 
     /**
@@ -34,7 +38,21 @@ class ManagersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         Employee::create([
+
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'national_id'=>$request->national_id,
+            'country'=> $request->country,
+            'last_login'=>now(),
+            'type'=>'manager',
+            'avatar'=>''
+           
+        ]);
+        
+         return redirect('/managers'); 
+
     }
 
     /**
@@ -45,7 +63,7 @@ class ManagersController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -56,7 +74,12 @@ class ManagersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $countries = countries();
+
+        return view('manager.edit',[
+            'countries' => $countries,
+            'manager' => Employee::find($id)
+            ]);
     }
 
     /**
@@ -68,7 +91,14 @@ class ManagersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // $manager->update($request->all());
+        Employee::where('id', $id)->update(['name' => $request->name,
+            'email' => $request->email,
+             'national_id' => $request->national_id,
+            
+        ]);
+        return redirect('/managers');
+
     }
 
     /**
@@ -79,6 +109,7 @@ class ManagersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('employees')->where('id' , $id)->delete(); 
+        return redirect('/managers');
     }
 }

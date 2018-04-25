@@ -14,6 +14,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+
 <div id="app">
     <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
@@ -57,6 +58,7 @@
 
                             <ul class="dropdown-menu">
                                 <li>
+
                                     @if (Auth::guard('employee')->check())
 
                                         <a href="{{ route('employee.logout') }}"

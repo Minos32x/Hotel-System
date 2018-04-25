@@ -47,15 +47,26 @@ Route::prefix('employee')->group(function () {
 
     Route::get('/login', 'Auth\EmployeeLoginController@showLoginForm')->name('employee.login');
     Route::post('/login', 'Auth\EmployeeLoginController@login')->name('employee.login.submit');
-    Route::get('/', 'EmployeeController@index')->name('employee.dashboard');
+    Route::get('/', 'EmployeeController@index')->name('employee.dashboard')->middleware('guest:web');
     Route::get('/logout', 'Auth\EmployeeLoginController@logout')->name('employee.logout');
 
 });
 
-Route::get('/admin/getManagers', 'ManagersController@index');
-Route::get('/admin/getReceptionist', 'ReceptionistController@index');
-Route::get('/admin/getClient', 'ClientsController@index');
+Route::get('/managers', 'ManagersController@index');
+Route::get('/managers/create', 'ManagersController@create');
+Route::post('/managers', 'ManagersController@store');
+Route::get('/employees/{id}/edit', 'ManagersController@edit');
+Route::PUT('/employees/{id}/update', 'ManagersController@update');
+Route::DELETE('/employees/{id}', 'ManagersController@destroy');
+
+
+
+
+Route::get('/receptionists', 'ReceptionistController@index');
+Route::get('/clients', 'ClientsController@index');
 Route::get('/rooms', 'roomController@index');
+Route::get('/floors', 'FloorsController@index');
+
 
 
 

@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Floor;
 use Illuminate\Support\Facades\DB;
-use App\User;
-use Illuminate\Http\Request;
-use App\DataTables\clientsDataTable;
 
-class ClientsController extends Controller
+use App\DataTables\floorsDataTable;
+use Illuminate\Http\Request;
+
+class FloorsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +16,8 @@ class ClientsController extends Controller
      */
     public function index()
     {
-        $emp = new clientsDataTable( DB::table('users'));
-        return $emp->render('Admin.emp');
+        $floor = new floorsDataTable(DB::table('floors'));
+        return $floor->render('Admin.emp');
 
     }
 
