@@ -294,7 +294,13 @@ desired effect
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Page Header
+            <?php  if ( $_SERVER["REQUEST_URI"] == "/managers") 
+                {echo "Manage Managers Page";}
+                else if( $_SERVER["REQUEST_URI"] == "/receptionists") 
+                {echo "Manage Receptionists Page";}
+                else if( $_SERVER["REQUEST_URI"] == "/clients") 
+                {echo "Manage Clients Page";}
+                ?>
                 <small>Optional description</small>
             </h1>
             <ol class="breadcrumb">

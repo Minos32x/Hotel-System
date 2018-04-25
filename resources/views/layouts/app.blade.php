@@ -59,6 +59,8 @@
                             <ul class="dropdown-menu">
                                 <li>
 
+
+
                                     @if (Auth::guard('employee')->check())
 
                                         <a href="{{ route('employee.logout') }}"
