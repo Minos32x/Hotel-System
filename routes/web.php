@@ -54,6 +54,7 @@ Route::get('/admin/getManagers', 'ManagersController@index');
 Route::get('/admin/getReceptionist', 'ReceptionistController@index');
 Route::get('/admin/getClient', 'ClientsController@index');
 Route::get('/rooms', 'RoomsController@index');
+Route::get('/reservations','ReservationsController@index')->name('manager.reservation');
 
 // Temporary Routes To Test Ban and Unban
 Route::get('ban/{id}', 'EmployeeController@EmployeeBan')->name('employee.ban');

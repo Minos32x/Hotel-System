@@ -40,7 +40,7 @@ class EmployeeLoginController extends Controller
     {
         Auth::guard('employee')->logout();
 
-
+        
         return redirect('/');
 
     }

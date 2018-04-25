@@ -9,19 +9,19 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Employee extends Authenticatable implements BannableContract
 {
-    use Notifiable,Bannable;
+    use Notifiable, Bannable;
 
     protected $guard = 'employee';
-    
+
 
     protected $fillable = [
-        'name', 'email', 'password','avatar','national_id','created_by','type'
-        ];
+        'name', 'email', 'password', 'avatar', 'national_id', 'created_by', 'type'
+    ];
 
 
-        protected $hidden = [
+    protected $hidden = [
         'password', 'remember_token',
-        ];
-        
+    ];
 
-    }
+
+}

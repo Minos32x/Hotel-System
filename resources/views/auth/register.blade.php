@@ -66,7 +66,6 @@
                                     </select>
                                 </div>
                             </div>
-
                             <div class="form-group{{ $errors->has('avatar') ? ' has-error' : '' }}">
                                 <label for="avatar" class="col-md-4 control-label">Avatar</label>
                                 <div class="col-md-6">
@@ -75,24 +74,27 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('country') ? ' has-error' : '' }}">
-                                <label for="phone" class="col-md-4 control-label">Country</label>
+                                <label for="country" class="col-md-4 control-label">Country</label>
+
                                 <div class="col-md-6">
+
+
                                     <select id="country" class="form-control" name="country"
-                                            value="{{ old('country') }}"
-                                            required>
+                                            value="{{ old('country') }}" required>
+
                                         @foreach($countries as $country)
                                             <option>{{$country['name']}}   {{$country['emoji']}}</option>
                                         @endforeach
-
                                     </select>
+
                                 </div>
                             </div>
-
                             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                                 <label for="password" class="col-md-4 control-label">Password</label>
 
                                 <div class="col-md-6">
-                                    <input id="password" type="password" class="form-control" name="password" required>
+                                    <input id="password" type="password" class="form-control" name="password"
+                                           required>
 
                                     @if ($errors->has('password'))
                                         <span class="help-block">
@@ -103,7 +105,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
+                                <label for="password-confirm" class="col-md-4 control-label">Confirm
+                                    Password</label>
 
                                 <div class="col-md-6">
                                     <input id="password-confirm" type="password" class="form-control"
