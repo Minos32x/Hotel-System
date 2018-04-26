@@ -94,8 +94,13 @@ class employeeTableDataTable extends DataTable
             ],
             [
                 'name' => 'name',
-                'data' => 'name',
-                'title' => 'Name',
+                'data' =>  'name',
+                'title' => 'Manager Name',
+            ],
+            [
+                'name' => 'created_at',
+                'data' => 'created_at',
+                'title' => 'Created_at',
             ],
             [
                 'name' => 'updated_at',
@@ -113,16 +118,7 @@ class employeeTableDataTable extends DataTable
         
          ]];
         }
-
- if($user->hasRole('admin'))
- {
-     array_push($data,
-     [
-            'name' => 'created_at',
-            'data' => 'created_at',
-            'title' => 'Created_at',
-     ]);
- }       
+     
         return $data;
     }
 

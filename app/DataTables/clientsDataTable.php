@@ -98,8 +98,7 @@ class clientsDataTable extends DataTable
                 'orderable' => false,
                 'searchable' => false,
 
-            ],
-
+            ]
         ];
     }
 

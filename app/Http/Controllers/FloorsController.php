@@ -28,7 +28,7 @@ class FloorsController extends Controller
      */
     public function create()
     {
-        //
+        return view ('floor.create');
     }
 
     /**
@@ -39,7 +39,16 @@ class FloorsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $Created_by = ($request->user('employee')->id);
+        Floor::create([
+            'floor_num' => $request->floor_num,
+            'no_of_room' => $request->no_of_room,
+            'created_by' => $Created_by
+
+        ]);
+        return redirect('/floors');
+
+
     }
 
     /**
@@ -61,8 +70,10 @@ class FloorsController extends Controller
      */
     public function edit($id)
     {
-        //
-    }
+        return view('floor.edit', [
+            'floor' => Floor::find($id)
+        ]);   
+     }
 
     /**
      * Update the specified resource in storage.
@@ -73,7 +84,11 @@ class FloorsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Floor::where('id', $id)->update(
+        ['floor_num' => $request->floor_num,
+        'no_of_room' => $request->no_of_room,
+        ]);
+        return redirect ('/floors');
     }
 
     /**

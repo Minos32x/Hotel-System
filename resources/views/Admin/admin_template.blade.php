@@ -276,14 +276,14 @@ desired effect
                     </a></li>
 
                 <li class="treeview">
-                    <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
+                    <a href="#"><i class="fa fa-link"></i> <span>Floors & Rooms</span>
                         <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="#">Link in level 2</a></li>
-                        <li><a href="#">Link in level 2</a></li>
+                        <li><a href="/floors">Floor</a></li>
+                        <li><a href="/rooms">Rooms</a></li>
                     </ul>
                 </li>
             </ul>

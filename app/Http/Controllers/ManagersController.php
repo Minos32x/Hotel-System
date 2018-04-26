@@ -50,7 +50,8 @@ class ManagersController extends Controller
     {
 
 
-
+        $image=time().$request->file('avatar');
+        Storage::disk('public')->putFileAs('/avatars', $req->file('avatar'),$image);
         $Created_by = ($request->user('employee')->id);
         $manager= Employee::create([
             'name' => $request->name,
@@ -59,7 +60,7 @@ class ManagersController extends Controller
             'national_id' => $request->national_id,
             'last_login' => now(),
             'type' => 'manager',
-            'avatar' => ($request->avatar == null ? 'storage/avatars/avatar.jpg' : 'storage/avatars/' . $request->avatar),
+            'avatar' => ($request->avatar == null ? 'avatar.jpg' : $image),
             'created_by' => $Created_by
 
         ]);
