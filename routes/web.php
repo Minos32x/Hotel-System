@@ -32,7 +32,7 @@ Route::get('/sendreminder/{id}', 'MailsController@ReminderMail')->name('Mails.Re
 
 Route::get('/admin', function () {
     return view('Admin.admin_template');
-})->name('admin')->middleware('auth:employee');
+})->middleware('auth:employee');
 Route::get('/admin/index', function () {
     return view('Admin.index');
 });
@@ -64,20 +64,32 @@ Route::PUT('/employees/{id}/update', 'ManagersController@update');
 Route::DELETE('/employees/{id}', 'ManagersController@destroy');
 Route::get('/receptionists/create', 'ReceptionistController@create');
 Route::post('/receptionists', 'ReceptionistController@store');
-Route::get('/clients/{id}/edit', 'ClientsController@edit');
+
 
 
 
 Route::get('/receptionists', 'ReceptionistController@index');
 Route::get('/clients', 'ClientsController@index');
-Route::get('/rooms', 'roomController@index');
+Route::get('/clients/{id}/edit', 'ClientsController@edit');
+Route::PUT('/clients/{id}/update', 'ClientsController@update');
+
+
+Route::get('/rooms', 'RoomsController@index');
+Route::get('/rooms/create', 'RoomsController@create');
+Route::post('/rooms', 'RoomsController@store');
+Route::get('/rooms/{id}/edit', 'RoomsController@edit');
+Route::PUT('/rooms/{id}/update', 'RoomsController@update');
+
 Route::get('/floors', 'FloorsController@index');
+Route::get('/floors/create', 'FloorsController@create');
+Route::post('/floors', 'FloorsController@store');
+Route::get('/floors/{id}/edit', 'FloorsController@edit');
+Route::PUT('/floors/{id}/update', 'FloorsController@update');
 
 
 Route::get('/admin/getManagers', 'ManagersController@index');
 Route::get('/admin/getReceptionist', 'ReceptionistController@index');
 Route::get('/admin/getClient', 'ClientsController@index');
-Route::get('/rooms', 'RoomsController@index');
 Route::get('/reservations', 'ReservationsController@index')->name('manager.reservation');
 
 // Temporary Routes To Test Ban and Unban

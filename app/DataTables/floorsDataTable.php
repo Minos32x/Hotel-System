@@ -55,7 +55,7 @@ class floorsDataTable extends DataTable
                             ['extend' => 'excel', 'className' => 'btn btn-info', 'text' => '<i class="fa fa-file">Export Excel</i>'],
                             ['extend' => 'reload', 'className' => 'btn btn-info', 'text' => '<i class="fa fa-refresh"></i>'],
                             [
-                                'text' => '<i class="fa fa-plus"></i> Create new room', 'className' => 'btn btn-warning', "action" => "function(){
+                                'text' => '<i class="fa fa-plus"></i> Create new Floor', 'className' => 'btn btn-warning', "action" => "function(){
                                         window.location.href='" . \URL::current() . "/create ';}"
         
                             ],
