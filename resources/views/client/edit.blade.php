@@ -1,25 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Register</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Register</div>
 
-                    <div class="panel-body">
-                        <form class="form-horizontal" method="POST" action="/employees/{{$manager->id}}/update">
-                            {{ csrf_field() }}
-                            {{method_field('PUT')}}
-                            <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                                <label for="name" class="col-md-4 control-label">Name</label>
+                <div class="panel-body">
+                    <form class="form-horizontal" method="POST" action="/clients/{{$client->id}}/update">
+                        {{ csrf_field() }}
+{{method_field('PUT')}}
+                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                            <label for="name" class="col-md-4 control-label">Name</label>
 
-                                <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control" name="name"
-                                           value="{{ $manager->name }}" required autofocus>
+                            <div class="col-md-6">
+                                <input id="name" type="text" class="form-control" name="name" value="{{ $client->name }}" required autofocus>
 
-                                    @if ($errors->has('name'))
-                                        <span class="help-block">
+                                @if ($errors->has('name'))
+                                    <span class="help-block">
                                         <strong>{{ $errors->first('name') }}</strong>
                                     </span>
                                     @endif
@@ -29,9 +28,8 @@
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                 <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
-                                <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control" name="email"
-                                           value="{{ $manager->email }}" required>
+                            <div class="col-md-6">
+                                <input id="email" type="email" class="form-control" name="email" value="{{ $client->email }}" required>
 
                                     @if ($errors->has('email'))
                                         <span class="help-block">
@@ -40,39 +38,51 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="form-group{{ $errors->has('national_id') ? ' has-error' : '' }}">
-                                <label for="national_id" class="col-md-4 control-label">national_id</label>
+                        </div>
+                        <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
+                            <label for="phone" class="col-md-4 control-label">phone</label>
 
-                                <div class="col-md-6">
-                                    <input id="national_id" type="text" class="form-control" name="national_id"
-                                           value="{{ $manager->national_id }}" required>
+                            <div class="col-md-6">
+                                <input id="phone" type="text" class="form-control" name="phone" value="{{ $client->phone }}" required>
 
-                                    @if ($errors->has('national_id'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('national_id') }}</strong>
+                                @if ($errors->has('phone'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('phone') }}</strong>
                                     </span>
                                     @endif
                                 </div>
                             </div>
-                            <div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
-                                <label for="gender" class="col-md-4 control-label">Gender</label>
-                                <div class="col-md-6">
-                                    <select id="gender" class="form-control" name="gender" value="{{ old('gender') }}"
-                                            required>
-                                        <option value="male" {{ ($manager->gender == 'male' ? "selected" : '') }}>Male
-                                        </option>
-                                        <option value="female" {{ ($manager->gender == 'female' ? "selected"  : '') }}>
-                                            Female
-                                        </option>
-
-                                    </select>
-                                </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
+                            <label for="gender" class="col-md-4 control-label">Gender</label>
+                            <div class="col-md-6">
+                    <select id="gender" class="form-control" name="gender" value="{{ old('gender') }}" required>
+  <option value="male" {{ ($client->gender == 'male' ? "selected" : '') }}>Male</option>
+  <option value="female" {{ ($client->gender == 'female' ? "selected"  : '') }}>Female</option>
+ 
+</select>
                             </div>
-                            <div class="form-group{{ $errors->has('avatar') ? ' has-error' : '' }}">
-                                <label for="avatar" class="col-md-4 control-label">Avatar</label>
-                                <div class="col-md-6">
-                                    <input type="file" name="avatar"/>
-                                </div>
+</div>
+<div class="form-group{{ $errors->has('avatar') ? ' has-error' : '' }}">
+                            <label for="avatar" class="col-md-4 control-label">Avatar</label>
+                            <div class="col-md-6">
+	<input type="file" name="avatar" />
+				</div>
+</div >
+
+                        <div class="form-group{{ $errors->has('country') ? ' has-error' : '' }}">
+                            <label for="country" class="col-md-4 control-label">Country</label>
+
+                            <div class="col-md-6">
+                                
+                                
+                        <select  id="country"  class="form-control" name="country" value="{{ old('country') }}" required>
+
+                            @foreach($countries as $country)
+                                <option {{($client->country == $country['name'] ? 'selected' : '')}} > {{$country['name']}}   {{$country['emoji']}}</option>
+                            @endforeach
+                        </select>
+                    
                             </div>
 
                             <div class="form-group{{ $errors->has('country') ? ' has-error' : '' }}">

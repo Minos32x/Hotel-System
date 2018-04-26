@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\DataTables\clientsDataTable;
-use App\User;
-use Illuminate\Http\Request;
+// use App\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use App\DataTables\clientsDataTable;
+use Illuminate\Foundation\Auth\User;
+use Rinvex\Country\Models\Country;
 
 class ClientsController extends Controller
 {
@@ -53,7 +54,7 @@ class ClientsController extends Controller
      */
     public function show()
     {
-
+       
     }
 
 
@@ -66,7 +67,10 @@ class ClientsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $countries = countries();
+        return view('client.edit',[
+            'client' => User::find($id),'countries'=>$countries
+            ]);
     }
 
     /**
@@ -78,8 +82,16 @@ class ClientsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-    }
+        User::where('id', $id)->update([
+        'name' => $request->name,
+        'email' => $request->email,
+        'phone' => $request->phone,
+        'avatar' => ($request->avatar == null ? 'storage/avatars/avatar.jpg' : 'storage/avatars/' . $request->avatar),
+        'password' => $request->password,
+        'updated_at'=>now(),
+    ]);
+        return redirect('/clients');
+}
 
     /**
      * Remove the specified resource from storage.

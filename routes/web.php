@@ -26,9 +26,15 @@ Route::get('/sendgreeting/{id}', 'MailsController@GreetingMail')->name('Mails.Gr
 Route::get('/sendreminder/{id}', 'MailsController@ReminderMail')->name('Mails.ReminderMail');
 
 
-Route::get('/admin', function () { return view('Admin.admin_template'); })->name('admin')->middleware('auth:employee');
-Route::get('/admin/index', function () { return view('Admin.index'); });
-Route::get('/admin/index2', function () { return view('Admin.index2'); });
+Route::get('/admin', function () {
+    return view('Admin.admin_template');
+})->name('admin')->middleware('auth:employee');
+Route::get('/admin/index', function () {
+    return view('Admin.index');
+});
+Route::get('/admin/index2', function () {
+    return view('Admin.index2');
+});
 
 
 Route::prefix('employee')->group(function () {
@@ -58,14 +64,26 @@ Route::post('/receptionists', 'ReceptionistController@store');
 
 Route::get('/receptionists', 'ReceptionistController@index');
 Route::get('/clients', 'ClientsController@index');
-Route::get('/rooms', 'roomController@index');
+Route::get('/clients/{id}/edit', 'ClientsController@edit');
+Route::PUT('/clients/{id}/update', 'ClientsController@update');
+
+
+Route::get('/rooms', 'RoomsController@index');
+Route::get('/rooms/create', 'RoomsController@create');
+Route::post('/rooms', 'RoomsController@store');
+Route::get('/rooms/{id}/edit', 'RoomsController@edit');
+Route::PUT('/rooms/{id}/update', 'RoomsController@update');
+
 Route::get('/floors', 'FloorsController@index');
+Route::get('/floors/create', 'FloorsController@create');
+Route::post('/floors', 'FloorsController@store');
+Route::get('/floors/{id}/edit', 'FloorsController@edit');
+Route::PUT('/floors/{id}/update', 'FloorsController@update');
 
 
 Route::get('/admin/getManagers', 'ManagersController@index');
 Route::get('/admin/getReceptionist', 'ReceptionistController@index');
 Route::get('/admin/getClient', 'ClientsController@index');
-Route::get('/rooms', 'RoomsController@index');
 Route::get('/reservations', 'ReservationsController@index')->name('manager.reservation');
 
 // Temporary Routes To Test Ban and Unban
@@ -80,8 +98,8 @@ Route::prefix('client')->group(function () {
     Route::get('/reservations/{id}/room', 'ClientsViewsController@create')->name('client.create');
     Route::post('/reservations/{id}/room', 'ClientsViewsController@store')->name('client.store');
     Route::get('/show', 'ClientsViewsController@showReserved')->name('client.show');
-    Route::get('/editProfile/{id}','ClientsViewsController@edit')->name('client.edit_profile');
-    Route::put('/editProfile/update/{id}','ClientsViewsController@update')->name('client.edit_profile_update');
+    Route::get('/editProfile/{id}', 'ClientsViewsController@edit')->name('client.edit_profile');
+    Route::put('/editProfile/update/{id}', 'ClientsViewsController@update')->name('client.edit_profile_update');
 
 
 });
