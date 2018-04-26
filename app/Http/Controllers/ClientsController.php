@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\DataTables\clientsDataTable;
+use Illuminate\Foundation\Auth\User;
 
 class ClientsController extends Controller
 {
@@ -50,7 +51,7 @@ class ClientsController extends Controller
      */
     public function show($id)
     {
-        //
+       
     }
 
     /**
@@ -61,7 +62,9 @@ class ClientsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('client.edit',[
+            'client' => User::find($id)
+            ]);
     }
 
     /**

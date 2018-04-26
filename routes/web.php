@@ -64,6 +64,7 @@ Route::PUT('/employees/{id}/update', 'ManagersController@update');
 Route::DELETE('/employees/{id}', 'ManagersController@destroy');
 Route::get('/receptionists/create', 'ReceptionistController@create');
 Route::post('/receptionists', 'ReceptionistController@store');
+Route::get('/clients/{id}/edit', 'ClientsController@edit');
 
 
 
