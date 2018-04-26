@@ -6,10 +6,11 @@ use Cog\Contracts\Ban\Bannable as BannableContract;
 use Cog\Laravel\Ban\Traits\Bannable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
 class Employee extends Authenticatable implements BannableContract
 {
-    use Notifiable, Bannable;
+    use Notifiable, Bannable,HasRoles;
 
     protected $guard = 'employee';
 
