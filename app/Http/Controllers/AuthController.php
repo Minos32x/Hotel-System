@@ -14,10 +14,13 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login','index']]);
     }
-
-    /**
+    public function index ()
+        {
+            return view('api.login');
+        }    
+/**
      * Get a JWT via given credentials.
      *
      * @return \Illuminate\Http\JsonResponse
