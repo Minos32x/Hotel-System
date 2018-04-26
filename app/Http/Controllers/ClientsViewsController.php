@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\ClientReservedDataTable;
 use App\DataTables\ClientRoomsDataTable;
+use App\Http\Requests\UpdateUserRequest;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -48,7 +49,7 @@ class ClientsViewsController extends Controller
             'countries' => $countries]);
     }
 
-    public function update(Request $req, $id)
+    public function update(UpdateUserRequest $req, $id)
     {
 
         $image = time() . $req->file('avatar');

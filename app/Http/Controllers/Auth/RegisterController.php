@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Rinvex\Country\Models\Country;
-use Illuminate\Support\Facades\Storage;
 
 class RegisterController extends Controller
 {
