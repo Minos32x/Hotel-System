@@ -265,9 +265,12 @@ desired effect
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">HEADER</li>
                 <!-- Optionally, you can add icons to the links -->
-
+                        <?php if ( Auth::guard('employee')->user()->type === 'admin' ){ ?>
                 <li class="active"><a href="/managers"><i class="fa fa-link"></i> <span>manage Managers</span></a></li>
-                <li><a href="/receptionists"><i class="fa fa-link"></i> <span>manage Recepionists</span></a></li>
+                        <?php  }  ?>
+                        <?php if ( Auth::guard('employee')->user()->type === 'admin' || Auth::guard('employee')->user()->type === 'manager'){ ?>
+                <li><a href="/receptionists"><i class="fa fa-link"></i> <span>manage Receptionists</span></a></li>
+                        <?php  }  ?>
                 <li><a href="/clients"><i class="fa fa-link"></i> <span>manage Clients</span></a></li>
                 <li><a href="{{ route('manager.reservation') }}"><i class="fa fa-link"></i> <span>Reservations</span>
                     </a></li>
@@ -370,10 +373,14 @@ desired effect
                     <span class="label label-danger pull-right">70%</span>
                   </span>
                             </h4>
+                            
+                                <a href={{ route('employee.logout')}} > logout</a>
+                                <span class="pull-right-container">
+                    
+                  </span>
+                            
 
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-                            </div>
+                           
                         </a>
                     </li>
                 </ul>
