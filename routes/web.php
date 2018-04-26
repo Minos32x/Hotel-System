@@ -79,13 +79,14 @@ Route::get('ban/{id}', 'EmployeeController@EmployeeBan')->name('employee.ban');
 Route::get('unban/{id}', 'EmployeeController@Employeeunban')->name('employee.unban');
 
 
-
 Route::prefix('client')->group(function () {
     Route::get('/', 'ClientsViewsController@index')->name('client.index');
     Route::get('/profile', 'ClientsViewsController@profile')->name('client.profile');
-    Route::get('/reservations', 'ClientsViewsController@create')->name('client.reservation');
-    Route::get('/reservations/room/{id}', 'ClientsViewsController@store')->name('client.reservation');
+    Route::get('/reservations', 'ClientsViewsController@showRooms')->name('client.reservation');
+    Route::get('/reservations/{id}/room', 'ClientsViewsController@create')->name('client.create');
     Route::get('/show', 'ClientsViewsController@showReserved')->name('client.show');
+    Route::get('/editProfile/{id}','ClientsViewsController@edit')->name('client.edit_profile');
+    Route::put('/editProfile/update/{id}','ClientsViewsController@update')->name('client.edit_profile_update');
 });
 
 

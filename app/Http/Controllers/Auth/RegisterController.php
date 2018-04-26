@@ -64,6 +64,8 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $image=time().$data['avatar'];
+        Storage::disk('public')->putFileAs('/avatars', $data['avatar'],$image);
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -71,7 +73,7 @@ class RegisterController extends Controller
             'phone' => $data['phone'],
             'country' => $data['country'],
             'last_login' => now(),
-            'avatar' => ''
+            'avatar' => ($data['avatar']==null? 'avatar.jpg':$image)
         ]);
     }
 

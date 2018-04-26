@@ -1,12 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+    <div ><a href="{{ url('client/editProfile/'.$user->id) }}" class="btn btn-warning">Edit Profile</a> </div>
     <div class="container">
         <div class="row">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="col-md-4 col-xs-12 col-sm-6 col-lg-4">
-                        <img alt="User Pic" src="{{ asset($user->avatar) }}" id="profile-image1"
+                        <img alt="User Pic" src="{{ asset('storage/avatars/'.$user->avatar) }}" id="profile-image1"
                              class="img-circle img-responsive">
 
                     </div>
@@ -27,9 +28,9 @@
                                          style="width:50px;"></span>{{$user->email}}</p></li>
                         </ul>
                         <hr>
-                        <div class="col-sm-5 col-xs-6 tital ">Date Of Joining: {{$user->created_at}}</div>
+                        <div class="col-sm-5 col-xs-6 tital "><span class="glyphicon glyphicon-calendar"></span> Date Of Joining: {{$user->created_at}}</div>
                         <br>
-                        <div class="col-sm-5 col-xs-6 tital ">Last Visit: {{$user->last_login}}</div>
+                        <div class="col-sm-5 col-xs-6 tital "><span class="glyphicon glyphicon-calendar"></span> Last Visit: {{$user->last_login}}</div>
                     </div>
                 </div>
             </div>
