@@ -12,6 +12,19 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('bower_components/bootstrap/dist/css/bootstrap.min.css')}}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{asset ('bower_components/font-awesome/css/font-awesome.min.css')}}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="{{asset ('bower_components/Ionicons/css/ionicons.min.css')}}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{asset ('bower_components/admin-lte/dist/css/AdminLTE.min.css')}}">
+    <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+          page. However, you can choose any other skin. Make sure you
+          apply the skin class to the body tag so the changes take effect. -->
+    <link rel="stylesheet" href="{{asset ('bower_components/admin-lte/dist/css/skins/skin-blue.min.css')}}">
+    <link rel="stylesheet" href="{{asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
+
 </head>
 <body>
 
@@ -92,10 +105,33 @@
         </div>
     </nav>
 
+    {{--User Nav Bar--}}
+    @if(Auth::user())
+    <div>
+        <div class="navbar navbar-inverse navbar-top">
+            <ul class="nav navbar-nav">
+                <li><a href="{{ route('client.index') }}">Home</a></li>
+                <li><a href="{{ route('client.profile') }}">My Profile</a></li>
+                <li><a href="{{ route('client.reservation') }}">Make Reservation</a></li>
+                <li><a href="{{ route('client.show') }}">My Reservations</a></li>
+
+
+            </ul>
+        </div>
+    </div>
+    @endif
+    {{--End Of User Nave Bar--}}
     @yield('content')
 </div>
 
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
+<script src="{{asset('bower_components/admin-lte/dist/js/adminlte.min.js')}}"></script>
+<script src="{{asset('bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+<script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>
+<script src="/vendor/datatables/buttons.server-side.js"></script>
+<!--  end added to help me in backend table -->
+@stack('js')
 </body>
 </html>

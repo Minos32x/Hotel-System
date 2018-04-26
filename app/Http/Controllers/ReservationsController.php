@@ -16,8 +16,10 @@ class ReservationsController extends Controller
     }
 
 
+
     public function update($id)
     {
+
 
     }
 
