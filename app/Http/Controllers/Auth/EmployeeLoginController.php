@@ -28,10 +28,11 @@ class EmployeeLoginController extends Controller
             'email' => 'required|email',
             'password' => 'required|min:6'
         ]);
-        //attempt to log the employee in
-        if (Auth::guard('employee')->attempt(['email' => $request['email'], 'password' => $request['password']], $request->remember)) {
-            return redirect()->intended(route('employee.dashboard'));
-        }
+                //attempt to log the employee in 
+       if  (Auth::guard('employee')->attempt(['email'=>$request['email'],'password'=>$request['password']],$request->remember))
+       {
+                return redirect()->intended(route('admin'));
+       }
         //if sucsses insert the employee in the session 
         return redirect()->back()->withInput($request->only('email,remeber'));
     }
@@ -42,6 +43,6 @@ class EmployeeLoginController extends Controller
 
         
         return redirect('/');
-
+        
     }
 }
