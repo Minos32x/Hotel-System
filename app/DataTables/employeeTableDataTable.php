@@ -76,16 +76,21 @@ class employeeTableDataTable extends DataTable
      */
     protected function getColumns()
     {
-        return [
-            [
+        
+        
+        $data= [
+            [   
+               
                 'name' => 'id',
                 'data' => 'id',
                 'title' => 'ID',
             ],
             [
                 'name' => 'name',
-                'data' => 'name',
+                'data' =>  'name',
                 'title' => 'Manager Name',
+                
+
             ],
             [
                 'name' => 'created_at',
@@ -97,21 +102,27 @@ class employeeTableDataTable extends DataTable
                 'data' => 'updated_at',
                 'title' => 'Updated_at',
             ],
-            [
-                'name' => 'action',
-                'data' => 'action',
-                'title' => 'Actions',
-                'exportable' => false,
-                'printable' => false,
-                'orderable' => false,
-                'searchable' => false,
-
-            ],
+            
             // 'id',
             // 'name',
             // 'created_at',
             // 'updated_at'
         ];
+        {
+            array_push($data,
+                [
+                    'name' => 'action',
+                    'data' => 'action',
+                    'title' => 'Actions',
+                    'exportable' => false,
+                    'printable' => false,
+                    'orderable' => false,
+                    'searchable' => false,
+    
+                ]
+                );
+                }
+        return $data;
     }
 
     /**
