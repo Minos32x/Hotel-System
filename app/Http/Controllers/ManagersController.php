@@ -102,10 +102,12 @@ class ManagersController extends Controller
     public function update(Request $request, $id)
     {
         // $manager->update($request->all());
-        Employee::where('id', $id)->update(['name' => $request->name,
-            'email' => $request->email,
-            'national_id' => $request->national_id,
-            'avatar' => $request->avatar,
+        Employee::where('id', $id)->update(
+            [
+                'name' => $request->name,
+                'email' => $request->email,
+                'national_id' => $request->national_id,
+                'avatar' => ($request->avatar == null ? 'storage/avatars/avatar.jpg' : 'storage/avatars/' . $request->avatar),
 
         ]);
         if ((Employee::find($id)->type) == 'manager') {

@@ -83,27 +83,9 @@ class employeeTableDataTable extends DataTable
      */
     protected function getColumns()
     {
-        $data=[[
-                'name' => 'id',
-                'data' => '',
-                'title' => 'ID',
-            ],
-            [
-                'name' => 'name',
-                'data' => '',
-                'title' => 'Name',
-            ],
-            [
-                'name' => 'updated_at',
-                'data' => '',
-                'title' => 'Updated_at',
-            ]];
-
         $user=Auth::guard('employee')->user();
-        if(($this->type=='manager'&& $user->hasRole('admin')) || $this->type==='receptionist' && $user->hasRole('manager')){
-        // dd($user);
-        // dd(Role::where('name','manager')->where('guard_name','employee')->first()->id);
-        // dd($user->hasRole('manager'));
+        if(($user->hasRole('admin')) || $this->type==='receptionist' && $user->hasRole('manager')){
+
         $data = [
             [
                 'name' => 'id',
@@ -127,7 +109,7 @@ class employeeTableDataTable extends DataTable
                 'exportable' => false,
                 'printable' => false,
                 'orderable' => false,
-                's earchable' => false,
+                'searchable' => false,
         
          ]];
         }
@@ -141,25 +123,6 @@ class employeeTableDataTable extends DataTable
             'title' => 'Created_at',
      ]);
  }       
-            // [
-            //     'name' => 'action',  
-            //     'data' => 'action',
-            //     'title' => 'Actions',
-            //     'exportable' => false,
-            //     'printable' => false,
-            //     'orderable' => false,
-            //     'searchable' => false,
-
-            // ],            // [
-            //     'name' => 'created_at',
-            //     'data' => 'created_at',
-            //     'title' => 'Created_at',
-            // ],
-            // 'id',
-            // 'name',
-            // 'created_at',
-            // 'updated_at'
-        // ];   
         return $data;
     }
 

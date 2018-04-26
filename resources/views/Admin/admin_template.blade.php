@@ -373,10 +373,14 @@ desired effect
                     <span class="label label-danger pull-right">70%</span>
                   </span>
                             </h4>
+                            
+                                <a href={{ route('employee.logout')}} > logout</a>
+                                <span class="pull-right-container">
+                    
+                  </span>
+                            
 
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-                            </div>
+                           
                         </a>
                     </li>
                 </ul>

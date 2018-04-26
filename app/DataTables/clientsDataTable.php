@@ -99,10 +99,7 @@ class clientsDataTable extends DataTable
                 'searchable' => false,
 
             ],
-            // 'id',
-            // 'name',
-            // 'created_at',
-            // 'updated_at'
+
         ];
     }
 
