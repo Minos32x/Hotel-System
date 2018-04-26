@@ -19,7 +19,7 @@ class adminCreate extends Seeder
         $add->national_id= now();
         $add->type='admin';
         $add->save();
-
+        $add->assignRole('admin');
 
     }
 }

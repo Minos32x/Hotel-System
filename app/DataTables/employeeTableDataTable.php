@@ -4,13 +4,20 @@ namespace App\DataTables;
 
 use App\Employee;
 use Yajra\DataTables\Services\DataTable;
+use Auth;
+use Spatie\Permission\Traits\HasRoles;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class employeeTableDataTable extends DataTable
 {
+    use HasRoles;
     public $my_query;
+    public $type;
 
-    public function __construct($y){
-      $this->my_query = $y;
+    public function __construct($query,$type){
+      $this->my_query = $query;
+      $this->type=$type;
     }
    
     /**
@@ -76,7 +83,28 @@ class employeeTableDataTable extends DataTable
      */
     protected function getColumns()
     {
-        return [
+        $data=[[
+                'name' => 'id',
+                'data' => '',
+                'title' => 'ID',
+            ],
+            [
+                'name' => 'name',
+                'data' => '',
+                'title' => 'Name',
+            ],
+            [
+                'name' => 'updated_at',
+                'data' => '',
+                'title' => 'Updated_at',
+            ]];
+
+        $user=Auth::guard('employee')->user();
+        if(($this->type=='manager'&& $user->hasRole('admin')) || $this->type==='receptionist' && $user->hasRole('manager')){
+        // dd($user);
+        // dd(Role::where('name','manager')->where('guard_name','employee')->first()->id);
+        // dd($user->hasRole('manager'));
+        $data = [
             [
                 'name' => 'id',
                 'data' => 'id',
@@ -85,12 +113,7 @@ class employeeTableDataTable extends DataTable
             [
                 'name' => 'name',
                 'data' => 'name',
-                'title' => 'Manager Name',
-            ],
-            [
-                'name' => 'created_at',
-                'data' => 'created_at',
-                'title' => 'Created_at',
+                'title' => 'Name',
             ],
             [
                 'name' => 'updated_at',
@@ -98,20 +121,46 @@ class employeeTableDataTable extends DataTable
                 'title' => 'Updated_at',
             ],
             [
-                'name' => 'action',
+                'name' => 'action',  
                 'data' => 'action',
                 'title' => 'Actions',
                 'exportable' => false,
                 'printable' => false,
                 'orderable' => false,
-                'searchable' => false,
+                's earchable' => false,
+        
+         ]];
+        }
 
-            ],
+ if($user->hasRole('admin'))
+ {
+     array_push($data,
+     [
+            'name' => 'created_at',
+            'data' => 'created_at',
+            'title' => 'Created_at',
+     ]);
+ }       
+            // [
+            //     'name' => 'action',  
+            //     'data' => 'action',
+            //     'title' => 'Actions',
+            //     'exportable' => false,
+            //     'printable' => false,
+            //     'orderable' => false,
+            //     'searchable' => false,
+
+            // ],            // [
+            //     'name' => 'created_at',
+            //     'data' => 'created_at',
+            //     'title' => 'Created_at',
+            // ],
             // 'id',
             // 'name',
             // 'created_at',
             // 'updated_at'
-        ];
+        // ];   
+        return $data;
     }
 
     /**

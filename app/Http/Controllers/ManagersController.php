@@ -7,17 +7,21 @@ use App\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Rinvex\Country\Models\Country;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Traits\HasRoles;
+use Spatie\Permission\Models\Permission;
 
 
 class ManagersController extends Controller
 {
     public $flag;
+    use HasRoles;
 
     public function index()
     {
         $this->flag = $_SERVER["REQUEST_URI"];
         // dd($flag);
-        $emp = new employeeTableDataTable(DB::table('employees')->where('type', 'manager'));
+        $emp = new employeeTableDataTable(DB::table('employees')->where('type', 'manager'),"manager");
         return $emp->render('Admin.emp');
 
     }
@@ -46,9 +50,9 @@ class ManagersController extends Controller
     {
 
 
-        $request->file('avatar')->store('/avatars');
+
         $Created_by = ($request->user('employee')->id);
-        Employee::create([
+        $manager= Employee::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
@@ -59,7 +63,7 @@ class ManagersController extends Controller
             'created_by' => $Created_by
 
         ]);
-
+        $manager->assignRole('manager');
         return redirect('/managers');
     }
 
