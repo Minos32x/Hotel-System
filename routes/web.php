@@ -81,11 +81,11 @@ Route::get('unban/{id}', 'EmployeeController@Employeeunban')->name('employee.unb
 
 
 Route::prefix('client')->group(function () {
-    Route::get('/', 'ClientsController@home')->name('client.home');
-    Route::get('/profile', 'ClientsController@profile')->name('client.profile');
-    Route::get('/reservations', 'ClientsController@create')->name('client.reservation');
-    Route::post('/reservations', 'ClientsController@ReservationStore')->name('client.reservation');
-    Route::get('/show', 'ClientsController@index2')->name('client.show');
+    Route::get('/', 'ClientsViewsController@index')->name('client.index');
+    Route::get('/profile', 'ClientsViewsController@profile')->name('client.profile');
+    Route::get('/reservations', 'ClientsViewsController@create')->name('client.reservation');
+    Route::post('/reservations', 'ClientsViewsController@store')->name('client.reservation');
+    Route::get('/show', 'ClientsViewsController@showReserved')->name('client.show');
 });
 
 

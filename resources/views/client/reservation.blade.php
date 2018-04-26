@@ -4,7 +4,6 @@
 @section('content')
     <div>
 
-
         <div class="navbar navbar-inverse navbar-top">
             <a class="navbar-brand" href="#">Brand</a>
             <ul class="nav navbar-nav">
@@ -15,6 +14,18 @@
             </ul>
         </div>
     </div>
+<h1>Avialable Rooms</h1>
+    {!! $dataTable->table() !!}
+
+    @push('js')
+
+        {!! $dataTable->scripts() !!}
+
+    @endpush
+@endsection
+
+
+
 
 <div class="container col-lg-6  col-md-8">
     <form method="POST" enctype="multipart/form-data" action="{{ route('client.reservation') }}">
@@ -32,4 +43,3 @@
     </form>
 </div>
 
-@endsection

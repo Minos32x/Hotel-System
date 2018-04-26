@@ -38,7 +38,7 @@
             <ul class="nav navbar-nav">
                 <li><a href="{{ route('client.profile') }}">My Profile</a></li>
                 <li><a href="{{ route('client.reservation') }}">Make Reservation</a></li>
-                <li><a href="{{ route('client.profile') }}">My Reservations</a></li>
+                <li><a href="{{ route('client.show') }}">My Reservations</a></li>
 
         </ul>
     </div>
