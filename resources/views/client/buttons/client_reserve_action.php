@@ -1,0 +1,1 @@
+<a href ="{{ url('reservation/room/'.$id) }}" class="btn btn-success"><i class="fa fa-trophy"></i> Reserve</a>

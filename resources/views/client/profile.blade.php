@@ -1,24 +1,6 @@
 @extends('layouts.app')
 
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 @section('content')
-    <div>
-
-
-        <div class="navbar navbar-inverse navbar-top">
-            <a class="navbar-brand" href="#">Brand</a>
-            <ul class="nav navbar-nav">
-                <li><a href="{{ route('client.profile') }}">My Profile</a></li>
-                <li><a href="{{ route('client.reservation') }}">Make Reservation</a></li>
-                <li><a href="{{ route('client.show') }}">My Reservations</a></li>
-
-            </ul>
-        </div>
-    </div>
-
-
     <div class="container">
         <div class="row">
             <div class="panel panel-default">
