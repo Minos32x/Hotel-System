@@ -1,9 +1,5 @@
 <?php
 
-use App\Http\Controllers\ManagersController;
-use App\Http\Controllers\ReceptionistController;
-use App\Http\Controllers\ClientsController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -66,7 +62,6 @@ Route::get('/receptionists/create', 'ReceptionistController@create');
 Route::post('/receptionists', 'ReceptionistController@store');
 
 
-
 Route::get('/receptionists', 'ReceptionistController@index');
 Route::get('/clients', 'ClientsController@index');
 Route::get('/rooms', 'roomController@index');
@@ -83,6 +78,15 @@ Route::get('/reservations', 'ReservationsController@index')->name('manager.reser
 Route::get('ban/{id}', 'EmployeeController@EmployeeBan')->name('employee.ban');
 Route::get('unban/{id}', 'EmployeeController@Employeeunban')->name('employee.unban');
 
+
+
+Route::prefix('client')->group(function () {
+    Route::get('/', 'ClientsController@home')->name('client.home');
+    Route::get('/profile', 'ClientsController@profile')->name('client.profile');
+    Route::get('/reservations', 'ClientsController@create')->name('client.reservation');
+    Route::post('/reservations', 'ClientsController@ReservationStore')->name('client.reservation');
+    Route::get('/show', 'ClientsController@index2')->name('client.show');
+});
 
 
 
