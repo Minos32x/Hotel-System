@@ -26,15 +26,9 @@ Route::get('/sendgreeting/{id}', 'MailsController@GreetingMail')->name('Mails.Gr
 Route::get('/sendreminder/{id}', 'MailsController@ReminderMail')->name('Mails.ReminderMail');
 
 
-Route::get('/admin', function () {
-    return view('Admin.admin_template');
-})->name('admin')->middleware('auth:employee');
-Route::get('/admin/index', function () {
-    return view('Admin.index');
-});
-Route::get('/admin/index2', function () {
-    return view('Admin.index2');
-});
+Route::get('/admin', function () { return view('Admin.admin_template'); })->name('admin')->middleware('auth:employee');
+Route::get('/admin/index', function () { return view('Admin.index'); });
+Route::get('/admin/index2', function () { return view('Admin.index2'); });
 
 
 Route::prefix('employee')->group(function () {

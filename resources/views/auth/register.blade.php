@@ -8,7 +8,8 @@
                     <div class="panel-heading">Register</div>
 
                     <div class="panel-body">
-                        <form class="form-horizontal" method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+                        <form class="form-horizontal" method="POST" action="{{ route('register') }}"
+                              enctype="multipart/form-data">
                             {{ csrf_field() }}
 
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -68,7 +69,7 @@
                             <div class="form-group{{ $errors->has('avatar') ? ' has-error' : '' }}">
                                 <label for="avatar" class="col-md-4 control-label">Avatar</label>
                                 <div class="col-md-6">
-                                    <input type="file" name="avatar"/>
+                                    <input type="file" id="avatar" name="avatar"/>
                                 </div>
 
                             </div>
