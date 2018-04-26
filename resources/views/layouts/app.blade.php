@@ -106,6 +106,7 @@
     </nav>
 
     {{--User Nav Bar--}}
+    @if(Auth::user())
     <div>
         <div class="navbar navbar-inverse navbar-top">
             <ul class="nav navbar-nav">
@@ -118,6 +119,7 @@
             </ul>
         </div>
     </div>
+    @endif
     {{--End Of User Nave Bar--}}
     @yield('content')
 </div>

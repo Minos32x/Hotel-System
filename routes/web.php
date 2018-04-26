@@ -84,9 +84,12 @@ Route::prefix('client')->group(function () {
     Route::get('/profile', 'ClientsViewsController@profile')->name('client.profile');
     Route::get('/reservations', 'ClientsViewsController@showRooms')->name('client.reservation');
     Route::get('/reservations/{id}/room', 'ClientsViewsController@create')->name('client.create');
+    Route::post('/reservations/{id}/room', 'ClientsViewsController@store')->name('client.store');
     Route::get('/show', 'ClientsViewsController@showReserved')->name('client.show');
     Route::get('/editProfile/{id}','ClientsViewsController@edit')->name('client.edit_profile');
     Route::put('/editProfile/update/{id}','ClientsViewsController@update')->name('client.edit_profile_update');
+
+
 });
 
 

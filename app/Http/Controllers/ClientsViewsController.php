@@ -42,32 +42,50 @@ class ClientsViewsController extends Controller
 
     public function edit($id)
     {
-        $countries=countries();
-        $User=User::find($id);
-        return view('client.editProfile',['user'=>$User,
-            'countries'=>$countries]);
+        $countries = countries();
+        $User = User::find($id);
+        return view('client.editProfile', ['user' => $User,
+            'countries' => $countries]);
     }
 
-    public function update(Request $req,$id)
+    public function update(Request $req, $id)
     {
 
-        $image=time().$req->file('avatar');
-        Storage::disk('public')->putFileAs('/avatars', $req->file('avatar'),$image);
+        $image = time() . $req->file('avatar');
+        Storage::disk('public')->putFileAs('/avatars', $req->file('avatar'), $image);
 
         User::find($id)->update([
-           'name'=>$req->name,
-            'email'=>$req->email,
-            'phone'=>$req->phone,
-            'gender'=>$req->gender,
-            'country'=>$req->country,
-            'avatar'=>($req->avatar == null ? 'avatar.jpg' : $image)
+            'name' => $req->name,
+            'email' => $req->email,
+            'phone' => $req->phone,
+            'gender' => $req->gender,
+            'country' => $req->country,
+            'avatar' => ($req->avatar == null ? 'avatar.jpg' : $image)
 
         ]);
 
-   return redirect('client/profile');
+        return redirect('client/profile');
 
     }
 
+
+    public function showReservationForm()
+    {
+        return view('client.reservation_form');
+    }
+
+
+    public function create($id)
+    {
+
+        return view('client.reservation_form', ['id' => $id]);
+    }
+
+    public function store($id)
+    {
+        return redirect('client/show');
+
+    }
 
 
 }
