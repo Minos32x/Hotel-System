@@ -4,13 +4,20 @@ namespace App\DataTables;
 
 use App\Employee;
 use Yajra\DataTables\Services\DataTable;
+use Auth;
+use Spatie\Permission\Traits\HasRoles;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class employeeTableDataTable extends DataTable
 {
+    use HasRoles;
     public $my_query;
+    public $type;
 
-    public function __construct($y){
-      $this->my_query = $y;
+    public function __construct($query,$type){
+      $this->my_query = $query;
+      $this->type=$type;
     }
    
     /**
@@ -76,11 +83,11 @@ class employeeTableDataTable extends DataTable
      */
     protected function getColumns()
     {
-        
-        
-        $data= [
-            [   
-               
+        $user=Auth::guard('employee')->user();
+        if(($user->hasRole('admin')) || $this->type==='receptionist' && $user->hasRole('manager')){
+
+        $data = [
+            [
                 'name' => 'id',
                 'data' => 'id',
                 'title' => 'ID',
@@ -89,8 +96,6 @@ class employeeTableDataTable extends DataTable
                 'name' => 'name',
                 'data' =>  'name',
                 'title' => 'Manager Name',
-                
-
             ],
             [
                 'name' => 'created_at',
@@ -102,26 +107,18 @@ class employeeTableDataTable extends DataTable
                 'data' => 'updated_at',
                 'title' => 'Updated_at',
             ],
-            
-            // 'id',
-            // 'name',
-            // 'created_at',
-            // 'updated_at'
-        ];
-        {
-            array_push($data,
-                [
-                    'name' => 'action',
-                    'data' => 'action',
-                    'title' => 'Actions',
-                    'exportable' => false,
-                    'printable' => false,
-                    'orderable' => false,
-                    'searchable' => false,
-    
-                ]
-                );
-                }
+            [
+                'name' => 'action',  
+                'data' => 'action',
+                'title' => 'Actions',
+                'exportable' => false,
+                'printable' => false,
+                'orderable' => false,
+                'searchable' => false,
+        
+         ]];
+        }
+     
         return $data;
     }
 

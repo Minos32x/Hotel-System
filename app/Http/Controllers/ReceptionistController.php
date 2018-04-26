@@ -5,9 +5,13 @@ use Illuminate\Support\Facades\DB;
 use App\Employee;
 use Illuminate\Http\Request;
 use App\DataTables\employeeTableDataTable;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Traits\HasRoles;
+use Spatie\Permission\Models\Permission;
 
 class ReceptionistController extends Controller
 {
+    use HasRoles;
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +21,7 @@ class ReceptionistController extends Controller
     {
         // $flag = $_SERVER["REQUEST_URI"];
 
-        $emp = new employeeTableDataTable( DB::table('employees')->where('type', 'receptionist'));
+        $emp = new employeeTableDataTable( DB::table('employees')->where('type', 'receptionist'),"receptionist");
         return $emp->render('Admin.emp');
 
     }
@@ -48,17 +52,18 @@ class ReceptionistController extends Controller
         
         $Created_by = ($request->user('employee')->id);
 
-         Employee::create([
+         $receptionist=Employee::create([
 
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'national_id'=>$request->national_id,
             'type'=>'receptionist',
-            // 'avatar'=>$request->avatar,
+            'avatar' => ($request->avatar == null ? 'storage/avatars/avatar.jpg' : 'storage/avatars/' . $request->avatar),
             'created_by'=> $Created_by
            
         ]);
+            $receptionist->assignRole('receptionist');
         
          return redirect('/receptionists'); 
 

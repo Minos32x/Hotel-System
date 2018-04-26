@@ -7,6 +7,7 @@ use Yajra\DataTables\Services\DataTable;
 
 class ReservationDataTable extends DataTable
 {
+    
     /**
      * Build DataTable class.
      *
