@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class FloorsController extends Controller
 {
+    public $Floor_Number;
     /**
      * Display a listing of the resource.
      *
@@ -29,6 +30,7 @@ class FloorsController extends Controller
     public function create()
     {
         return view ('floor.create');
+
     }
 
     /**
@@ -40,8 +42,9 @@ class FloorsController extends Controller
     public function store(Request $request)
     {
         $Created_by = ($request->user('employee')->id);
+        $this->Random_number();
         Floor::create([
-            'floor_num' => $request->floor_num,
+            'floor_num' => $this->Floor_Number,
             'no_of_room' => $request->no_of_room,
             'created_by' => $Created_by
 
@@ -85,7 +88,8 @@ class FloorsController extends Controller
     public function update(Request $request, $id)
     {
         Floor::where('id', $id)->update(
-        ['floor_num' => $request->floor_num,
+        [
+        
         'no_of_room' => $request->no_of_room,
         ]);
         return redirect ('/floors');
@@ -100,5 +104,13 @@ class FloorsController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function Random_number()
+    {
+        $this->Floor_Number=rand ( 1000 , 9999 );
+        if (Floor::where('floor_num', '=', $this->Floor_Number)->count() > 0)
+         {
+            Random_number();
+         }
     }
 }

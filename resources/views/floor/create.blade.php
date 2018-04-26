@@ -14,19 +14,7 @@
                         
 
                        
-                        <div class="form-group{{ $errors->has('floor_num') ? ' has-error' : '' }}">
-                            <label for="floor_num" class="col-md-4 control-label">Floor Number</label>
-
-                            <div class="col-md-6">
-                                <input id="floor_num" type="text" class="form-control" name="floor_num" value="{{ old('floor_num') }}" required>
-
-                                @if ($errors->has('floor_num'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('floor_num') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+                       
 
                          <div class="form-group{{ $errors->has('no_of_room') ? ' has-error' : '' }}">
                             <label for="no_of_room" class="col-md-4 control-label">Number Of Rooms</label>
