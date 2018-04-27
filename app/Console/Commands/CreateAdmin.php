@@ -42,7 +42,7 @@ class CreateAdmin extends Command
     public function handle()
     {
 
-        Employee::create([
+       $Admin=Employee::create([
             'name' => 'Admin',
             'email' => $this->option('email'),
             'type' => 'admin',
@@ -50,6 +50,7 @@ class CreateAdmin extends Command
             'password' => Hash::make($this->option('password')),
 
         ]);
+        $Admin->assignRole('admin');
         $this->line(' Admin is created successfuly');
 
     }
