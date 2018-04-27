@@ -68,7 +68,7 @@
                             <div class="form-group{{ $errors->has('avatar') ? ' has-error' : '' }}">
                                 <label for="avatar" class="col-md-4 control-label">Avatar</label>
                                 <div class="col-md-6">
-                                    <input type="file" id="avatar" name="avatar"/>
+                                    <input type="file" id="avatar"  name="avatar"/>
                                 </div>
 
                             </div>

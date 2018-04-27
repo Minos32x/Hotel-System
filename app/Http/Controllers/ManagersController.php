@@ -10,6 +10,7 @@ use Rinvex\Country\Models\Country;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Storage;
 
 
 class ManagersController extends Controller
@@ -50,8 +51,10 @@ class ManagersController extends Controller
     {
 
 
-        $image=time().$request->file('avatar');
-        Storage::disk('public')->putFileAs('/avatars', $req->file('avatar'),$image);
+        $image=$request->file('avatar');
+        // dd($image);
+        Storage::disk('public')->putFileAs('public/avatars', $request->file('avatar'),$image);
+
         $Created_by = ($request->user('employee')->id);
         $manager= Employee::create([
             'name' => $request->name,
