@@ -18,7 +18,7 @@ class ClientsController extends Controller
     public function index()
     {
 
-        $emp = new clientsDataTable(DB::table('users'));
+        $emp = new clientsDataTable(DB::table('users')->where('approved_state',0));
         return $emp->render('Admin.emp');
 
     }
@@ -82,11 +82,21 @@ class ClientsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (empty($request->file('avatar'))) {
+
+            $image = User::find($id)->avatar;
+        } else {
+
+            $image = time() . '.' . $request->file('avatar')->getCLientOriginalName();
+            Storage::putFileAs('public/avatars', $request->avatar, $image);
+        }
+
+
         User::where('id', $id)->update([
         'name' => $request->name,
         'email' => $request->email,
         'phone' => $request->phone,
-        'avatar' => ($request->avatar == null ? 'storage/avatars/avatar.jpg' : 'storage/avatars/' . $request->avatar),
+        'avatar' => $image,
         'password' => $request->password,
         'updated_at'=>now(),
     ]);
