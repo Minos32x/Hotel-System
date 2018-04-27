@@ -7,6 +7,7 @@ use App\DataTables\ClientRoomsDataTable;
 use App\Http\Requests\UpdateUserRequest;
 use App\Room;
 use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -85,17 +86,41 @@ class ClientsViewsController extends Controller
     public function create($id)
     {
 
-        return view('client.reservation_form', ['room' => Room::find($id)]);
+        return view('client.reservation_form', ['id' => $id,
+            'room' => Room::find($id)]);
     }
 
 
     public function confirm($id)
     {
 
-        return view('client.payment_form', ['room' => Room::find($id)]);
+        if (isset($_POST['stripeToken'])) {
+
+// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+            \Stripe\Stripe::setApiKey("sk_test_85Rd2lxhCpyYqchbpvfgEi1u");
+            $customer = \Stripe\Customer::create([
+                'source' => 'tok_mastercard',
+                'email' => $_POST['stripeEmail'],
+            ]);
+
+// Token is created using Checkout or Elements!
+// Get the payment token ID submitted by the form:
+            $token = $_POST['stripeToken'];
+            $amount = DB::table('rooms')->select('price')->where('id', $id)->first();
+            $charge = \Stripe\Charge::create([
+                'amount' => ($amount->price),
+                'currency' => 'usd',
+                'description' => 'Example charge',
+                'source' => $token,
+            ]);
+        }
+        // your data will be stored here m3ak el rakam el room w el price hatsglo f gadwal tani w bel tali lw et8iar f esh hwa f gadwal tani 
+        // return view('client.reserved_rooms');
+        return redirect ('/client/reservations');
     }
 
-    public function store(Request $request, $id)
+    public function showPayment(Request $request, $id)
     {
         $request->validate(['accompany_number' => 'required']);
 
@@ -103,34 +128,12 @@ class ClientsViewsController extends Controller
         $accompany = $request->accompany_number;
         $accompany = (int)$accompany;
         if ($max_num < $accompany) {
-
-            return view('client/reservations/' . $id . '/room', with('message', "Wrong Validation Number"));
+            return view('client.reservation_form', ['id' => $id])->with('error', "Wrong Validation Number");
 
         } else {
 
-            if (isset($_POST['stripeToken'])) {
+            return view('client.payment_form', ['room' => Room::find($id)]);
 
-// Set your secret key: remember to change this to your live secret key in production
-// See your keys here: https://dashboard.stripe.com/account/apikeys
-                \Stripe\Stripe::setApiKey("sk_test_85Rd2lxhCpyYqchbpvfgEi1u");
-                $customer = \Stripe\Customer::create([
-                    'source' => 'tok_mastercard',
-                    'email' => $_POST['stripeEmail'],
-                ]);
-
-// Token is created using Checkout or Elements!
-// Get the payment token ID submitted by the form:
-                $token = $_POST['stripeToken'];
-                $amount = DB::table('rooms')->select('price')->where('id', $id)->first();
-                $charge = \Stripe\Charge::create([
-                    'amount' => ($amount->price),
-                    'currency' => 'usd',
-                    'description' => 'Example charge',
-                    'source' => $token,
-                ]);
-            }
-
-            return redirect('client/show');
         }
     }
 

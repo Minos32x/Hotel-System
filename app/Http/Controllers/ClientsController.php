@@ -84,8 +84,10 @@ class ClientsController extends Controller
     {
         User::where('id', $id)->update([
         'name' => $request->name,
+        'gender' => $request->gender,
         'email' => $request->email,
         'phone' => $request->phone,
+        'country'=>$request->country,
         'avatar' => ($request->avatar == null ? 'storage/avatars/avatar.jpg' : 'storage/avatars/' . $request->avatar),
         'password' => $request->password,
         'updated_at'=>now(),
