@@ -132,6 +132,7 @@
 <script src="{{asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
 <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>
 <script src="/vendor/datatables/buttons.server-side.js"></script>
+
 <!--  end added to help me in backend table -->
 @stack('js')
 </body>
