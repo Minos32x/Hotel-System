@@ -3,7 +3,17 @@
 @section('content')
 
     <div class="container">
-        <form method="get" action="/client/payment/{{$room->id}}/room">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <div class="alert-danger">{{ $error }}</div>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        <form method="POST" action="/client/payment/{{$room->id}}/room">
+
 
 
             <div class="form-group">
@@ -11,6 +21,9 @@
                 <input type="number" class="form-control" id="RoomAccompany" max="{{$room->capacity}}"name="accompany_number">
 
             </div>
+            @if(session()->has('message'))
+                <div class="alert-danger"> Error</div>
+                @endif
 
 
             <button type="submit" class="btn btn-success">Confirm</button>

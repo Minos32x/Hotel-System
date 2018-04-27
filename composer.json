@@ -10,6 +10,7 @@
     "require": {
         "php": ">=7.0.0",
         "cybercog/laravel-ban": "^3.1",
+        "effectdigital/laravel-number-validation": "^1.0",
         "fideloper/proxy": "~3.3",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
