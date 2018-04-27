@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\ClientReservedDataTable;
 use App\DataTables\ClientRoomsDataTable;
 use App\Http\Requests\UpdateUserRequest;
+use App\Room;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -49,19 +50,25 @@ class ClientsViewsController extends Controller
             'countries' => $countries]);
     }
 
-    public function update(UpdateUserRequest $req, $id)
+    public function update(UpdateUserRequest $request, $id)
     {
 
-        $image = time() . $req->file('avatar');
-        Storage::disk('public')->putFileAs('/avatars', $req->file('avatar'), $image);
+        if (empty($request->file('avatar'))) {
+
+            $image = User::find(18)->avatar;
+        } else {
+
+            $image = time() . '.' . $request->file('avatar')->getCLientOriginalName();
+            Storage::putFileAs('public/avatars', $request->avatar, $image);
+        }
 
         User::find($id)->update([
-            'name' => $req->name,
-            'email' => $req->email,
-            'phone' => $req->phone,
-            'gender' => $req->gender,
-            'country' => $req->country,
-            'avatar' => ($req->avatar == null ? 'avatar.jpg' : $image)
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'gender' => $request->gender,
+            'country' => $request->country,
+            'avatar' => $image
 
         ]);
 
@@ -82,10 +89,20 @@ class ClientsViewsController extends Controller
         return view('client.reservation_form', ['id' => $id]);
     }
 
-    public function store($id)
+    public function store(Request $request, $id)
     {
-        return redirect('client/show');
+        $request->validate(['accompany_number' => 'required']);
 
+        $max_num = Room::find($id)->capacity;
+        $accompany = $request->accompany_number;
+        $accompany = (int)$accompany;
+        if ($max_num < $accompany) {
+            return view('client/reservations/' . $id . '/room', with('message', "Wrong Validation Number"));
+        } else {
+
+
+            return redirect('client/show');
+        }
     }
 
 

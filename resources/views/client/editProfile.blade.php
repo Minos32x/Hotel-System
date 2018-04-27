@@ -30,42 +30,42 @@
 
 
             <div class="form-group"
-                <label for="UserPhone">Phone</label>
-                <input type="text" class="form-control" id="UserPhone" name="phone" value="{{$user->phone}}">
+            <label for="UserPhone">Phone</label>
+            <input type="text" class="form-control" id="UserPhone" name="phone" value="{{$user->phone}}">
 
-            </div>
+    </div>
 
-            <div class="form-group">
-                <label for="UserGender">Gender</label>
+    <div class="form-group">
+        <label for="UserGender">Gender</label>
 
-                <select class="form-control form-control-lg" name="gender" value="{{$user->gender}}" +>
-                    <option value="male" {{ $user->gender == "male" ? 'selected' : '' }}>Male</option>
-                    <option value="female" {{ $user->gender == "female" ? 'selected' : '' }}>Female</option>
-                </select>
-            </div>
-
-
-            <div class="form-group">
-                <label for="UserCountry"> Country</label>
-                <select class="form-control form-control-lg" name="country" value="{{$user->country}}">
-                    @foreach($countries as $country)
+        <select class="form-control form-control-lg" name="gender" value="{{$user->gender}}" +>
+            <option value="male" {{ $user->gender == "male" ? 'selected' : '' }}>Male</option>
+            <option value="female" {{ $user->gender == "female" ? 'selected' : '' }}>Female</option>
+        </select>
+    </div>
 
 
-                        <option selected='{{$user->country}}'> {{$country['name']}} {{$country['emoji']}} </option>
-                    @endforeach
-                </select>
+    <div class="form-group">
+        <label for="UserCountry"> Country</label>
+        <select class="form-control form-control-lg" name="country">
+            <option selected value="{{$user->country}}">{{$user->country}} </option>
+            @foreach($countries as $country)
 
-            </div>
+                <option value="{{$country['name']}} {{$country['emoji']}}"> {{$country['name']}} {{$country['emoji']}}</option>
+            @endforeach
+        </select>
 
-            <div class="form-group">
-                <label for="UserAvatar">Avatar</label>
-                <input type="file" class="form-control" id="UserAvatar" name="avatar" value="{{$user->avatar}}">
+    </div>
 
-            </div>
+    <div class="form-group">
+        <label for="UserAvatar">Avatar</label>
+        <input type="file" class="form-control" id="UserAvatar" name="avatar" value="{{$user->avatar}}">
 
-            <div class="text-center">
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-        </form>
+    </div>
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+    </form>
     </div>
 @endsection

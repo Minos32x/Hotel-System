@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 
-use App\User;
 use App\Http\Controllers\Controller;
+use App\User;
+use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Validation\Rule;
 use Rinvex\Country\Models\Country;
 
@@ -55,7 +55,7 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'avatar' => 'required|image|mimes:jpg,jpeg',
+            'avatar' => 'image|mimes:jpg,jpeg',
             'phone' => 'required|min:11',
             'gender' => ['required',
                 Rule::in(['male', 'female'])],
@@ -70,9 +70,16 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $request = app('request');
 
-        $image=time().$data['avatar'];
-        Storage::disk('public')->putFileAs('/avatars', $data['avatar'],$image);
+        if (empty($data['avatar'])) {
+            $image = 'avatar.jpg';
+        } else {
+
+            $image = time() . '.' . $request->avatar->getCLientOriginalName();
+            Storage::putFileAs('public/avatars', $data['avatar'], $image);
+        }
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -80,7 +87,7 @@ class RegisterController extends Controller
             'phone' => $data['phone'],
             'country' => $data['country'],
             'last_login' => now(),
-            'avatar' => ($data['avatar']==null? 'avatar.jpg':$image)
+            'avatar' => $image
         ]);
     }
 

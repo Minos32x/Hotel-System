@@ -6,10 +6,9 @@ use App\DataTables\employeeTableDataTable;
 use App\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Rinvex\Country\Models\Country;
-use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
-use Spatie\Permission\Models\Permission;
 
 
 class ManagersController extends Controller
@@ -21,7 +20,7 @@ class ManagersController extends Controller
     {
         $this->flag = $_SERVER["REQUEST_URI"];
         // dd($flag);
-        $emp = new employeeTableDataTable(DB::table('employees')->where('type', 'manager'),"manager");
+        $emp = new employeeTableDataTable(DB::table('employees')->where('type', 'manager'), "manager");
         return $emp->render('Admin.emp');
 
     }
@@ -50,17 +49,23 @@ class ManagersController extends Controller
     {
 
 
-        $image=time().$request->file('avatar');
-        Storage::disk('public')->putFileAs('/avatars', $req->file('avatar'),$image);
+        if (empty($request->file('avatar'))) {
+            $image = 'avatar.jpg';
+        } else {
+
+            $image = time() . '.' . $request->file('avatar')->getCLientOriginalName();
+            Storage::putFileAs('public/avatars', $request->avatar, $image);
+        }
+
         $Created_by = ($request->user('employee')->id);
-        $manager= Employee::create([
+        $manager = Employee::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'national_id' => $request->national_id,
             'last_login' => now(),
             'type' => 'manager',
-            'avatar' => ($request->avatar == null ? 'avatar.jpg' : $image),
+            'avatar' => $image,
             'created_by' => $Created_by
 
         ]);
@@ -110,7 +115,7 @@ class ManagersController extends Controller
                 'national_id' => $request->national_id,
                 'avatar' => ($request->avatar == null ? 'storage/avatars/avatar.jpg' : 'storage/avatars/' . $request->avatar),
 
-        ]);
+            ]);
         if ((Employee::find($id)->type) == 'manager') {
             return redirect('/managers');
 
