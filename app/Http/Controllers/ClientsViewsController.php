@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use App\DataTables\ClientReservedDataTable;
 use App\DataTables\ClientRoomsDataTable;
 use App\Http\Requests\UpdateUserRequest;
-use App\User;
 use App\Room;
-use Illuminate\Http\Request;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -50,19 +49,25 @@ class ClientsViewsController extends Controller
             'countries' => $countries]);
     }
 
-    public function update(UpdateUserRequest $req, $id)
+    public function update(UpdateUserRequest $request, $id)
     {
 
-        $image = time() . $req->file('avatar');
-        Storage::disk('public')->putFileAs('/avatars', $req->file('avatar'), $image);
+        if (empty($request->file('avatar'))) {
+
+            $image = User::find($id)->avatar;
+        } else {
+
+            $image = time() . '.' . $request->file('avatar')->getCLientOriginalName();
+            Storage::putFileAs('public/avatars', $request->avatar, $image);
+        }
 
         User::find($id)->update([
-            'name' => $req->name,
-            'email' => $req->email,
-            'phone' => $req->phone,
-            'gender' => $req->gender,
-            'country' => $req->country,
-            'avatar' => ($req->avatar == null ? 'avatar.jpg' : $image)
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'gender' => $request->gender,
+            'country' => $request->country,
+            'avatar' => $image
 
         ]);
 
@@ -83,42 +88,50 @@ class ClientsViewsController extends Controller
         return view('client.reservation_form', ['room' => Room::find($id)]);
     }
 
+
     public function confirm($id)
     {
 
         return view('client.payment_form', ['room' => Room::find($id)]);
     }
 
-    public function store($id)
+    public function store(Request $request, $id)
     {
-        if(isset($_POST['stripeToken']))
-{
-    
+        $request->validate(['accompany_number' => 'required']);
+
+        $max_num = Room::find($id)->capacity;
+        $accompany = $request->accompany_number;
+        $accompany = (int)$accompany;
+        if ($max_num < $accompany) {
+
+            return view('client/reservations/' . $id . '/room', with('message', "Wrong Validation Number"));
+
+        } else {
+
+            if (isset($_POST['stripeToken'])) {
+
 // Set your secret key: remember to change this to your live secret key in production
 // See your keys here: https://dashboard.stripe.com/account/apikeys
-\Stripe\Stripe::setApiKey("sk_test_85Rd2lxhCpyYqchbpvfgEi1u");
-$customer = \Stripe\Customer::create([
-    'source' => 'tok_mastercard',
-    'email' => $_POST['stripeEmail'],
-]);
+                \Stripe\Stripe::setApiKey("sk_test_85Rd2lxhCpyYqchbpvfgEi1u");
+                $customer = \Stripe\Customer::create([
+                    'source' => 'tok_mastercard',
+                    'email' => $_POST['stripeEmail'],
+                ]);
 
 // Token is created using Checkout or Elements!
 // Get the payment token ID submitted by the form:
-$token = $_POST['stripeToken'];
-$amount=DB::table('rooms')->select('price')->where('id', $id)->first();
-$charge = \Stripe\Charge::create([
-    'amount' => ($amount->price),
-    'currency' => 'usd',
-    'description' => 'Example charge',
-    'source' => $token,
-]);
-}
+                $token = $_POST['stripeToken'];
+                $amount = DB::table('rooms')->select('price')->where('id', $id)->first();
+                $charge = \Stripe\Charge::create([
+                    'amount' => ($amount->price),
+                    'currency' => 'usd',
+                    'description' => 'Example charge',
+                    'source' => $token,
+                ]);
+            }
 
-//store your data here ya minaaa
-
- return redirect('client/show');
-
-}
-
+            return redirect('client/show');
+        }
+    }
 
 }
