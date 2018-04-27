@@ -5,14 +5,14 @@ use Illuminate\Support\Facades\DB;
 use App\Room;
 use App\Floor;
 use Illuminate\Http\Request;
-use App\DataTables\roomsDataTable;
+use App\DataTables\GenericDataTable;
 
 
 class roomsController extends Controller
 {
     public function index()
     {
-        $room = new roomsDataTable( DB::table('rooms'));
+        $room = new GenericDataTable( DB::table('rooms'),"room");
         return $room->render('Admin.emp');
     }
 
