@@ -27,7 +27,8 @@ Route::get('/sendreminder/{id}', 'MailsController@ReminderMail')->name('Mails.Re
 
 
 Route::get('/admin', function () {
-    return view('Admin.admin_template');})->name('admin')->middleware('auth:employee');
+    return view('Admin.admin_template');
+})->name('admin')->middleware('auth:employee');
 Route::get('/admin/index', function () {
     return view('Admin.index');
 });
@@ -80,7 +81,6 @@ Route::get('/floors/{id}/edit', 'FloorsController@edit');
 Route::PUT('/floors/{id}/update', 'FloorsController@update');
 
 
-
 Route::get('/admin/getManagers', 'ManagersController@index');
 Route::get('/admin/getReceptionist', 'ReceptionistController@index');
 Route::get('/admin/getClient', 'ClientsController@index');
@@ -97,9 +97,10 @@ Route::prefix('client')->group(function () {
     Route::get('/reservations', 'ClientsViewsController@showRooms')->name('client.reservation');
     Route::get('/reservations/{id}/room', 'ClientsViewsController@create')->name('client.create');
     Route::post('/reservations/{id}/room', 'ClientsViewsController@store')->name('client.store');
+    Route::get('/payment/{id}/room', 'ClientsViewsController@confirm')->name('client.confirm');
     Route::get('/show', 'ClientsViewsController@showReserved')->name('client.show');
-    Route::get('/editProfile/{id}','ClientsViewsController@edit')->name('client.edit_profile');
-    Route::put('/editProfile/update/{id}','ClientsViewsController@update')->name('client.edit_profile_update');
+    Route::get('/editProfile/{id}', 'ClientsViewsController@edit')->name('client.edit_profile');
+    Route::put('/editProfile/update/{id}', 'ClientsViewsController@update')->name('client.edit_profile_update');
 
 
 });

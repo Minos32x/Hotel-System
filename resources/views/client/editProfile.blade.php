@@ -3,6 +3,15 @@
 @section('content')
 
     <div class="container">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <div class="alert-danger">{{ $error }}</div>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form method="POST" action="{{url('client/editProfile/update/'.$user->id) }}" enctype="multipart/form-data">
             {{csrf_field()}}
             {{ method_field('PUT') }}
@@ -20,7 +29,7 @@
             </div>
 
 
-            <div class="form-group">
+            <div class="form-group"
                 <label for="UserPhone">Phone</label>
                 <input type="text" class="form-control" id="UserPhone" name="phone" value="{{$user->phone}}">
 

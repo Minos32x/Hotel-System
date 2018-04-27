@@ -73,7 +73,6 @@
                                 <li>
 
 
-
                                     @if (Auth::guard('employee')->check())
 
                                         <a href="{{ route('employee.logout') }}"
@@ -107,18 +106,20 @@
 
     {{--User Nav Bar--}}
     @if(Auth::user())
-    <div>
-        <div class="navbar navbar-inverse navbar-top">
-            <ul class="nav navbar-nav">
-                <li><a href="{{ route('client.index') }}">Home</a></li>
-                <li><a href="{{ route('client.profile') }}">My Profile</a></li>
-                <li><a href="{{ route('client.reservation') }}">Make Reservation</a></li>
-                <li><a href="{{ route('client.show') }}">My Reservations</a></li>
+        @if(!Auth::guard('employee')->user())
+            <div>
+                <div class="navbar navbar-inverse navbar-top">
+                    <ul class="nav navbar-nav">
+                        <li><a href="{{ route('client.index') }}">Home</a></li>
+                        <li><a href="{{ route('client.profile') }}">My Profile</a></li>
+                        <li><a href="{{ route('client.reservation') }}">Make Reservation</a></li>
+                        <li><a href="{{ route('client.show') }}">My Reservations</a></li>
 
 
-            </ul>
-        </div>
-    </div>
+                    </ul>
+                </div>
+            </div>
+        @endif
     @endif
     {{--End Of User Nave Bar--}}
     @yield('content')
@@ -131,6 +132,7 @@
 <script src="{{asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
 <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>
 <script src="/vendor/datatables/buttons.server-side.js"></script>
+
 <!--  end added to help me in backend table -->
 @stack('js')
 </body>

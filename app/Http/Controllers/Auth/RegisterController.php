@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Validation\Rule;
 use Rinvex\Country\Models\Country;
-use Illuminate\Support\Facades\Storage;
 
 class RegisterController extends Controller
 {
@@ -54,6 +55,10 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'avatar' => 'required|image|mimes:jpg,jpeg',
+            'phone' => 'required|min:11',
+            'gender' => ['required',
+                Rule::in(['male', 'female'])],
         ]);
     }
 
@@ -65,6 +70,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
         $image=time().$data['avatar'];
         Storage::disk('public')->putFileAs('/avatars', $data['avatar'],$image);
         return User::create([

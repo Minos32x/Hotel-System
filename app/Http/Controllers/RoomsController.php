@@ -71,10 +71,8 @@ class roomsController extends Controller
     public function edit($id)
     {
         $floors = Floor::all();
-        return view ('room.create',['floors'=> $floors,'rooms' => Room::find($id)
-        ]);
-        return view('floor.edit', [
-        ]);   
+        return view ('room.edit',['floors'=> $floors,'room' => Room::find($id)]);
+        
      }
 
     /**
@@ -86,11 +84,14 @@ class roomsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Floor::where('id', $id)->update(
-        ['floor_num' => $request->floor_num,
-        'no_of_room' => $request->no_of_room,
+        Room::where('id', $id)->update(
+        [
+            'number' => $request->number,
+            'capacity' => $request->capacity,
+            'floor_id' => $request->floor_id,
+            'price' => $request->price,
         ]);
-        return redirect ('/floors');
+        return redirect ('/rooms');
     }
 
     /**

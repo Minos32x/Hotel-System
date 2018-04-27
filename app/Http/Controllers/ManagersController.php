@@ -10,6 +10,7 @@ use Rinvex\Country\Models\Country;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Storage;
 
 
 class ManagersController extends Controller
@@ -21,7 +22,7 @@ class ManagersController extends Controller
     {
         $this->flag = $_SERVER["REQUEST_URI"];
         // dd($flag);
-        $emp = new employeeTableDataTable(DB::table('employees')->where('type', 'manager'),"manager");
+        $emp = new employeeTableDataTable(DB::table('employees')->where('type', 'manager'), "manager");
         return $emp->render('Admin.emp');
 
     }
@@ -50,10 +51,10 @@ class ManagersController extends Controller
     {
 
 
-        $image=time().$request->file('avatar');
-        Storage::disk('public')->putFileAs('/avatars', $req->file('avatar'),$image);
+        $image = time() . $request->file('avatar');
+        // Storage::disk('public')->putFileAs('/avatars', $request->file('avatar'), $image);
         $Created_by = ($request->user('employee')->id);
-        $manager= Employee::create([
+        $manager = Employee::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
@@ -110,7 +111,8 @@ class ManagersController extends Controller
                 'national_id' => $request->national_id,
                 'avatar' => ($request->avatar == null ? 'storage/avatars/avatar.jpg' : 'storage/avatars/' . $request->avatar),
 
-        ]);
+            ]
+        );
         if ((Employee::find($id)->type) == 'manager') {
             return redirect('/managers');
 
