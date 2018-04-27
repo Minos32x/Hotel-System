@@ -1,7 +1,7 @@
 
 <h1>payment page</h1>
 
-<form action="/client/reservations/{{$room->id}}/room" method="post">
+<form action="/client/payment/{{$room->id}}/room" method="post">
 {{csrf_field()}}
 
   <script

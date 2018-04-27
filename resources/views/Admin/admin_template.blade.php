@@ -303,6 +303,10 @@ desired effect
                 {echo "Manage Receptionists Page";}
                 else if( $_SERVER["REQUEST_URI"] == "/clients") 
                 {echo "Manage Clients Page";}
+                else if( $_SERVER["REQUEST_URI"] == "/floors") 
+                {echo "Manage Floors Page";}
+                else if( $_SERVER["REQUEST_URI"] == "/rooms") 
+                {echo "Manage Rooms Page";}
                 ?>
                 <small>Optional description</small>
             </h1>

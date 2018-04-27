@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-// use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\DataTables\clientsDataTable;
@@ -94,9 +93,11 @@ class ClientsController extends Controller
 
         User::where('id', $id)->update([
         'name' => $request->name,
+        'gender' => $request->gender,
         'email' => $request->email,
         'phone' => $request->phone,
         'avatar' => $image,
+        'country'=>$request->country,
         'password' => $request->password,
         'updated_at'=>now(),
     ]);
