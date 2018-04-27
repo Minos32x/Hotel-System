@@ -61,7 +61,7 @@ class employeeTableDataTable extends DataTable
                     // ->parameters($this->getBuilderParameters());
             ->parameters([
                 'dom' => 'Blfrtip', // to show export button etc
-                'lengthMenu' => [[2, 5, 10, 20, -1], [2, 5, 10, 20, 'All data']],
+                'lengthMenu' => [[ 5, 10, 20, -1], [ 5, 10, 20, 'All data']],
                 'buttons' => [
                     ['extend' => 'print', 'className' => 'btn btn-info','text' => '<i class="fa fa-print"></i>'],
                     ['extend' => 'csv', 'className' => 'btn btn-info','text' => '<i class="fa fa-file">Export csv</i>'],
@@ -84,7 +84,7 @@ class employeeTableDataTable extends DataTable
     protected function getColumns()
     {
         $user=Auth::guard('employee')->user();
-        if(($user->hasRole('admin')) || $this->type==='receptionist' && $user->hasRole('manager')){
+        if(($user->hasRole('admin')) || ($this->type==='receptionist' && $user->hasRole('manager'))){
 
         $data = [
             [
@@ -96,6 +96,7 @@ class employeeTableDataTable extends DataTable
                 'name' => 'name',
                 'data' =>  'name',
                 'title' => 'Manager Name',
+
             ],
             [
                 'name' => 'created_at',
