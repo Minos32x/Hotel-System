@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Rinvex\Country\Models\Country;
 use Spatie\Permission\Traits\HasRoles;
+use Spatie\Permission\Models\Permission;
 
 
 class ManagersController extends Controller
@@ -49,13 +50,9 @@ class ManagersController extends Controller
     {
 
 
-        if (empty($request->file('avatar'))) {
-            $image = 'avatar.jpg';
-        } else {
-
-            $image = time() . '.' . $request->file('avatar')->getCLientOriginalName();
-            Storage::putFileAs('public/avatars', $request->avatar, $image);
-        }
+        $image=$request->file('avatar');
+        // dd($image);
+        Storage::disk('public')->putFileAs('public/avatars', $request->file('avatar'),$image);
 
         $Created_by = ($request->user('employee')->id);
         $manager = Employee::create([

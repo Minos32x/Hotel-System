@@ -103,7 +103,8 @@ class FloorsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('floors')->where('id', $id)->delete();
+        
     }
     public function Random_number()
     {
