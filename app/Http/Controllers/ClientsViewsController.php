@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\DataTables\ClientReservedDataTable;
 use App\DataTables\ClientRoomsDataTable;
 use App\Http\Requests\UpdateUserRequest;
-use App\User;
 use App\Room;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -50,19 +50,25 @@ class ClientsViewsController extends Controller
             'countries' => $countries]);
     }
 
-    public function update(UpdateUserRequest $req, $id)
+    public function update(UpdateUserRequest $request, $id)
     {
 
-        $image = time() . $req->file('avatar');
-        Storage::disk('public')->putFileAs('/avatars', $req->file('avatar'), $image);
+        if (empty($request->file('avatar'))) {
+
+            $image = User::find($id)->avatar;
+        } else {
+
+            $image = time() . '.' . $request->file('avatar')->getCLientOriginalName();
+            Storage::putFileAs('public/avatars', $request->avatar, $image);
+        }
 
         User::find($id)->update([
-            'name' => $req->name,
-            'email' => $req->email,
-            'phone' => $req->phone,
-            'gender' => $req->gender,
-            'country' => $req->country,
-            'avatar' => ($req->avatar == null ? 'avatar.jpg' : $image)
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'gender' => $request->gender,
+            'country' => $request->country,
+            'avatar' => $image
 
         ]);
 
@@ -80,45 +86,54 @@ class ClientsViewsController extends Controller
     public function create($id)
     {
 
-        return view('client.reservation_form', ['room' => Room::find($id)]);
+        return view('client.reservation_form', ['id' => $id,
+            'room' => Room::find($id)]);
     }
+
 
     public function confirm($id)
     {
 
-        return view('client.payment_form', ['room' => Room::find($id)]);
-    }
+        if (isset($_POST['stripeToken'])) {
 
-    public function store($id)
-    {
-        if(isset($_POST['stripeToken']))
-{
-    
 // Set your secret key: remember to change this to your live secret key in production
 // See your keys here: https://dashboard.stripe.com/account/apikeys
-\Stripe\Stripe::setApiKey("sk_test_85Rd2lxhCpyYqchbpvfgEi1u");
-$customer = \Stripe\Customer::create([
-    'source' => 'tok_mastercard',
-    'email' => $_POST['stripeEmail'],
-]);
+            \Stripe\Stripe::setApiKey("sk_test_85Rd2lxhCpyYqchbpvfgEi1u");
+            $customer = \Stripe\Customer::create([
+                'source' => 'tok_mastercard',
+                'email' => $_POST['stripeEmail'],
+            ]);
 
 // Token is created using Checkout or Elements!
 // Get the payment token ID submitted by the form:
-$token = $_POST['stripeToken'];
-$amount=DB::table('rooms')->select('price')->where('id', $id)->first();
-$charge = \Stripe\Charge::create([
-    'amount' => ($amount->price),
-    'currency' => 'usd',
-    'description' => 'Example charge',
-    'source' => $token,
-]);
-}
+            $token = $_POST['stripeToken'];
+            $amount = DB::table('rooms')->select('price')->where('id', $id)->first();
+            $charge = \Stripe\Charge::create([
+                'amount' => ($amount->price),
+                'currency' => 'usd',
+                'description' => 'Example charge',
+                'source' => $token,
+            ]);
+        }
 
-//store your data here ya minaaa
+        return view('client.reserved_rooms');
+    }
 
- return redirect('client/show');
+    public function showPayment(Request $request, $id)
+    {
+        $request->validate(['accompany_number' => 'required']);
 
-}
+        $max_num = Room::find($id)->capacity;
+        $accompany = $request->accompany_number;
+        $accompany = (int)$accompany;
+        if ($max_num < $accompany) {
+            return view('client.reservation_form', ['id' => $id])->with('error', "Wrong Validation Number");
 
+        } else {
+
+            return view('client.payment_form', ['room' => Room::find($id)]);
+
+        }
+    }
 
 }

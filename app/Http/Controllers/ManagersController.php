@@ -6,11 +6,9 @@ use App\DataTables\employeeTableDataTable;
 use App\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Rinvex\Country\Models\Country;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Traits\HasRoles;
-use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Storage;
+use Rinvex\Country\Models\Country;
+use Spatie\Permission\Traits\HasRoles;
 
 
 class ManagersController extends Controller
@@ -51,8 +49,14 @@ class ManagersController extends Controller
     {
 
 
-        $image = time() . $request->file('avatar');
-        // Storage::disk('public')->putFileAs('/avatars', $request->file('avatar'), $image);
+        if (empty($request->file('avatar'))) {
+            $image = 'avatar.jpg';
+        } else {
+
+            $image = time() . '.' . $request->file('avatar')->getCLientOriginalName();
+            Storage::putFileAs('public/avatars', $request->avatar, $image);
+        }
+
         $Created_by = ($request->user('employee')->id);
         $manager = Employee::create([
             'name' => $request->name,
@@ -61,7 +65,7 @@ class ManagersController extends Controller
             'national_id' => $request->national_id,
             'last_login' => now(),
             'type' => 'manager',
-            'avatar' => ($request->avatar == null ? 'avatar.jpg' : $image),
+            'avatar' => $image,
             'created_by' => $Created_by
 
         ]);
@@ -103,16 +107,24 @@ class ManagersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $manager->update($request->all());
+
+        if (empty($request->file('avatar'))) {
+
+            $image = Employee::find($id)->avatar;
+        } else {
+
+            $image = time() . '.' . $request->file('avatar')->getCLientOriginalName();
+            Storage::putFileAs('public/avatars', $request->avatar, $image);
+        }
+
         Employee::where('id', $id)->update(
             [
                 'name' => $request->name,
                 'email' => $request->email,
                 'national_id' => $request->national_id,
-                'avatar' => ($request->avatar == null ? 'storage/avatars/avatar.jpg' : 'storage/avatars/' . $request->avatar),
+                'avatar' => $image,
+            ]);
 
-            ]
-        );
         if ((Employee::find($id)->type) == 'manager') {
             return redirect('/managers');
 

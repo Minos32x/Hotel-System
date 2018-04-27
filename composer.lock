@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8c515496559e4b7f4bb20368e1391c27",
+    "content-hash": "7a1c5f2636efdd4f352c8531afc9c2af",
     "packages": [
         {
             "name": "cybercog/laravel-ban",
@@ -231,6 +231,42 @@
                 "parser"
             ],
             "time": "2014-09-09T13:34:57+00:00"
+        },
+        {
+            "name": "effectdigital/laravel-number-validation",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://bitbucket.org/effectdigital/laravel-number-validation.git",
+                "reference": "a0c5e275360d6af4be8d243e2b89185ac5a17255"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://bitbucket.org/effectdigital/laravel-number-validation/get/a0c5e275360d6af4be8d243e2b89185ac5a17255.zip",
+                "reference": "a0c5e275360d6af4be8d243e2b89185ac5a17255",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "EffectDigital\\LaravelNumberValidation\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jared",
+                    "email": "jared@effectdigital.com"
+                }
+            ],
+            "description": "Adds new validation rules for comparing the value of integers and floats",
+            "time": "2016-08-26T17:15:04+00:00"
         },
         {
             "name": "egulias/email-validator",
