@@ -102,13 +102,18 @@ class roomsController extends Controller
     public function destroy($id)
     {
        
-        return DB::table('rooms')->select('is_reserved')->where('id',$id)->get();
+        $is_reserved = DB::table('rooms')->select('is_reserved')->where('id',$id)->get()[0]->is_reserved    ;
         
-        if(
-            dd(DB::table('rooms')->select('is_reserved')->where('id',$id)->get())
-        ){
-        DB::table('rooms')->where('id', $id)->delete();
+        if($is_reserved === 0){
+
+            DB::table('rooms')->where('id', $id)->delete();
         }
+        else{
+           return "sorry the room is reserved and can't be deleleted";
+            
+        }
+            
+        
     }
 }
 

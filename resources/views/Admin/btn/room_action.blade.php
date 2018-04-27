@@ -5,7 +5,7 @@
 
 <?php } ?>
 <script>
-$('.delete').click(function(){
+$('#dataTableBuilder').on("click","#{{$id}}",function(){
 var id=$(this).prop('id');
 console.log(id);
 if(confirm('are you sure?')){
@@ -22,8 +22,8 @@ $.ajax({
 
     },
     success : function(data){
-console.log("maryam");
-console.log(data);
+        console.log(data);
+        $('#dataTableBuilder').DataTable().ajax.reload();
         
         // window.location.reload();   
     }

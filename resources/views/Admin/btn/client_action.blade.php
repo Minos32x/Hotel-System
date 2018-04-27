@@ -5,7 +5,7 @@
 <button class="delete btn btn-danger" id={{$id}}><i class="fa fa-trash"></i></button>
 <?php } ?>
 <script>
-$('.delete').click(function(){
+$('#dataTableBuilder').on("click","#{{$id}}",function(){
 
 var id=$(this).prop('id');
 if(confirm('are you sure?')){

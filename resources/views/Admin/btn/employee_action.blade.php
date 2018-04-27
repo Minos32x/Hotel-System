@@ -7,7 +7,7 @@
 
 
 <script>
-$('.delete').click(function(){
+$('#dataTableBuilder').on("click","#{{$id}}",function(){
 var id=$(this).prop('id');
 if(confirm('are you sure?')){
 $.ajax({
@@ -23,12 +23,12 @@ $.ajax({
     },
     success : function(){
 
-        
-        window.location.reload();   
+       
+        $('#dataTableBuilder').DataTable().ajax.reload();
     }
 
 })
 
 }
-}
+})
 </script>
