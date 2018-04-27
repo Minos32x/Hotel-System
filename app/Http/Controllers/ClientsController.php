@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-// use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\DataTables\clientsDataTable;
@@ -18,7 +17,7 @@ class ClientsController extends Controller
     public function index()
     {
 
-        $emp = new clientsDataTable(DB::table('users'));
+        $emp = new clientsDataTable(DB::table('users')->where('approved_state',0));
         return $emp->render('Admin.emp');
 
     }
@@ -82,13 +81,23 @@ class ClientsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (empty($request->file('avatar'))) {
+
+            $image = User::find($id)->avatar;
+        } else {
+
+            $image = time() . '.' . $request->file('avatar')->getCLientOriginalName();
+            Storage::putFileAs('public/avatars', $request->avatar, $image);
+        }
+
+
         User::where('id', $id)->update([
         'name' => $request->name,
         'gender' => $request->gender,
         'email' => $request->email,
         'phone' => $request->phone,
+        'avatar' => $image,
         'country'=>$request->country,
-        'avatar' => ($request->avatar == null ? 'storage/avatars/avatar.jpg' : 'storage/avatars/' . $request->avatar),
         'password' => $request->password,
         'updated_at'=>now(),
     ]);

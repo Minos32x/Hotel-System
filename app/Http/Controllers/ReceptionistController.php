@@ -1,17 +1,19 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\DB;
+
+use App\DataTables\employeeTableDataTable;
 use App\Employee;
 use Illuminate\Http\Request;
-use App\DataTables\employeeTableDataTable;
-use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Traits\HasRoles;
-use Spatie\Permission\Models\Permission;
 
 class ReceptionistController extends Controller
 {
     use HasRoles;
+
     /**
      * Display a listing of the resource.
      *
@@ -19,9 +21,10 @@ class ReceptionistController extends Controller
      */
     public function index()
     {
-        // $flag = $_SERVER["REQUEST_URI"];
 
-        $emp = new employeeTableDataTable( DB::table('employees')->where('type', 'receptionist'),"receptionist");
+
+
+        $emp = new employeeTableDataTable(DB::table('employees')->where('type', 'receptionist'), "receptionist");
         return $emp->render('Admin.emp');
 
     }
@@ -43,29 +46,37 @@ class ReceptionistController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
 
-        
         $Created_by = ($request->user('employee')->id);
 
-         $receptionist=Employee::create([
+        if (empty($request->file('avatar'))) {
+
+            $image = 'avatar.jpg';
+        } else {
+
+            $image = time() . '.' . $request->file('avatar')->getCLientOriginalName();
+            Storage::putFileAs('public/avatars', $request->avatar, $image);
+        }
+
+        $receptionist = Employee::create([
 
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'national_id'=>$request->national_id,
-            'type'=>'receptionist',
-            'avatar' => ($request->avatar == null ? 'storage/avatars/avatar.jpg' : 'storage/avatars/' . $request->avatar),
-            'created_by'=> $Created_by
-           
+            'national_id' => $request->national_id,
+            'type' => 'receptionist',
+            'avatar' => $image,
+            'created_by' => $Created_by
+
         ]);
-            $receptionist->assignRole('receptionist');
-        
-         return redirect('/receptionists'); 
+        $receptionist->assignRole('receptionist');
+
+        return redirect('/receptionists');
 
     }
 }

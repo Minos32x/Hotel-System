@@ -20,7 +20,7 @@ class ManagersController extends Controller
     public function index()
     {
         $this->flag = $_SERVER["REQUEST_URI"];
-        // dd($flag);
+        
         $emp = new employeeTableDataTable(DB::table('employees')->where('type', 'manager'), "manager");
         return $emp->render('Admin.emp');
 
