@@ -50,9 +50,16 @@ class ManagersController extends Controller
     {
 
 
-        $image=$request->file('avatar');
-        // dd($image);
-        Storage::disk('public')->putFileAs('public/avatars', $request->file('avatar'),$image);
+        $Created_by = ($request->user('employee')->id);
+
+        if (empty($request->file('avatar'))) {
+
+            $image = 'avatar.jpg';
+        } else {
+
+            $image = time() . '.' . $request->file('avatar')->getCLientOriginalName();
+            Storage::putFileAs('public/avatars', $request->avatar, $image);
+        }
 
         $Created_by = ($request->user('employee')->id);
         $manager = Employee::create([

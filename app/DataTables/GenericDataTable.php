@@ -2,11 +2,14 @@
 
 namespace App\DataTables;
 
-// use App\Floor;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Services\DataTable;
+use Spatie\Permission\Traits\HasRoles;
+
 
 class GenericDataTable extends DataTable
 {
+    use HasRoles;
     public $my_query;
     public $Table_Type;
 
@@ -55,23 +58,30 @@ class GenericDataTable extends DataTable
      */
     public function html()
     {
+        $buttons=[
+            ['extend' => 'print', 'className' => 'btn btn-info', 'text' => '<i class="fa fa-print"></i>'],
+            ['extend' => 'csv', 'className' => 'btn btn-info', 'text' => '<i class="fa fa-file">Export csv</i>'],
+            ['extend' => 'excel', 'className' => 'btn btn-info', 'text' => '<i class="fa fa-file">Export Excel</i>'],
+            ['extend' => 'reload', 'className' => 'btn btn-info', 'text' => '<i class="fa fa-refresh"></i>']];
+
+            if (Auth::guard('employee')->user()->hasRole('admin') || (Auth::guard('employee')->user()->hasRole('manager'))) { 
+
+                array_push($buttons,
+                [
+                    'text' => '<i class="fa fa-plus"></i> Create new room', 'className' => 'btn btn-warning', "action" => "function(){
+                            window.location.href='" . \URL::current() . "/create ';}"
+
+                ]);
+            };
+
         return $this->builder()
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->parameters([
                         'dom' => 'Blfrtip', // to show export button etc
                         'lengthMenu' => [[2, 5, 10, 20, -1], [2, 5, 10, 20, 'All data']],
-                        'buttons' => [
-                            ['extend' => 'print', 'className' => 'btn btn-info', 'text' => '<i class="fa fa-print"></i>'],
-                            ['extend' => 'csv', 'className' => 'btn btn-info', 'text' => '<i class="fa fa-file">Export csv</i>'],
-                            ['extend' => 'excel', 'className' => 'btn btn-info', 'text' => '<i class="fa fa-file">Export Excel</i>'],
-                            ['extend' => 'reload', 'className' => 'btn btn-info', 'text' => '<i class="fa fa-refresh"></i>'],
-                            [
-                                'text' => '<i class="fa fa-plus"></i> Create new One', 'className' => 'btn btn-warning', "action" => "function(){
-                                        window.location.href='" . \URL::current() . "/create ';}"
-        
-                            ],
-                        ]
+                        'buttons' => $buttons,
+                        
                     ]);    }
 
     /**
