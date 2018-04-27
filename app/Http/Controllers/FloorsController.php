@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 use App\Floor;
 use Illuminate\Support\Facades\DB;
 
-use App\DataTables\floorsDataTable;
+use App\DataTables\GenericDataTable;
+use App\DataTables\employeeTableDataTable;
+
 use Illuminate\Http\Request;
 
 class FloorsController extends Controller
@@ -17,7 +19,7 @@ class FloorsController extends Controller
      */
     public function index()
     {
-        $floor = new floorsDataTable(DB::table('floors'));
+        $floor = new GenericDataTable(DB::table('floors'),"floor");
         return $floor->render('Admin.emp');
 
     }

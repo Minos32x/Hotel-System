@@ -115,8 +115,9 @@ class ClientsViewsController extends Controller
                 'source' => $token,
             ]);
         }
-
-        return view('client.reserved_rooms');
+        // your data will be stored here m3ak el rakam el room w el price hatsglo f gadwal tani w bel tali lw et8iar f esh hwa f gadwal tani 
+        // return view('client.reserved_rooms');
+        return redirect ('/client/reservations');
     }
 
     public function showPayment(Request $request, $id)

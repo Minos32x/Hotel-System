@@ -97,7 +97,7 @@ Route::prefix('client')->group(function () {
     Route::get('/reservations', 'ClientsViewsController@showRooms')->name('client.reservation');
     Route::get('/reservations/{id}/room', 'ClientsViewsController@create')->name('client.create');
     Route::post('/reservations/{id}/room', 'ClientsViewsController@showPayment')->name('client.show_payment');
-    Route::get('/payment/{id}/room', 'ClientsViewsController@confirm')->name('client.confirm');
+    Route::post('/payment/{id}/room', 'ClientsViewsController@confirm')->name('client.confirm');
     Route::get('/show', 'ClientsViewsController@showReserved')->name('client.show');
     Route::get('/editProfile/{id}', 'ClientsViewsController@edit')->name('client.edit_profile');
     Route::put('/editProfile/update/{id}', 'ClientsViewsController@update')->name('client.edit_profile_update');
