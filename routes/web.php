@@ -65,6 +65,8 @@ Route::get('/receptionists', 'ReceptionistController@index');
 Route::get('/clients', 'ClientsController@index');
 Route::get('/clients/{id}/edit', 'ClientsController@edit');
 Route::PUT('/clients/{id}/update', 'ClientsController@update');
+Route::DELETE('/clients/{id}', 'ClientsController@destroy');
+
 
 
 Route::get('/rooms', 'RoomsController@index');
@@ -72,12 +74,17 @@ Route::get('/rooms/create', 'RoomsController@create');
 Route::post('/rooms', 'RoomsController@store');
 Route::get('/rooms/{id}/edit', 'RoomsController@edit');
 Route::PUT('/rooms/{id}/update', 'RoomsController@update');
+Route::delete('/rooms/{id}', 'RoomsController@destroy');
+
 
 Route::get('/floors', 'FloorsController@index');
 Route::get('/floors/create', 'FloorsController@create');
 Route::post('/floors', 'FloorsController@store');
 Route::get('/floors/{id}/edit', 'FloorsController@edit');
 Route::PUT('/floors/{id}/update', 'FloorsController@update');
+Route::DELETE('/floors/{id}', 'FloorsController@destroy');
+
+
 
 
 

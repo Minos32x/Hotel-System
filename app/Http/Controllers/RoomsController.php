@@ -101,7 +101,14 @@ class roomsController extends Controller
      */
     public function destroy($id)
     {
-        //
+       
+        return DB::table('rooms')->select('is_reserved')->where('id',$id)->get();
+        
+        if(
+            dd(DB::table('rooms')->select('is_reserved')->where('id',$id)->get())
+        ){
+        DB::table('rooms')->where('id', $id)->delete();
+        }
     }
 }
 
