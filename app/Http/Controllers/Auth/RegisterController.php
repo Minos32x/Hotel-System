@@ -69,7 +69,7 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'photo' => 'image|mimes:jpg,jpeg',
+            'avatar' => 'image|mimes:jpg,jpeg',
             'phone' => 'required|min:11',
             'gender' => ['required',
                 Rule::in(['male', 'female'])],
@@ -101,7 +101,7 @@ class RegisterController extends Controller
             'phone' => $data['phone'],
             'country' => $data['country'],
             'last_login' => now(),
-            'photo' => $image,
+            'avatar' => $image,
             'approved_state'=>0
         ]);
     }

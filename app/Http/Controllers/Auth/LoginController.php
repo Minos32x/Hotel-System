@@ -61,11 +61,22 @@ class LoginController extends Controller
         if ($this->attemptLogin($request)) {
             
             $user_id=Auth::guard('web')->user()->id;
-            // $is_approved = DB::table('users')->select('approved_state')->where('id',$user_id)->get()[0]->approved_state;
-            $is_panned=DB::table('users')->select('banned_at')->where('id',$user_id)->get()[0]->banned_at;
-            if($is_panned == null ){
+            $is_approved = \DB::table('users')->select('approved_state')->where('id',$user_id)->get()[0]->approved_state;
+            $is_panned=\DB::table('users')->select('banned_at')->where('id',$user_id)->get()[0]->banned_at;
+            if(!$is_panned ){
+                $this->guard()->logout();
+
+                $request->session()->invalidate();
                 return view('panned');
             }
+            elseif(!$is_approved){
+                $this->guard()->logout();
+
+                $request->session()->invalidate();
+                return view('pending');
+            }
+            $user=User::find($user_id)->last_login=now();
+            $user->save();
         }
 
         // If the login attempt was unsuccessful we will increment the number of attempts

@@ -12,10 +12,10 @@
 <body>
  
 <div class="container">
-  <h2>Card Header and Footer</h2>
+  <h2>Welcome</h2>
   <div class="card">
-    <div class="card-header">Header</div>
-    <div class="card-body">Content</div> 
-    <div class="card-footer">Footer</div>
+    <div class="card-header">hi</div>
+    <div class="card-body">you are pending</div> 
+    
   </div>
 </div>
