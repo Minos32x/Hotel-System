@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
 {
@@ -28,8 +29,9 @@ class EmployeeController extends Controller
     }
 
 
-    public function EmployeeBan(Request $req, $id)
+    public function EmployeeBan(Request $request, $id)
     {
+
         Employee::find($id)->ban([
             'comment' => 'Enjoy your ban!',
         ]);

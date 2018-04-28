@@ -69,7 +69,6 @@ Route::PUT('/clients/{id}/update', 'ClientsController@update');
 Route::DELETE('/clients/{id}', 'ClientsController@destroy');
 
 
-
 Route::get('/rooms', 'RoomsController@index');
 Route::get('/rooms/create', 'RoomsController@create');
 Route::post('/rooms', 'RoomsController@store');
@@ -86,17 +85,17 @@ Route::PUT('/floors/{id}/update', 'FloorsController@update');
 Route::DELETE('/floors/{id}', 'FloorsController@destroy');
 
 
-
-
 Route::get('/admin/getManagers', 'ManagersController@index');
 Route::get('/admin/getReceptionist', 'ReceptionistController@index');
 Route::get('/admin/getClient', 'ClientsController@index');
 Route::get('/reservations', 'ReservationsController@index')->name('manager.reservation');
 
-// Temporary Routes To Test Ban and Unban
-Route::get('ban/{id}', 'EmployeeController@EmployeeBan')->name('employee.ban');
-Route::get('unban/{id}', 'EmployeeController@Employeeunban')->name('employee.unban');
 
+Route::prefix('employee/blocking')->group(function () {
+
+    Route::get('/ban/{id}', 'EmployeeController@EmployeeBan')->name('employee.ban');
+    Route::get('unban/{id}', 'EmployeeController@Employeeunban')->name('employee.unban');
+});
 
 Route::prefix('client')->group(function () {
     Route::get('/', 'ClientsViewsController@index')->name('client.index');
@@ -108,6 +107,8 @@ Route::prefix('client')->group(function () {
     Route::get('/show', 'ClientsViewsController@showReserved')->name('client.show');
     Route::get('/editProfile/{id}', 'ClientsViewsController@edit')->name('client.edit_profile');
     Route::put('/editProfile/update/{id}', 'ClientsViewsController@update')->name('client.edit_profile_update');
-
+    Route::delete('/delete/{id}','ReservationsController@delete')->name('client.reservation_delete');
+    Route::get('/ban/{id}', 'ClientsViewsController@ClientBan')->name('client.ban');
+    Route::get('/unban/{id}', 'ClientsViewsController@Clientunban')->name('client.unban');
 
 });

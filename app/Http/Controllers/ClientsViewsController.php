@@ -117,7 +117,7 @@ class ClientsViewsController extends Controller
         }
         // your data will be stored here m3ak el rakam el room w el price hatsglo f gadwal tani w bel tali lw et8iar f esh hwa f gadwal tani 
         // return view('client.reserved_rooms');
-        return redirect ('/client/reservations');
+        return redirect('/client/reservations');
     }
 
     public function showPayment(Request $request, $id)
@@ -135,6 +135,17 @@ class ClientsViewsController extends Controller
             return view('client.payment_form', ['room' => Room::find($id)]);
 
         }
+    }
+
+    public function ClientBan($id)
+    {
+
+        User::find($id)->ban(['comment' => 'Enjoy your ban!']);
+    }
+
+    public function Clientunban($id)
+    {
+        User::find($id)->unban();
     }
 
 }

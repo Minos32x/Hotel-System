@@ -50,8 +50,6 @@ class ManagersController extends Controller
     {
 
 
-        $Created_by = ($request->user('employee')->id);
-
         if (empty($request->file('avatar'))) {
 
             $image = 'avatar.jpg';
