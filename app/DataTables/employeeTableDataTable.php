@@ -32,8 +32,9 @@ class employeeTableDataTable extends DataTable
     public function dataTable($query)
     {
         return datatables($query)
-            ->addColumn('action', 'Admin.btn.employee_action');
-           
+            ->addColumn('action', 'Admin.btn.employee_action')
+            ->addColumn('created_at', 'Admin.btn.DateConvertion');
+
     }
 
     /**
@@ -95,7 +96,13 @@ class employeeTableDataTable extends DataTable
             [
                 'name' => 'name',
                 'data' =>  'name',
-                'title' => 'Manager Name',
+                'title' => ' Name',
+
+            ],
+            [
+                'name' => 'email',
+                'data' =>  'email',
+                'title' => 'Email',
 
             ],
             [

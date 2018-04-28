@@ -29,13 +29,16 @@ class GenericDataTable extends DataTable
         if($this->Table_Type =="floor")
         {
         return datatables($query)
-            ->addColumn('action', 'Admin.btn.floor_action');
+            ->addColumn('action', 'Admin.btn.floor_action')
+            ->addColumn('created_at', 'Admin.btn.DateConvertion');
 
         }elseif($this->Table_Type =="room")
         {
             return datatables($query)
             ->addColumn('action', 'Admin.btn.room_action')
-            ->addColumn('price_doolar', 'Admin.btn.dollar_convert');
+            ->addColumn('price_dollar', 'Admin.btn.dollar_convert')
+            ->addColumn('created_at', 'Admin.btn.DateConvertion');
+            
 
         }   
     }
@@ -155,8 +158,8 @@ class GenericDataTable extends DataTable
                 'title' => 'Room Capacity',
             ],
             [
-                'name' => 'price_doolar',
-                'data' => 'price_doolar',
+                'name' => 'price_dollar',
+                'data' => 'price_dollar',
                 'title' => 'Price in Dollars',
             ],
             [
