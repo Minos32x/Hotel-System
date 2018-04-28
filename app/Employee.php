@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Cog\Contracts\Ban\Bannable as BannableContract;
 use Cog\Laravel\Ban\Traits\Bannable;
 use Illuminate\Notifications\Notifiable;

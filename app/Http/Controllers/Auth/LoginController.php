@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Auth;
-use App\User;
 use Illuminate\Http\Request;
 
 
@@ -76,7 +75,9 @@ class LoginController extends Controller
                 $request->session()->invalidate();
                 return view('pending');
             }
-            $user=User::find($user_id)->last_login=now();
+
+            $user=User::find($user_id);
+            $user->last_login=date('Y-m-d H:i:s');
             $user->save();
         }
 

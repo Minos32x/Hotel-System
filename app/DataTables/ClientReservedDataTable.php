@@ -73,7 +73,7 @@ class ClientReservedDataTable extends DataTable
 
             [
                 'name' => 'num_company',
-                'data' => 'updated_at',
+                'data' => 'num_company',
                 'title' => 'Accompany_Number',
             ],
             [
