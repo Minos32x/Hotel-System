@@ -20,7 +20,7 @@ if ($banned_at != null) {
         if (confirm('are you sure?')) {
             $.ajax({
 
-                url: 'clients/' + id,
+                url: "{{route('client.delete',$id)}}",
                 type: 'DELETE',
                 datatype: 'JSON',
                 data: {
@@ -50,7 +50,7 @@ if ($banned_at != null) {
 
             if ($(this).html() == 'Ban') {
                 $.ajax({
-                    url: 'client/ban/' +{{$id}},
+                    url: "{{route('client.ban',$id)}}",
                     type: 'get',
 
                     success: function (resp) {
@@ -69,7 +69,7 @@ if ($banned_at != null) {
 
             else {
                 $.ajax({
-                    url: 'client/unban/' +{{$id}},
+                    url:"{{route('client.unban',$id)}}",
                     type: 'get',
                     success: function () {
                         $('#dataTableBuilder').DataTable().ajax.reload();

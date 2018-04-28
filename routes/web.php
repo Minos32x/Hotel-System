@@ -60,7 +60,7 @@ Route::get('/clients/mine', 'ClientsController@myClients');
 Route::get('/clients', 'ClientsController@index');
 Route::get('/clients/{id}/edit', 'ClientsController@edit');
 Route::PUT('/clients/{id}/update', 'ClientsController@update');
-Route::DELETE('/clients/{id}', 'ClientsController@destroy');
+Route::DELETE('/clients/{id}', 'ClientsController@destroy')->name('client.delete');
 
 
 
@@ -89,9 +89,10 @@ Route::get('/reservations', 'ReservationsController@index')->name('manager.reser
 Route::prefix('employee/blocking')->group(function () {
 
     Route::get('/ban/{id}', 'EmployeeController@EmployeeBan')->name('employee.ban');
-    Route::get('unban/{id}', 'EmployeeController@Employeeunban')->name('employee.unban');
+    Route::get('/unban/{id}', 'EmployeeController@Employeeunban')->name('employee.unban');
 });
 
+Route::get('client/approve/{id}', 'ClientsController@store')->name('client.approve');
 Route::get('client/ban/{id}', 'ClientsViewsController@ClientBan')->name('client.ban');
 Route::get('client/unban/{id}', 'ClientsViewsController@Clientunban')->name('client.unban');
 });
@@ -110,6 +111,7 @@ Route::prefix('client')->group(function () {
     Route::put('/editProfile/update/{id}', 'ClientsViewsController@update')->name('client.edit_profile_update');
     Route::delete('/delete/{id}','ReservationsController@delete')->name('client.reservation_delete');
     Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('users.logout');
+    Route::delete('/remove/reservation/{id}', 'ClientsViewsController@CheckOut')->name('client.remove');
 
 });
 Route::get('/logout', 'Auth\EmployeeLoginController@logout')->name('employee.logout');
