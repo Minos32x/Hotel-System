@@ -19,33 +19,32 @@ if ($banned_at != null) {
 
 
 <script>
-    $('#dataTableBuilder').on("click", "#{{$id}}", function () {
-        var id = $(this).prop('id');
-        if (confirm('are you sure?')) {
-            $.ajax({
+$('#{{$id}}').click(function(){
+var id=$(this).prop('id');
+if(confirm('are you sure?')){
+$.ajax({
 
-                url: 'employees/' + id,
-                type: 'DELETE',
-                datatype: 'JSON',
-                data: {
-                    'id': id,
-                    '_method': 'DELETE',
-                    '_token': '{{ csrf_token() }}'
+    url : 'employees/'+id,
+    type : 'DELETE',
+    datatype : 'JSON',
+    data : {
+        'id' : id,
+        '_method' : 'DELETE',
+        '_token' : '{{ csrf_token() }}'
 
-                },
-                success: function () {
+    },
+    success : function(){
 
+       
+        $('#dataTableBuilder').DataTable().ajax.reload();
 
-                    $('#dataTableBuilder').DataTable().ajax.reload();
-                }
+   }
 
             })
 
         }
     })
-</script>
-
-<script>
+    
     $('#blocker{{$id}}').on("click", function () {
 if(confirm("Are Your Sure!!")) {
 

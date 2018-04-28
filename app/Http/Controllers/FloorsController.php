@@ -105,7 +105,15 @@ class FloorsController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('floors')->where('id', $id)->delete();
+        $room_number= DB::table('rooms')->where('floor_id', $id)->count();
+        if ($room_number >= 1){
+            return "sorry you can't there is room in this floor !";
+        }
+        else{
+            DB::table('floors')->where('id', $id)->delete();
+            return "Done";
+        }
+       
         
     }
     public function Random_number()
