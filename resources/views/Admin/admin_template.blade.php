@@ -265,13 +265,26 @@ desired effect
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">HEADER</li>
                 <!-- Optionally, you can add icons to the links -->
-                        <?php if ( Auth::guard('employee')->user()->type === 'admin' ){ ?>
-                <li class="active"><a href="/managers"><i class="fa fa-link"></i> <span>manage Managers</span></a></li>
-                        <?php  }  ?>
-                        <?php if ( Auth::guard('employee')->user()->type === 'admin' || Auth::guard('employee')->user()->type === 'manager'){ ?>
-                <li><a href="/receptionists"><i class="fa fa-link"></i> <span>manage Receptionists</span></a></li>
-                        <?php  }  ?>
-                <li><a href="/clients"><i class="fa fa-link"></i> <span>manage Clients</span></a></li>
+                <?php if ( Auth::guard('employee')->user()->type === 'admin' ){ ?>
+                <li class="active"><a href="/managers"><i class="fa fa-link"></i> <span>Manage Managers</span></a></li>
+                <?php  }  ?>
+                <?php if ( Auth::guard('employee')->user()->type === 'admin' || Auth::guard('employee')->user()->type === 'manager'){ ?>
+                <li><a href="/receptionists"><i class="fa fa-link"></i> <span>Manage Receptionists</span></a></li>
+                <?php  }  ?>
+
+
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-link"></i> <span>Clients Managment</span>
+                        <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="/clients">Manage Clients</a></li>
+                        <li><a href="/clients/mine">My Approved Clients</a></li>
+                    </ul>
+                </li>
+
                 <li><a href="{{ route('manager.reservation') }}"><i class="fa fa-link"></i> <span>Reservations</span>
                     </a></li>
 
@@ -297,16 +310,19 @@ desired effect
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-            <?php  if ( $_SERVER["REQUEST_URI"] == "/managers") 
-                {echo "Manage Managers Page";}
-                else if( $_SERVER["REQUEST_URI"] == "/receptionists") 
-                {echo "Manage Receptionists Page";}
-                else if( $_SERVER["REQUEST_URI"] == "/clients") 
-                {echo "Manage Clients Page";}
-                else if( $_SERVER["REQUEST_URI"] == "/floors") 
-                {echo "Manage Floors Page";}
-                else if( $_SERVER["REQUEST_URI"] == "/rooms") 
-                {echo "Manage Rooms Page";}
+                <?php  if ($_SERVER["REQUEST_URI"] == "/managers") {
+                    echo "Manage Managers Page";
+                } else if ($_SERVER["REQUEST_URI"] == "/receptionists") {
+                    echo "Manage Receptionists Page";
+                } else if ($_SERVER["REQUEST_URI"] == "/clients") {
+                    echo "Manage Clients Page";
+                } else if ($_SERVER["REQUEST_URI"] == "/clients/mine") {
+                    echo "My Clients ";
+                } else if ($_SERVER["REQUEST_URI"] == "/floors") {
+                    echo "Manage Floors Page";
+                } else if ($_SERVER["REQUEST_URI"] == "/rooms") {
+                    echo "Manage Rooms Page";
+                }
                 ?>
                 <small>Optional description</small>
             </h1>
@@ -377,14 +393,13 @@ desired effect
                     <span class="label label-danger pull-right">70%</span>
                   </span>
                             </h4>
-                            
-                                <a href={{ route('employee.logout')}} > logout</a>
-                                <span class="pull-right-container">
+
+                            <a href={{ route('employee.logout')}} > logout</a>
+                            <span class="pull-right-container">
                     
                   </span>
-                            
 
-                           
+
                         </a>
                     </li>
                 </ul>

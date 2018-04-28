@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\DataTables\clientsDataTable;
+use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
-use App\DataTables\clientsDataTable;
 use Illuminate\Support\Facades\Storage;
 use Rinvex\Country\Models\Country;
-use App\User;
 
 class ClientsController extends Controller
 {
@@ -24,7 +25,7 @@ class ClientsController extends Controller
         } else if ((Auth::guard('employee')->user()->type) == 'manager') {
             $Query = DB::table('users');
         } else if ((Auth::guard('employee')->user()->type) == 'receptionist') {
-            $Query = DB::table('users')->where('approved_state',0);
+            $Query = DB::table('users')->where('approved_state', 0);
         }
         $emp = new clientsDataTable($Query);
         return $emp->render('Admin.emp');
@@ -37,6 +38,12 @@ class ClientsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function myClients()
+    {
+        $Query = DB::table('users')->where('approved_by', Auth::guard('employee')->user()->id);
+        $emp = new clientsDataTable($Query);
+        return $emp->render('Admin.emp');
+    }
 
     public function create()
     {
@@ -51,15 +58,15 @@ class ClientsController extends Controller
      */
     public function store($id)
     {
-        $state=1;
-        $Approved_By=Auth::guard('employee')->user()->id;
+        $state = 1;
+        $Approved_By = Auth::guard('employee')->user()->id;
 
         User::find($id)->update([
-            'approved_by'=>$Approved_By,
-            'approved_state'=>$state,
+            'approved_by' => $Approved_By,
+            'approved_state' => $state,
         ]);
 
-        $Mail=new MailsController();
+        $Mail = new MailsController();
         $Mail->ConfirmationMail($id);
     }
 
@@ -71,9 +78,8 @@ class ClientsController extends Controller
      */
     public function show()
     {
-       
-    }
 
+    }
 
 
     /**
@@ -85,9 +91,9 @@ class ClientsController extends Controller
     public function edit($id)
     {
         $countries = countries();
-        return view('client.edit',[
-            'client' => User::find($id),'countries'=>$countries
-            ]);
+        return view('client.edit', [
+            'client' => User::find($id), 'countries' => $countries
+        ]);
     }
 
     /**
@@ -110,17 +116,17 @@ class ClientsController extends Controller
 
 
         User::where('id', $id)->update([
-        'name' => $request->name,
-        'gender' => $request->gender,
-        'email' => $request->email,
-        'phone' => $request->phone,
-        'avatar' => $image,
-        'country'=>$request->country,
-        'password' => $request->password,
-        'updated_at'=>now(),
-    ]);
+            'name' => $request->name,
+            'gender' => $request->gender,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'avatar' => $image,
+            'country' => $request->country,
+            'password' => $request->password,
+            'updated_at' => now(),
+        ]);
         return redirect('/clients');
-}
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -131,6 +137,6 @@ class ClientsController extends Controller
     public function destroy($id)
     {
         DB::table('users')->where('id', $id)->delete();
-        
+
     }
 }

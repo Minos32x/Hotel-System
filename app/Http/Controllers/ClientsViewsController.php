@@ -95,7 +95,7 @@ class ClientsViewsController extends Controller
 
     public function confirm($id)
     {
-        $acc_num=$_POST['Accompany_num'];
+        $acc_num = $_POST['Accompany_num'];
         if (isset($_POST['stripeToken'])) {
 
 // Set your secret key: remember to change this to your live secret key in production
@@ -117,37 +117,36 @@ class ClientsViewsController extends Controller
                 'source' => $token,
             ]);
             Reservation::create([
-                'client_id' =>Auth::guard('web')->user()->id,
-                'room_id' =>Room::find($id)->number,
-                'price' =>(Room::find($id)->price),
-                'num_company' =>$acc_num,
-                'receptionist_id'=>User::find($id)->approved_by,
-    
+                'client_id' => Auth::guard('web')->user()->id,
+                'room_id' => Room::find($id)->number,
+                'price' => (Room::find($id)->price),
+                'num_company' => $acc_num,
+                'receptionist_id' => User::find($id)->approved_by,
+
             ]);
-            Room::find($id)->update(['is_reserved'=> 1]);
+            Room::find($id)->update(['is_reserved' => 1]);
             return redirect('/client/show');
 
         }
-       
-        
+
 
     }
 
     public function showPayment(Request $request, $id)
     {
-        $confirmed_number=$request->accompany_number;
+        $confirmed_number = $request->accompany_number;
         $request->validate(['accompany_number' => 'required']);
         $capacity = Room::find($id)->capacity;
         $max_num = Room::find($id)->capacity;
         $accompany = $request->accompany_number;
         $accompany = (int)$accompany;
         if ($max_num < $accompany) {
-            return view('client.reservation_form', ['id' => $id,'capacity'=>$capacity])->with('error', "Wrong Validation Number");
+            return view('client.reservation_form', ['id' => $id, 'capacity' => $capacity])->with('error', "Wrong Validation Number");
 
         } else {
 
-            $accompany_number=$request->accompany_number;
-            return view('client.payment_form', ['room' => Room::find($id),'Accompany_num' => $accompany_number]);
+            $accompany_number = $request->accompany_number;
+            return view('client.payment_form', ['room' => Room::find($id), 'Accompany_num' => $accompany_number]);
 
         }
     }
