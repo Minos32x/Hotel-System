@@ -22,7 +22,10 @@ $.ajax({
 
     },
     success : function(data){
-        console.log(data);
+        if (data){
+            alert(data);
+        }
+        
         $('#dataTableBuilder').DataTable().ajax.reload();
         
         // window.location.reload();   
