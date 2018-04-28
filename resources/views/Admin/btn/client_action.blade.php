@@ -1,16 +1,18 @@
 <?php if (Auth::guard('employee')->user()->id === $model->approved_by || (Auth::guard('employee')->user()->type === 'admin') || (Auth::guard('employee')->user()->type === 'manager') ) {
-if ($banned_at != null) { $button = 'unBan'; } else { $button = 'Ban'; } ?>
+if ($banned_at != null) {
+    $button = 'unBan';
+} else {
+    $button = 'Ban';
+} ?>
 <a href="{{ url('clients/'.$id.'/edit') }}" class="btn btn-info"><i class="fa fa-edit"></i></a>
 
 <button class="delete btn btn-danger" id={{$id}}><i class="fa fa-trash"></i></button>
 <button id="blocker{{$id}}" class="btn btn-danger">{{$button}}</button>
 <?php
 } ?>
+<?php if( !$model->approved_by){?>
 <button id="approve{{$id}}" class="btn btn-success">Approve</button>
-
-
-
-
+<?php } ?>
 <script>
     $('#{{$id}}').click(function () {
 

@@ -7,7 +7,7 @@ use Yajra\DataTables\Services\DataTable;
 
 class ReservationDataTable extends DataTable
 {
-    
+
     /**
      * Build DataTable class.
      *
@@ -91,6 +91,11 @@ class ReservationDataTable extends DataTable
                 'name' => 'price',
                 'data' => 'price',
                 'title' => 'Price',
+            ],
+            [
+                'name' => 'num_company',
+                'data' => 'num_company',
+                'title' => 'Accompany_Number',
             ],
             [
                 'name' => 'receptionist_id',

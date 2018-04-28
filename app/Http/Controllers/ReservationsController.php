@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\ReservationDataTable;
 use App\Reservation;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -17,7 +18,9 @@ class ReservationsController extends Controller
         } else if ((Auth::guard('employee')->user()->type) == 'manager') {
             $Query = DB::table('reservations');
         } else if ((Auth::guard('employee')->user()->type) == 'receptionist') {
-            $Query = DB::table('reservations');
+            $approved = User::all()->where('approved_by', Auth::guard('employee')->user()->id);
+            $Query = DB::table('reservations')->where('client_id', 'in', $approved);
+
         }
 
         $Reserve = new ReservationDataTable($Query);
@@ -27,6 +30,6 @@ class ReservationsController extends Controller
 
     public function destroy($id)
     {
-                Reservation::find($id)->delete();
+        Reservation::find($id)->delete();
     }
 }
