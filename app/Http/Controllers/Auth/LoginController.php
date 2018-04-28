@@ -60,7 +60,7 @@ class LoginController extends Controller
      
         if ($this->attemptLogin($request)) {
             
-            $user_id=Auth::guard('web')->user()->id;
+           $user_id=Auth::guard('web')->user()->id;
             $is_approved = \DB::table('users')->select('approved_state')->where('id',$user_id)->get()[0]->approved_state;
             $is_panned=\DB::table('users')->select('banned_at')->where('id',$user_id)->get()[0]->banned_at;
             if($is_panned ){
@@ -75,7 +75,6 @@ class LoginController extends Controller
                 $request->session()->invalidate();
                 return view('pending');
             }
-
             $user=User::find($user_id);
             $user->last_login=date('Y-m-d H:i:s');
             $user->save();
