@@ -23,7 +23,8 @@ class ClientReservedDataTable extends DataTable
 
     public function dataTable($query)
     {
-        return datatables($query);
+        return datatables($query)
+            ->addColumn('action', 'client.buttons.client_reserve_remove');
     }
 
     /**
@@ -74,6 +75,16 @@ class ClientReservedDataTable extends DataTable
                 'name' => 'num_company',
                 'data' => 'updated_at',
                 'title' => 'Accompany_Number',
+            ],
+            [
+                'name' => 'action',
+                'data' => 'action',
+                'title' => 'Actions',
+                'exportable' => false,
+                'printable' => false,
+                'orderable' => false,
+                'searchable' => false,
+
             ],
 
         ];

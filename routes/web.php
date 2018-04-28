@@ -111,5 +111,6 @@ Route::prefix('client')->group(function () {
     Route::get('/ban/{id}', 'ClientsViewsController@ClientBan')->name('client.ban');
     Route::get('/unban/{id}', 'ClientsViewsController@Clientunban')->name('client.unban');
     Route::get('/approve/{id}', 'ClientsController@store')->name('client.approve');
+    Route::delete('/remove/reservation/{id}', 'ClientsViewsController@CheckOut')->name('client.remove');
 
 });

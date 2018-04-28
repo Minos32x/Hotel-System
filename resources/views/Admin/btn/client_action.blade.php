@@ -8,9 +8,6 @@ if ($banned_at != null) { $button = 'unBan'; } else { $button = 'Ban'; } ?>
 } ?>
 <button id="approve{{$id}}" class="btn btn-success">Approve</button>
 
-
-
-
 <script>
     $('#{{$id}}').click(function () {
 

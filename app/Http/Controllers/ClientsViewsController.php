@@ -156,4 +156,9 @@ class ClientsViewsController extends Controller
         User::find($id)->unban();
     }
 
+    public function CheckOut($id)
+    {
+        Reservation::find($id)->delete();
+    }
+
 }
