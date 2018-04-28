@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\ClientReservedDataTable;
 use App\DataTables\ClientRoomsDataTable;
 use App\Http\Requests\UpdateUserRequest;
+use App\Reservations;
 use App\Room;
 use App\User;
 use Illuminate\Http\Request;
@@ -115,8 +116,13 @@ class ClientsViewsController extends Controller
                 'source' => $token,
             ]);
         }
-        // your data will be stored here m3ak el rakam el room w el price hatsglo f gadwal tani w bel tali lw et8iar f esh hwa f gadwal tani 
-        // return view('client.reserved_rooms');
+        Reservations::create([
+            'client_id' =>Auth::guard('web')->user()->id,
+            'room_id' =>$id,
+            'price' =>$amount,
+            'num_company' =>'5',
+
+        ]);
         return redirect('/client/reservations');
     }
 

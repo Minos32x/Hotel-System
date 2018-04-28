@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\DataTables\clientsDataTable;
 use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Storage;
 use Rinvex\Country\Models\Country;
 
 class ClientsController extends Controller

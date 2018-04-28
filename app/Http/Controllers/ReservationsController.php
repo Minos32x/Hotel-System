@@ -26,12 +26,7 @@ class ReservationsController extends Controller
 
 
     public function destroy($id)
-    {   dd('here');
+    {
         Reservations::find($id)->delete();
-
-        return redirect('manager.reservation');
-
-
-
     }
 }
