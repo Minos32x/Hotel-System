@@ -6,7 +6,7 @@
 
 <?php } ?>
 <script>
-$('#dataTableBuilder').on("click","#{{$id}}",function(){
+$('#{{$id}}').click(function(){
 var id=$(this).prop('id');
 console.log(id);
 if(confirm('are you sure?')){

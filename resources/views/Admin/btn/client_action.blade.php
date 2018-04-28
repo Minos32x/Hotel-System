@@ -5,7 +5,7 @@
 <button class="delete btn btn-danger" id={{$id}}><i class="fa fa-trash"></i></button>
 <?php } ?>
 <script>
-$('#dataTableBuilder').on("click","#{{$id}}",function(){
+$('#{{$id}}').click(function(){
 
 var id=$(this).prop('id');
 if(confirm('are you sure?')){
@@ -23,7 +23,7 @@ data : {
 success : function(){
 
     
-    window.location.reload();   
+    $('#dataTableBuilder').DataTable().ajax.reload();
 }
 
 })
