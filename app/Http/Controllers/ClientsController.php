@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\DataTables\clientsDataTable;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Storage;
 use Rinvex\Country\Models\Country;
+use App\User;
 
 class ClientsController extends Controller
 {
@@ -18,7 +19,14 @@ class ClientsController extends Controller
     public function index()
     {
 
-        $emp = new clientsDataTable(DB::table('users'));
+        if ((Auth::guard('employee')->user()->type) == 'admin') {
+            $Query = DB::table('users');
+        } else if ((Auth::guard('employee')->user()->type) == 'manager') {
+            $Query = DB::table('users');
+        } else if ((Auth::guard('employee')->user()->type) == 'receptionist') {
+            $Query = DB::table('users')->where('approved_state',0);
+        }
+        $emp = new clientsDataTable($Query);
         return $emp->render('Admin.emp');
 
     }
@@ -41,9 +49,18 @@ class ClientsController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($id)
     {
-        //
+        $state=1;
+        $Approved_By=Auth::guard('employee')->user()->id;
+
+        User::find($id)->update([
+            'approved_by'=>$Approved_By,
+            'approved_state'=>$state,
+        ]);
+
+        $Mail=new MailsController();
+        $Mail->ConfirmationMail($id);
     }
 
     /**

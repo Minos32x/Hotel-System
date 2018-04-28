@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\ClientReservedDataTable;
 use App\DataTables\ClientRoomsDataTable;
 use App\Http\Requests\UpdateUserRequest;
-use App\Reservations;
+use App\Reservation;
 use App\Room;
 use App\User;
 use Illuminate\Http\Request;
@@ -87,8 +87,9 @@ class ClientsViewsController extends Controller
     public function create($id)
     {
 
+        $capacity = Room::find($id)->capacity;
         return view('client.reservation_form', ['id' => $id,
-            'room' => Room::find($id)]);
+            'room' => Room::find($id), 'capacity' => $capacity]);
     }
 
 
@@ -115,32 +116,33 @@ class ClientsViewsController extends Controller
                 'description' => 'Example charge',
                 'source' => $token,
             ]);
-            Reservations::create([
+            Reservation::create([
                 'client_id' =>Auth::guard('web')->user()->id,
                 'room_id' =>Room::find($id)->number,
                 'price' =>(Room::find($id)->price),
                 'num_company' =>$acc_num,
-                'receptionist_id'=>2,
+                'receptionist_id'=>User::find($id)->approved_by,
     
             ]);
             Room::find($id)->update(['is_reserved'=> 1]);
             return redirect('/client/show');
 
         }
-        // DB::table('rooms')->select('number')->where('id', $id)->number
+       
         
 
     }
 
     public function showPayment(Request $request, $id)
     {
+        $confirmed_number=$request->accompany_number;
         $request->validate(['accompany_number' => 'required']);
-
+        $capacity = Room::find($id)->capacity;
         $max_num = Room::find($id)->capacity;
         $accompany = $request->accompany_number;
         $accompany = (int)$accompany;
         if ($max_num < $accompany) {
-            return view('client.reservation_form', ['id' => $id])->with('error', "Wrong Validation Number");
+            return view('client.reservation_form', ['id' => $id,'capacity'=>$capacity])->with('error', "Wrong Validation Number");
 
         } else {
 

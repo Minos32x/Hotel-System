@@ -107,8 +107,9 @@ Route::prefix('client')->group(function () {
     Route::get('/show', 'ClientsViewsController@showReserved')->name('client.show');
     Route::get('/editProfile/{id}', 'ClientsViewsController@edit')->name('client.edit_profile');
     Route::put('/editProfile/update/{id}', 'ClientsViewsController@update')->name('client.edit_profile_update');
-    Route::delete('/delete/{id}','ReservationsController@delete')->name('client.reservation_delete');
+    Route::delete('/reservation/delete/{id}','ReservationsController@destroy')->name('client.reservation_delete');
     Route::get('/ban/{id}', 'ClientsViewsController@ClientBan')->name('client.ban');
     Route::get('/unban/{id}', 'ClientsViewsController@Clientunban')->name('client.unban');
+    Route::get('/approve/{id}', 'ClientsController@store')->name('client.approve');
 
 });
