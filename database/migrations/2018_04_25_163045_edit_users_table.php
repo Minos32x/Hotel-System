@@ -14,7 +14,7 @@ class EditUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('avatar')->default('storage/avatars/avatar.jpg');
+            $table->string('avatar')->default('avatar.jpg');
             $table->string('phone');
             $table->enum('gender', ['male', 'female']);
             $table->string('country');

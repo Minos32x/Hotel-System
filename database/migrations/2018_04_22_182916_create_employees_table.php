@@ -22,7 +22,7 @@ class CreateEmployeesTable extends Migration
             $table->string('type');
             $table->integer('created_by')->default(0);
             $table->string('national_id')->unique();
-            $table->string('avatar')->default('storage/avatars/avatar.jpg');
+            $table->string('avatar')->default('avatar.jpg');
             $table->timestamp('banned_at')->nullable();
             $table->timestamp('banned_by')->nullable();
             $table->rememberToken();

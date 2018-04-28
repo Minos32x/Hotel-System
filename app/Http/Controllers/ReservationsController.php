@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\ReservationDataTable;
+use App\Reservations;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -24,14 +25,13 @@ class ReservationsController extends Controller
     }
 
 
-    public function update($id)
-    {
-
-
-    }
-
     public function destroy($id)
-    {
+    {   dd('here');
+        Reservations::find($id)->delete();
+
+        return redirect('manager.reservation');
+
+
 
     }
 }
