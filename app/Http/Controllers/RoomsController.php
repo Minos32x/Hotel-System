@@ -108,6 +108,7 @@ class roomsController extends Controller
         if($is_reserved === 0){
 
             DB::table('rooms')->where('id', $id)->delete();
+            return "Done";
         }
         else{
            return "sorry the room is reserved and can't be deleleted";

@@ -2,7 +2,8 @@
 <a href="{{ url('client/'.$id.'/edit') }}" class="btn btn-info"><i class="fa fa-edit"></i></a>
 
 <button class="delete btn btn-danger" id={{$id}}><i class="fa fa-trash"></i></button>
-<?php } ?>
+<?php 
+} ?>
 
 
 
@@ -13,13 +14,14 @@ if ($banned_at != null) {
     $button = 'Ban';
 } ?>
 
-<?php if( (Auth::guard('employee')->user()->type === 'admin') || (Auth::guard('employee')->user()->id === $model->created_by) ){ ?>
+<?php if ((Auth::guard('employee')->user()->type === 'admin') || (Auth::guard('employee')->user()->id === $model->created_by)) { ?>
 <button id="blocker{{$id}}" class="btn btn-danger">{{$button}}</button>
-<?php }?>
+<?php 
+} ?>
 
 
 <script>
-    $('#dataTableBuilder').on("click", "#{{$id}}", function () {
+$('#{{$id}}').click(function(){
 
         var id = $(this).prop('id');
         if (confirm('are you sure?')) {
@@ -37,7 +39,7 @@ if ($banned_at != null) {
                 success: function () {
 
 
-                    window.location.reload();
+    $('#dataTableBuilder').DataTable().ajax.reload();
                 }
 
             })
@@ -48,8 +50,10 @@ if ($banned_at != null) {
 
 
 <script>
+
     $('#blocker{{$id}}').on("click", function () {
         if (confirm("Are Your Sure!!")) {
+
 
             if ($(this).html() == 'Ban') {
                 $.ajax({
@@ -65,8 +69,14 @@ if ($banned_at != null) {
                         console.log(err);
                     }
 
+
+    
+
+
+
                 })
             }
+
 
             else {
                 $.ajax({
