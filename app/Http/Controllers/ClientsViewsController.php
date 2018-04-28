@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\ClientReservedDataTable;
 use App\DataTables\ClientRoomsDataTable;
 use App\Http\Requests\UpdateUserRequest;
-use App\Reservations;
+use App\Reservation;
 use App\Room;
 use App\User;
 use Illuminate\Http\Request;
@@ -87,8 +87,9 @@ class ClientsViewsController extends Controller
     public function create($id)
     {
 
+        $capacity = Room::find($id)->capacity;
         return view('client.reservation_form', ['id' => $id,
-            'room' => Room::find($id)]);
+            'room' => Room::find($id), 'capacity' => $capacity]);
     }
 
 
@@ -116,11 +117,11 @@ class ClientsViewsController extends Controller
                 'source' => $token,
             ]);
         }
-        Reservations::create([
-            'client_id' =>Auth::guard('web')->user()->id,
-            'room_id' =>$id,
-            'price' =>$amount,
-            'num_company' =>'5',
+        Reservation::create([
+            'client_id' => Auth::guard('web')->user()->id,
+            'room_id' => $id,
+            'price' => $amount,
+            'num_company' => '5',
 
         ]);
         return redirect('/client/reservations');
@@ -128,17 +129,18 @@ class ClientsViewsController extends Controller
 
     public function showPayment(Request $request, $id)
     {
+        $confirmed_number=$request->accompany_number;
         $request->validate(['accompany_number' => 'required']);
-
+        $capacity = Room::find($id)->capacity;
         $max_num = Room::find($id)->capacity;
         $accompany = $request->accompany_number;
         $accompany = (int)$accompany;
         if ($max_num < $accompany) {
-            return view('client.reservation_form', ['id' => $id])->with('error', "Wrong Validation Number");
+            return view('client.reservation_form', ['id' => $id,'capacity'=>$capacity])->with('error', "Wrong Validation Number");
 
         } else {
 
-            return view('client.payment_form', ['room' => Room::find($id)]);
+            return view('client.payment_form', ['room' => Room::find($id),'confirmed_number'=>$confirmed_number]);
 
         }
     }

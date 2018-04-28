@@ -16,7 +16,7 @@
         <form method="POST" action="{{url('client/reservations/'.$id.'/room')}}">
         {{csrf_field()}}
             <div class="form-group">
-                <label for="RoomAccompany">Accompany Number</label>
+                <label for="RoomAccompany">Accompany Number</label> <label>The max accompany number  : {{$capacity}}</label>
                 <input type="number" class="form-control" id="RoomAccompany" name="accompany_number">
 
             </div>
