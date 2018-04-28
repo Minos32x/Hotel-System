@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Auth;
@@ -63,7 +63,7 @@ class LoginController extends Controller
             $user_id=Auth::guard('web')->user()->id;
             $is_approved = \DB::table('users')->select('approved_state')->where('id',$user_id)->get()[0]->approved_state;
             $is_panned=\DB::table('users')->select('banned_at')->where('id',$user_id)->get()[0]->banned_at;
-            if(!$is_panned ){
+            if($is_panned ){
                 $this->guard()->logout();
 
                 $request->session()->invalidate();
@@ -75,7 +75,9 @@ class LoginController extends Controller
                 $request->session()->invalidate();
                 return view('pending');
             }
-            $user=User::find($user_id)->last_login=now();
+
+            $user=User::find($user_id);
+            $user->last_login=date('Y-m-d H:i:s');
             $user->save();
         }
 

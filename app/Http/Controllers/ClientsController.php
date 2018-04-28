@@ -18,7 +18,7 @@ class ClientsController extends Controller
     public function index()
     {
 
-        $emp = new clientsDataTable(DB::table('users')->where('approved_state',0));
+        $emp = new clientsDataTable(DB::table('users'));
         return $emp->render('Admin.emp');
 
     }

@@ -94,7 +94,7 @@ class ClientsViewsController extends Controller
 
     public function confirm($id)
     {
-
+        $acc_num=$_POST['Accompany_num'];
         if (isset($_POST['stripeToken'])) {
 
 // Set your secret key: remember to change this to your live secret key in production
@@ -108,22 +108,28 @@ class ClientsViewsController extends Controller
 // Token is created using Checkout or Elements!
 // Get the payment token ID submitted by the form:
             $token = $_POST['stripeToken'];
-            $amount = DB::table('rooms')->select('price')->where('id', $id)->first();
+            // $amount = DB::table('rooms')->select('price')->where('id', $id)->first();
             $charge = \Stripe\Charge::create([
-                'amount' => ($amount->price),
+                'amount' => (Room::find($id)->price),
                 'currency' => 'usd',
                 'description' => 'Example charge',
                 'source' => $token,
             ]);
-        }
-        Reservations::create([
-            'client_id' =>Auth::guard('web')->user()->id,
-            'room_id' =>$id,
-            'price' =>$amount,
-            'num_company' =>'5',
+            Reservations::create([
+                'client_id' =>Auth::guard('web')->user()->id,
+                'room_id' =>Room::find($id)->number,
+                'price' =>(Room::find($id)->price),
+                'num_company' =>$acc_num,
+                'receptionist_id'=>2,
+    
+            ]);
+            Room::find($id)->update(['is_reserved'=> 1]);
+            return redirect('/client/show');
 
-        ]);
-        return redirect('/client/reservations');
+        }
+        // DB::table('rooms')->select('number')->where('id', $id)->number
+        
+
     }
 
     public function showPayment(Request $request, $id)
@@ -138,7 +144,8 @@ class ClientsViewsController extends Controller
 
         } else {
 
-            return view('client.payment_form', ['room' => Room::find($id)]);
+            $accompany_number=$request->accompany_number;
+            return view('client.payment_form', ['room' => Room::find($id),'Accompany_num' => $accompany_number]);
 
         }
     }
