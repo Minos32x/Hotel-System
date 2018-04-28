@@ -57,10 +57,15 @@ class LoginController extends Controller
 
             return $this->sendLockoutResponse($request);
         }
-
+     
         if ($this->attemptLogin($request)) {
             
-            return $this->sendLoginResponse($request);
+            $user_id=Auth::guard('web')->user()->id;
+            // $is_approved = DB::table('users')->select('approved_state')->where('id',$user_id)->get()[0]->approved_state;
+            $is_panned=DB::table('users')->select('banned_at')->where('id',$user_id)->get()[0]->banned_at;
+            if($is_panned == null ){
+                return view('panned');
+            }
         }
 
         // If the login attempt was unsuccessful we will increment the number of attempts
