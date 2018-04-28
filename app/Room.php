@@ -11,5 +11,4 @@ class Room extends Model
         'number', 'capacity', 'floor_id', 'price', 'created_by', 'is_reserved'
     ];
 
-  
 }
