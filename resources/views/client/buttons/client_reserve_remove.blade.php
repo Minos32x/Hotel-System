@@ -1,12 +1,11 @@
 
-<button class="delete btn btn-danger" id="{{$id}}"><i class="fa fa-trash"></i> CheckOut</button>
+<button class="delete btn btn-danger" id="checkout{{$id}}"><i class="fa fa-trash"></i> CheckOut</button>
 
 <script>
-    $('#{{$id}}').click(function () {
+    $('#checkout{{$id}}').click(function () {
         if (confirm('are you sure?')) {
             $.ajax({
-
-                url: 'client/remove/reservation/' +{{$id}},
+                url: "{{(route('client.remove',$id))}}",
                 type: 'DELETE',
                 data: {
                     '_method': 'DELETE',
