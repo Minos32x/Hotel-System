@@ -17,7 +17,8 @@
                     @endif
 
                     <div class="panel-body">
-                        <form class="form-horizontal" method="POST" action="/employees/{{$manager->id}}/update" enctype="multipart/form-data">
+                        <form class="form-horizontal" method="POST" action="/employees/{{$manager->id}}/update"
+                              enctype="multipart/form-data">
                             {{ csrf_field() }}
                             {{method_field('PUT')}}
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -68,30 +69,6 @@
                                 <label for="avatar" class="col-md-4 control-label">Avatar</label>
                                 <div class="col-md-6">
                                     <input type="file" id="avatar" name="avatar"/>
-                                </div>
-                            </div>
-
-
-                            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                <label for="password" class="col-md-4 control-label">Password</label>
-
-                                <div class="col-md-6">
-                                    <input id="password" type="password" class="form-control" name="password" required>
-
-                                    @if ($errors->has('password'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-
-                                <div class="col-md-6">
-                                    <input id="password-confirm" type="password" class="form-control"
-                                           name="password_confirmation" required>
                                 </div>
                             </div>
 
