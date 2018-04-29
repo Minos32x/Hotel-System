@@ -30,7 +30,7 @@ class UpdateEmployeeRequest extends FormRequest
             'email' => ['required', Rule::unique('employees')->ignore($this->email, 'email')],
             'national_id'=>'required|integer',
             'avatar' => 'image|mimes:jpg,jpeg',
-            'password' => 'required'
+            
         ];
     }
 
