@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\DataTables\employeeTableDataTable;
 use App\Employee;
+use App\Http\Requests\CreateEmployeeRequest;
+use App\Http\Requests\UpdateEmployeeRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -46,7 +48,7 @@ class ManagersController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateEmployeeRequest $request)
     {
 
 
@@ -107,7 +109,7 @@ class ManagersController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateEmployeeRequest $request, $id)
     {
 
         if (empty($request->file('avatar'))) {
