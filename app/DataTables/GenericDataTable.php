@@ -29,7 +29,8 @@ class GenericDataTable extends DataTable
         if($this->Table_Type =="floor")
         {
         return datatables($query)
-            ->addColumn('action', 'Admin.btn.floor_action');
+            ->addColumn('action', 'Admin.btn.floor_action')
+            ->addColumn('created_at', 'Admin.btn.DateConvertion');
 
         }elseif($this->Table_Type =="room")
         {

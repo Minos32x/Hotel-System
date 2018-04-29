@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Requests\RoomsCreateRequest;
+use App\Http\Requests\RoomsUpdateRequest;
 use Illuminate\Support\Facades\DB;
 use App\Room;
 use App\Floor;
@@ -34,7 +36,7 @@ class roomsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RoomsCreateRequest $request)
     {
 
         $Created_by = ($request->user('employee')->id);
@@ -82,7 +84,7 @@ class roomsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RoomsUpdateRequest $request, $id)
     {
         Room::where('id', $id)->update(
         [
@@ -114,8 +116,7 @@ class roomsController extends Controller
            return "sorry the room is reserved and can't be deleleted";
             
         }
-            
-        
+
     }
 }
 

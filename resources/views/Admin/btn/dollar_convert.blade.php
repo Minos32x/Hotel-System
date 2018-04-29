@@ -1,3 +1,4 @@
 <?php
-echo ($model->price)/100 .' $';
+$x= ($model->price)/100 ."$" ;
+echo $x;
 

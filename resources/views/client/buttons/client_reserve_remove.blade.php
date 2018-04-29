@@ -11,7 +11,8 @@
                     '_method': 'DELETE',
                     '_token': '{{ csrf_token() }}'
                 },
-                success: function () {
+                success: function (res) {
+                    console.log(res)
                     $('#dataTableBuilder').DataTable().ajax.reload();
                 },
                 error:function (err) {
