@@ -109,7 +109,7 @@ class ClientsViewsController extends Controller
             $token = $_POST['stripeToken'];
             // $amount = DB::table('rooms')->select('price')->where('id', $id)->first();
             $charge = \Stripe\Charge::create([
-                'amount' => (Room::find($id)->price),
+                'amount' => (Room::find($id)->price *100),
                 'currency' => 'usd',
                 'description' => 'Example charge',
                 'source' => $token,

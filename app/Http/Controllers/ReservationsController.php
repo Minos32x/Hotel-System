@@ -35,3 +35,5 @@ class ReservationsController extends Controller
             'is_reserved'=>0,
         ]);
         Reservation::find($id)->delete();
+        }
+    }
