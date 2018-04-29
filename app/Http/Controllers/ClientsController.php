@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\clientsDataTable;
+use App\Http\Requests\UpdateClientRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
 use App\User;
 use Illuminate\Http\Request;
@@ -104,7 +105,7 @@ class ClientsController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateEmployeeRequest $request, $id)
+    public function update(UpdateClientRequest $request, $id)
     {
         if (empty($request->file('avatar'))) {
 
@@ -123,7 +124,6 @@ class ClientsController extends Controller
             'phone' => $request->phone,
             'avatar' => $image,
             'country' => $request->country,
-            'password' => $request->password,
             'updated_at' => now(),
         ]);
         return redirect('/clients');

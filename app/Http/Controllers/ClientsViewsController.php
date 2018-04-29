@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\ClientReservedDataTable;
 use App\DataTables\ClientRoomsDataTable;
+use App\Http\Requests\CreateReservationRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Reservation;
 use App\Room;
@@ -131,23 +132,11 @@ class ClientsViewsController extends Controller
 
     }
 
-    public function showPayment(Request $request, $id)
+    public function showPayment(CreateReservationRequest $request, $id)
     {
-        $confirmed_number = $request->accompany_number;
-        $request->validate(['accompany_number' => 'required']);
-        $capacity = Room::find($id)->capacity;
-        $max_num = Room::find($id)->capacity;
-        $accompany = $request->accompany_number;
-        $accompany = (int)$accompany;
-        if ($max_num < $accompany) {
-            return view('client.reservation_form', ['id' => $id, 'capacity' => $capacity])->with('error', "Wrong Validation Number");
 
-        } else {
-
-            $accompany_number = $request->accompany_number;
-            return view('client.payment_form', ['room' => Room::find($id), 'Accompany_num' => $accompany_number]);
-
-        }
+        $accompany_number = $request->accompany_number;
+        return view('client.payment_form', ['room' => Room::find($id), 'Accompany_num' => $accompany_number]);
     }
 
     public function ClientBan($id)
