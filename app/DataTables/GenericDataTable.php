@@ -34,8 +34,7 @@ class GenericDataTable extends DataTable
         }elseif($this->Table_Type =="room")
         {
             return datatables($query)
-            ->addColumn('action', 'Admin.btn.room_action')
-            ->addColumn('price_doolar', 'Admin.btn.dollar_convert');
+            ->addColumn('action', 'Admin.btn.room_action');
 
         }   
     }
@@ -155,8 +154,8 @@ class GenericDataTable extends DataTable
                 'title' => 'Room Capacity',
             ],
             [
-                'name' => 'price_doolar',
-                'data' => 'price_doolar',
+                'name' => 'price',
+                'data' => 'price',
                 'title' => 'Price in Dollars',
             ],
             [
