@@ -28,10 +28,11 @@ class UpdateUserRequest extends FormRequest
             'id' => 'exists:users,id',
             'name' => 'required',
             'email' => ['required', Rule::unique('users')->ignore($this->email, 'email') ],
-            'phone' => 'required|min:11',
+            'phone' => 'required|min:11|integer',
             'avatar' => 'image|mimes:jpg,jpeg',
             'gender' => ['required',
                 Rule::in(['male', 'female'])],
+            'country'=>'required'
         ];
 
     }
@@ -45,6 +46,7 @@ class UpdateUserRequest extends FormRequest
             'phone.required' => 'User Phone Is Required',
             'avatar.required' => 'User Avatar Is Required',
             'gender.required' => 'User Gender Is Required',
+            'country.required'=>'Country Should Be Selected'
 
 
         ];

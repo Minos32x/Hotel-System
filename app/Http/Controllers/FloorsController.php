@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Floor;
+use App\Http\Requests\FLoorCreateRequest;
+use App\Http\Requests\FloorUpdateRequest;
 use Illuminate\Support\Facades\DB;
 
 use App\DataTables\GenericDataTable;
@@ -41,7 +43,7 @@ class FloorsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FLoorCreateRequest $request)
     {
         $Created_by = ($request->user('employee')->id);
         $this->Random_number();
@@ -87,7 +89,7 @@ class FloorsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(FloorUpdateRequest $request, $id)
     {
         Floor::where('id', $id)->update(
         [
@@ -107,11 +109,11 @@ class FloorsController extends Controller
     {
         $room_number= DB::table('rooms')->where('floor_id', $id)->count();
         if ($room_number >= 1){
-            return "sorry you can't there is room in this floor !";
+            return "Floor Can't Be Deleted As It Contains Rooms !";
         }
         else{
             DB::table('floors')->where('id', $id)->delete();
-            return "Done";
+            return "Deleted Successfully";
         }
        
         

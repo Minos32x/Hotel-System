@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\clientsDataTable;
+use App\Http\Requests\UpdateEmployeeRequest;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -103,7 +104,7 @@ class ClientsController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateEmployeeRequest $request, $id)
     {
         if (empty($request->file('avatar'))) {
 

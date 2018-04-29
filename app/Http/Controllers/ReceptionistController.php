@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\employeeTableDataTable;
 use App\Employee;
+use App\Http\Requests\CreateEmployeeRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -49,7 +50,7 @@ class ReceptionistController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateEmployeeRequest $request)
     {
 
         $Created_by = ($request->user('employee')->id);

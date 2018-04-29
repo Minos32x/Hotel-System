@@ -163,10 +163,9 @@ class ClientsViewsController extends Controller
 
     public function CheckOut($id)
     {
-       
-        $room=Reservation::find($id)->room_id;
-        DB::table('rooms')->where('number',$room)->update([
-            'is_reserved'=>0,
+        $room = Reservation::find($id)->room_id;
+        DB::table('rooms')->where('number', $room)->update([
+            'is_reserved' => 0,
         ]);
         Reservation::find($id)->delete();
 
