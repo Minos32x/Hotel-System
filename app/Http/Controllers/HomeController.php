@@ -26,7 +26,7 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function country()
+    public function welcome()
     {
         $countries = countries();
         return view('welcome', ['countries' => $countries]);

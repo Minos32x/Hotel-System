@@ -16,11 +16,11 @@
 
 
 
-Auth::routes();
 
+
+
+Route::get('/', 'HomeController@welcome');
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/', 'HomeController@country');
-
 Route::prefix('employee')->group(function () {
     Route::get('/', 'EmployeeController@index')->name('employee.dashboard')->middleware('guest:web');
     Route::post('/login', 'Auth\EmployeeLoginController@login')->middleware('forbid-banned-user')->name('employee.login.submit');
@@ -114,5 +114,6 @@ Route::prefix('client')->group(function () {
     Route::delete('/remove/reservation/{id}', 'ClientsViewsController@CheckOut')->name('client.remove');
 
 });
-Route::get('/logout', 'Auth\EmployeeLoginController@logout')->name('employee.logout');
+Route::get('employee/logout', 'Auth\EmployeeLoginController@logout')->name('employee.logout');
 });
+Auth::routes();
