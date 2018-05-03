@@ -8,7 +8,7 @@
   <script
     src="https://checkout.stripe.com/checkout.js" class="stripe-button"
     data-key="pk_test_ma1tUIdSbL9x7ONUcGm0km6o"
-    data-amount="{{$room->price}}"
+    data-amount="{{$room->price *100}}"
     data-name="Stripe.com"
     data-description="Example charge"
     data-image="https://stripe.com/img/documentation/checkout/marketplace.png"

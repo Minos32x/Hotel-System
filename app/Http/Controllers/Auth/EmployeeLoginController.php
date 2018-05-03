@@ -37,10 +37,10 @@ class EmployeeLoginController extends Controller
         return redirect()->back()->withInput($request->only('email,remeber'));
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
         Auth::guard('employee')->logout();
-
+        $request->session()->invalidate();        
         return redirect('/');
         
     }

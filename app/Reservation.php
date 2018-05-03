@@ -26,5 +26,19 @@ class Reservation extends Model
         return $this->hasOne(User::class);
     }
 
+    public function getPriceAttribute($value)
+    {
+        return ($value/100);
+    }
 
+    public function getCreatedAtAttribute($value)
+    {
+        return \Carbon\Carbon::parse($value)->format('d-m-Y') ;
+    }
+    
+    public function getReceptionistIDAttribute($value)
+    {
+       return  Employee::find($value)->name;
+    }
+  
 }

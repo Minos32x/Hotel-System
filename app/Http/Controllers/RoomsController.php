@@ -14,7 +14,7 @@ class roomsController extends Controller
 {
     public function index()
     {
-        $room = new GenericDataTable( DB::table('rooms'),"room");
+        $room = new GenericDataTable( Room::all(),"room");
         return $room->render('Admin.emp');
     }
 

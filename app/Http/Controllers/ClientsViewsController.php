@@ -110,7 +110,7 @@ class ClientsViewsController extends Controller
             $token = $_POST['stripeToken'];
             // $amount = DB::table('rooms')->select('price')->where('id', $id)->first();
             $charge = \Stripe\Charge::create([
-                'amount' => (Room::find($id)->price),
+                'amount' => (Room::find($id)->price *100),
                 'currency' => 'usd',
                 'description' => 'Example charge',
                 'source' => $token,
@@ -120,7 +120,8 @@ class ClientsViewsController extends Controller
                 'room_id' => Room::find($id)->number,
                 'price' => (Room::find($id)->price),
                 'num_company' => $acc_num,
-                'receptionist_id' => User::find($id)->approved_by,
+                
+                'receptionist_id' => Auth::user()->approved_by,
 
             ]);
             Room::find($id)->update(['is_reserved' => 1]);
@@ -156,6 +157,8 @@ class ClientsViewsController extends Controller
             'is_reserved' => 0,
         ]);
         Reservation::find($id)->delete();
+
+       
     }
 
 }

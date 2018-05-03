@@ -13,16 +13,15 @@ class ReservationsController extends Controller
 
     public function index()
     {
-        if ((Auth::guard('employee')->user()->type) == 'admin') {
-            $Query = DB::table('reservations');
-        } else if ((Auth::guard('employee')->user()->type) == 'manager') {
-            $Query = DB::table('reservations');
-        } else if ((Auth::guard('employee')->user()->type) == 'receptionist') {
+        if ((Auth::guard('employee')->user()->type) == 'admin' || (Auth::guard('employee')->user()->type) == 'manager') {
+            $Query = Reservation::all();
+        } 
+            else{
             $approved = User::all()->where('approved_by', Auth::guard('employee')->user()->id);
-            $Query = DB::table('reservations')->where('client_id', 'in', $approved);
+            $Query = Reservation::where('client_id','in',$approved)->get();
 
         }
-
+        // DB::table('reservations')->where('client_id', 'in', $approved)
         $Reserve = new ReservationDataTable($Query);
         return $Reserve->render('Admin.emp');
     }
@@ -35,5 +34,5 @@ class ReservationsController extends Controller
             'is_reserved'=>0,
         ]);
         Reservation::find($id)->delete();
+        }
     }
-}
