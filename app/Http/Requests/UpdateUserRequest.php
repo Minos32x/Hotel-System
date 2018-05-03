@@ -28,7 +28,7 @@ class UpdateUserRequest extends FormRequest
             'id' => 'exists:users,id',
             'name' => 'required',
             'email' => ['required', Rule::unique('users')->ignore($this->email, 'email') ],
-            'phone' => 'required|min:11|integer',
+            'phone' => 'min:11|required|integer',
             'avatar' => 'image|mimes:jpg,jpeg',
             'gender' => ['required',
                 Rule::in(['male', 'female'])],

@@ -35,8 +35,6 @@ class ManagersController extends Controller
      */
     public function create(Request $request)
     {
-        // dd($request->user('employee')->id);
-
 
         return view('manager.create');
 
@@ -50,7 +48,6 @@ class ManagersController extends Controller
      */
     public function store(CreateEmployeeRequest $request)
     {
-
 
         if (empty($request->file('avatar'))) {
 

@@ -92,7 +92,7 @@
 
                                     <select id="country" class="form-control" name="country"
                                             value="{{ old('country') }}" required>
-
+                                        <option selected value="{{$client->country}}">{{$client->country}} </option>
                                         @foreach($countries as $country)
                                             <option >{{$country['name']}}   {{$country['emoji']}}</option>
                                         @endforeach

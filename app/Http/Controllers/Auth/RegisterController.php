@@ -86,12 +86,13 @@ class RegisterController extends Controller
     {
         $request = app('request');
 
-        if (empty($data['avatar'])) {
+        if (empty($request->file('avatar'))) {
+
             $image = 'avatar.jpg';
         } else {
 
-            $image = time() . '.' . $request->avatar->getCLientOriginalName();
-            Storage::putFileAs('public/avatars', $data['avatar'], $image);
+            $image = time() . '.' . $request->file('avatar')->getCLientOriginalName();
+            Storage::putFileAs('public/avatars', $request->avatar, $image);
         }
 
         return User::create([

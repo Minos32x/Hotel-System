@@ -16,7 +16,7 @@
 
 
 
-Auth::routes();
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'HomeController@country');
@@ -95,6 +95,9 @@ Route::prefix('employee/blocking')->group(function () {
 Route::get('client/approve/{id}', 'ClientsController@store')->name('client.approve');
 Route::get('client/ban/{id}', 'ClientsViewsController@ClientBan')->name('client.ban');
 Route::get('client/unban/{id}', 'ClientsViewsController@Clientunban')->name('client.unban');
+
+
+Route::get('employee/logout', 'Auth\EmployeeLoginController@logout')->name('employee.logout');
 });
 
 Route::middleware('auth:web')->group(function(){
@@ -114,5 +117,6 @@ Route::prefix('client')->group(function () {
     Route::delete('/remove/reservation/{id}', 'ClientsViewsController@CheckOut')->name('client.remove');
 
 });
-Route::get('/logout', 'Auth\EmployeeLoginController@logout')->name('employee.logout');
+
 });
+Auth::routes();
